@@ -1,0 +1,11 @@
+body {
+	font-family: "微软雅黑";
+}
+
+label {
+	text-align: right;
+}
+
+.message {
+	color: red;
+}

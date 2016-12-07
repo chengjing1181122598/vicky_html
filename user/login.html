@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>用户注册</title>
+		<link rel="stylesheet" href="../css/common/common.css" />
+		<script type="text/javascript" src="../js/common/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/common/common.js"></script>
+
+		<!--   data_url:http://localhost:8080/vicky_data/prepareRegister   -->
+
+	</head>
+
+	<body>
+		<div>
+			<form id="loginForm" method="post">
+				<p><label>用户名:</label><input type="text" name="username" /></p>
+				<p><label>密码:</label><input type="password" name="password" /></p>
+				<p><span onclick="login();">登录</span></p>
+				<p><span onclick="getById();">获取</span></p>
+				<p><span class="message"></span></p>
+			</form>
+		</div>
+		<script>
+			function login() {
+				$.post(data_apps + "/user/login", $("#loginForm").serialize(),
+					function(data) {
+						if(data.status === successStatus) {
+							$(".message").text(data.message.user.username);
+						} else {
+							$(".message").text(data.message.message);
+						}
+					}, "json");
+			}
+
+			function getById() {
+				$.post(data_apps + "/user/getById", $("#loginForm").serialize(),
+					function(data) {
+						$(".message").text(JSON.stringify(data));
+					}, "json");
+			}
+		</script>
+	</body>
+
+</html>
