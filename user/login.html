@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>用户注册</title>
+		<title>用户登录</title>
 		<link rel="stylesheet" href="../css/common/common.css" />
 		<script type="text/javascript" src="../js/common/jquery-1.11.2.min.js"></script>
 		<script type="text/javascript" src="../js/common/common.js"></script>
@@ -18,16 +18,48 @@
 				<p><label>用户名:</label><input type="text" name="username" /></p>
 				<p><label>密码:</label><input type="password" name="password" /></p>
 				<p><span onclick="login();">登录</span></p>
-				<p><span onclick="getById();">获取</span></p>
+				<p><span onclick="getById();">根据用户名获取信息</span></p>
+				<p><span onclick="logout();">退出</span></p>
+				<p><span onclick="getUser();">获取登录用户信息</span></p>
+				<p><span onclick="updatePWD();">修改用户密码</span></p>
+				<p><span onclick="update();">修改用户信息</span></p>
 				<p><span class="message"></span></p>
 			</form>
 		</div>
 		<script>
+		    function update() {
+				$.post(data_apps + "/user/update", {
+						sex: "男",
+						signature: "个性签名"
+					},
+					function(data) {
+						if(data.status === successStatus) {
+							$(".message").text(data.message.message);
+						} else {
+							$(".message").text(data.message.message);
+						}
+					}, "json");
+			}
+		  
+			function updatePWD() {
+				$.post(data_apps + "/user/updatePWD", {
+						frontPWD: "123456789",
+						afterPWD: "123456789"
+					},
+					function(data) {
+						if(data.status === successStatus) {
+							$(".message").text(data.message.message);
+						} else {
+							$(".message").text(data.message.message);
+						}
+					}, "json");
+			}
+
 			function login() {
 				$.post(data_apps + "/user/login", $("#loginForm").serialize(),
 					function(data) {
 						if(data.status === successStatus) {
-							$(".message").text(data.message.user.username);
+							$(".message").text(data.message.entity.username);
 						} else {
 							$(".message").text(data.message.message);
 						}
@@ -36,6 +68,24 @@
 
 			function getById() {
 				$.post(data_apps + "/user/getById", $("#loginForm").serialize(),
+					function(data) {
+						$(".message").text(JSON.stringify(data));
+					}, "json");
+			}
+
+			function logout() {
+				$.post(data_apps + "/user/logout",
+					function(data) {
+						if(data.status === successStatus) {
+							$(".message").text(data.message.message);
+						} else {
+							$(".message").text(data.message.message);
+						}
+					}, "json");
+			}
+
+			function getUser() {
+				$.post(data_apps + "/user/getUser",
 					function(data) {
 						$(".message").text(JSON.stringify(data));
 					}, "json");
