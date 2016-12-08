@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>用户信息</title>
+		<link rel="stylesheet" href="../css/common/common.css" />
+		<script type="text/javascript" src="../js/common/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/common/common.js"></script>
+	</head>
+
+	<body>
+		<div style="text-align: center;">
+			<p><label>用户名:</label><span id="username"></span></p>
+			<p><label><img id="headImage" width="400" height="400" src="" alt="用户头像"/></p>
+			<form method="post" enctype="multipart/form-data" id="uploadForm">
+		    <p>
+		    	<label>选择头像</label>
+				<input type="file" name="headImage" required="" accept=".png,.jpg,.jpeg,.gif" />
+			</p>
+			<p><button type="button" onclick="updateHead();">修改头像</button></p>
+			</form>
+		</div>
+		<script>
+			$(document).ready(function() {
+				$.get(data_apps + "/user/getUser", function(data) {
+					$("#username").text(data.message.entity.username);
+					$("#headImage").attr("src", data.message.entity.relativePath);
+				});
+			});
+
+			function updateHead() {
+				$.ajax({
+					url: data_apps + "/user/updateHead",
+					type: 'POST',
+					cache: false,
+					data: new FormData($('#uploadForm')[0]),
+					processData: false,
+					contentType: false,
+					success: function(data) {
+						console.info(JSON.stringify(data));
+						$("#headImage").attr("src", data.message.entity.relativePath);
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>
