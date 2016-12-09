@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>视频观看</title>
+		<link rel="stylesheet" href="../css/common/common.css" />
+		<script type="text/javascript" src="../js/common/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/common/common.js"></script>
+		<style>
+			.center {
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<p>
+			<video height="450" width="800" controls="controls" poster="" src="">
+			</video>
+		</p>
+		<p><span class="message"></span></p>
+	</body>
+	<script>
+		var videoId = getUrlParam("videoId");
+
+		$.get(data_apps + "/video/getById", {
+			primaryKey: videoId
+		}, function(data) {
+			$("video").attr("src", data.message.entity.relativePath);
+			$("video").attr("poster", data.message.entity.coverRelativePath);
+		}, "json");
+	</script>
+
+</html>

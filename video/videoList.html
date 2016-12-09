@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>视频列表</title>
+		<link rel="stylesheet" href="../css/common/common.css" />
+		<script type="text/javascript" src="../js/common/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/common/common.js"></script>
+		<style>
+			.center {
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<p><label>选择视频模块:</label>
+			<select name="moduleId" onchange="changeModule();"></select>
+		</p>
+		<p class="center">
+
+		</p>
+		<p><span class="message"></span></p>
+	</body>
+	<script>
+		$.post(data_apps + "/videoModule/getPageData", function(data) {
+			var option = "";
+			$.each(data.data, function(i, item) {
+				option = option + "<option value='" + item.moduleId + "'>" + item.moduleName + "</option>";
+			});
+			$("select[name='moduleId']").append(option);
+		}, "json");
+
+		function changeModule() {
+			$.post(data_apps + "/video/getPageData", {
+				condition_EQ_S_moduleId: $("select[name=moduleId]").val()
+			}, function(data) {
+				if(data.status === errorStatus) {
+					console.info(JSON.stringify(data));
+					return;
+				}
+				$(".center").empty();
+				$.each(data.data, function(i, item) {
+					var videoList = "<span><a target='_blank' href='" +
+						html_apps + "/video/watch.html?videoId=" + item.videoId + "'>" +
+						item.videoTitle +
+						"<br><img  width='480' height='270' src='" + item.coverRelativePath + "'/></a>" +
+						"</span>";
+					$(".center").append(videoList);
+				});
+			}, "json")
+		}
+	</script>
+
+</html>

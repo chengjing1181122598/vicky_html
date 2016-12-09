@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>视频审核</title>
+		<link rel="stylesheet" href="../css/common/common.css" />
+		<script type="text/javascript" src="../js/common/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/common/common.js"></script>
+		<style>
+			.center {
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body>
+		<p>
+			<video height="450" width="800" controls="controls" poster="" src="">
+			</video>
+		</p>
+		<p>
+			<button onclick="pass();">通过</button>
+		</p>
+		<p>
+			<input type="text" /><button onclick="notPass();">不通过</button>
+		</p>
+		<p><span class="message"></span></p>
+	</body>
+	<script>
+		var videoId = getUrlParam("videoId");
+
+		$.get(data_apps + "/videoCheck/getById", {
+			primaryKey: videoId
+		}, function(data) {
+			$("video").attr("src", data.message.entity.relativePath);
+			$("video").attr("poster", data.message.entity.coverRelativePath);
+		}, "json");
+
+		function pass() {
+			$.get(data_apps + "/videoCheck/pass", {
+				videoId: videoId
+			}, function(data) {
+				$(".message").text(JSON.stringify(data));
+			}, "josn");
+		}
+
+		function notPass() {
+			$.get(data_apps + "/videoCheck/notPass", {
+				videoId: videoId,
+				reason: $("input").val()
+			}, function(data) {
+				$(".message").text(JSON.stringify(data));
+			}, "josn");
+		}
+	</script>
+
+</html>

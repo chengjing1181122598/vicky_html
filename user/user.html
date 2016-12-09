@@ -17,6 +17,7 @@
 		    <p>
 		    	<label>选择头像</label>
 				<input type="file" name="headImage" required="" accept=".png,.jpg,.jpeg,.gif" />
+				<input type="text" name="name"/>
 			</p>
 			<p><button type="button" onclick="updateHead();">修改头像</button></p>
 			</form>
@@ -30,6 +31,8 @@
 			});
 
 			function updateHead() {
+				console.info(new FormData($('#uploadForm')[0]));
+				
 				$.ajax({
 					url: data_apps + "/user/updateHead",
 					type: 'POST',

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>消息列表</title>
+		<link rel="stylesheet" href="../css/common/common.css" />
+		<script type="text/javascript" src="../js/common/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/common/common.js"></script>
+		<style>
+			.center {
+				text-align: center;
+			}
+			
+			.red {
+				color: red;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="center">
+
+		</div>
+	</body>
+	<script>
+		var user;
+
+		$.get(data_apps + "/user/getUser", function(data) {
+			user = data.message.entity;
+			getMessage(user.username)
+		}, "json");
+
+		function getMessage(username) {
+			$.post(data_apps + "/message/getPageData", {
+				pageSize: 10,
+				pageIndex: 1,
+				condition_EQ_S_username: username
+					//order_property: "createTime",
+					//order_type: "asc"
+			}, function(data) {
+				$.each(data.data, function(i, item) {
+					var p = "<p>";
+					if(item.status === unreadStatus) {
+						p = p + "<a class='red' target='_blank' href='" +
+							html_apps + "/message/message.html?messageId=" + item.messageId + "'>" +
+							item.messageTitle + "</a></p>";
+					} else {
+						p = "<a target='_blank' href='" +
+							html_apps + "/message/message.html?messageId=" + item.messageId + "'>" +
+							item.messageTitle + "</a></p>";
+					}
+					$(".center").append(p);
+				});
+			}, "json");
+		}
+	</script>
+
+</html>

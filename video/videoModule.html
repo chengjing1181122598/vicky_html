@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>视频模块</title>
+		<link rel="stylesheet" href="../css/common/common.css" />
+		<script type="text/javascript" src="../js/common/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/common/common.js"></script>
+	</head>
+
+	<body>
+		<p>
+			<label>模块名:</label><input type="text" name="moduleName" />
+			<span onclick="add();">添加</span>
+		</p>
+		<p><span onclick="getPageData();">获取所有模块</span></p>
+		<p><span onclick="updateById('0c2e809d-be97-11e6-8e71-089e01b9991f');">更改模块名字</span></p>
+		<p><span class="message"></span></p>
+	</body>
+	<script>
+		function updateById(p) {
+			$.post(data_apps + "/videoModule/updateById", {
+					primaryKey: p,
+					update_S_moduleName: $("input[name='moduleName']").val()
+				},
+				function(data) {
+					$(".message").text(JSON.stringify(data));
+				}, "json");
+		}
+
+		function add() {
+			$.post(data_apps + "/videoModule/save", {
+					moduleName: $("input[name='moduleName']").val()
+				},
+				function(data) {
+					if(data.status === successStatus) {
+						$(".message").text(JSON.stringify(data.message.entity));
+					} else {
+						$(".message").text(JSON.stringify(data));
+					}
+				}, "json");
+		}
+
+		function getPageData() {
+			$.post(data_apps + "/videoModule/getPageData", {
+					//condition_EQ_S_moduleName:"鬼畜"
+					//pageSize: 2,
+					//pageIndex: 3
+				},
+				function(data) {
+					$(".message").text(JSON.stringify(data));
+				}, "json");
+		}
+	</script>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>视频上传</title>
+		<link rel="stylesheet" href="../css/common/common.css" />
+		<script type="text/javascript" src="../js/common/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/common/common.js"></script>
+	</head>
+
+	<body>
+		<form method="post" enctype="multipart/form-data" id="uploadForm">
+			<p><label>选择视频模块:</label>
+				<select name="moduleId"></select>
+			</p>
+			<p>
+				<label>视频标题:</label><input type="text" name="videoTitle" />
+			</p>
+			<p>
+				<label>视频说明:</label>
+				<textarea name="videoExplain"></textarea>
+			</p>
+			<p>
+				<label>封面文件:</label><input type="file" name="videoCover" accept=".png,.jpg,.jpeg,.gif" />
+			</p>
+			<p>
+				<label>视频文件:</label><input type="file" name="videoFile" accept=".mp4" />
+			</p>
+
+			<p><button type="button" onclick="uploadvideo();">上传视频</button></p>
+		</form>
+		<p><span class="message"></span></p>
+	</body>
+	<script>
+		$.post(data_apps + "/videoModule/getPageData", function(data) {
+			$.each(data.data, function(i, item) {
+				var option = "<option value='" + item.moduleId + "'>" + item.moduleName + "</option>";
+				$("select[name='moduleId']").append(option);
+			});
+		}, "json");
+
+		function uploadvideo() {
+			$.ajax({
+				url: data_apps + "/videoCheck/save",
+				type: 'POST',
+				cache: false,
+				dataType: "json",
+				data: new FormData($('#uploadForm')[0]),
+				processData: false,
+				contentType: false,
+				success: function(data) {
+					$(".message").text(JSON.stringify(data));
+				}
+			});
+		}
+	</script>
+
+</html>
