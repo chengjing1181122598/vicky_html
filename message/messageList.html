@@ -35,11 +35,12 @@
 			$.post(data_apps + "/message/getPageData", {
 				pageSize: 10,
 				pageIndex: 1,
-				condition_EQ_S_username: username
-					//order_property: "createTime",
-					//order_type: "asc"
+				condition_EQ_S_username: username,
+				order_property: "createTime",
+				order_type: "desc"
 			}, function(data) {
 				$.each(data.data, function(i, item) {
+					console.info(item.content);
 					var p = "<p>";
 					if(item.status === unreadStatus) {
 						p = p + "<a class='red' target='_blank' href='" +
