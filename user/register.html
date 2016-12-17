@@ -27,15 +27,10 @@
 			<img src="/vicky_file/image/e/b/7/8/1/2/d/3/程景/6f8e36f3-9d3f-4308-ad8c-8041733e1475.jpg" />
 		</div>-->
 		<script>
-		
 			function prepareRigister() {
 				$.post(data_apps + "/user/prepareRegister", $("#registerForm").serialize(),
 					function(data) {
-						if(data.status === successStatus) {
-							$(".message").text(data.message.message);
-						} else {
-							$(".message").text(data.message.message);
-						}
+						$(".message").text(JSON.stringify(data));
 					}, "json");
 			}
 
@@ -43,11 +38,7 @@
 				$.get(data_apps + "/user/finishRegister", {
 					activateCode: $("input[name='activateCode']").val()
 				}, function(data) {
-					if(data.status === successStatus) {
-						$(".message").text(data.message.message);
-					} else {
-						$(".message").text(data.message.message);
-					}
+					$(".message").text(JSON.stringify(data));
 				}, "json");
 			}
 		</script>

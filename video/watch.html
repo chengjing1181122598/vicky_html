@@ -19,6 +19,9 @@
 			<video height="450" width="800" controls="controls" poster="" src="">
 			</video>
 		</p>
+		<p><button onclick="deleteById();">删除</button></p>
+		<p><button onclick="save();">评论</button></p>
+		<p><button onclick="getList();">获得评论</button></p>
 		<p><span class="message"></span></p>
 	</body>
 	<script>
@@ -30,6 +33,32 @@
 			$("video").attr("src", data.message.entity.relativePath);
 			$("video").attr("poster", data.message.entity.coverRelativePath);
 		}, "json");
+
+		function getList() {
+			$.get(data_apps + "/commentFloor/getList", {
+				videoId: videoId,
+				pageIndex: 1
+			}, function(data) {
+				$(".message").text(JSON.stringify(data));
+			}, "json");
+		}
+
+		function save() {
+			$.get(data_apps + "/commentFloor/save", {
+				videoId: videoId,
+				content: "老司机开车了"
+			}, function(data) {
+				$(".message").text(JSON.stringify(data));
+			}, "json");
+		}
+
+		function deleteById() {
+			$.get(data_apps + "/video/deleteById", {
+				primaryKey: videoId
+			}, function(data) {
+				$(".message").text(JSON.stringify(data));
+			}, "json");
+		}
 	</script>
 
 </html>

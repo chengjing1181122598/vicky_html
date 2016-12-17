@@ -23,46 +23,96 @@
 				<p><span onclick="getUser();">获取登录用户信息</span></p>
 				<p><span onclick="updatePWD();">修改用户密码</span></p>
 				<p><span onclick="update();">修改用户信息</span></p>
+				<p><span onclick="collect();">收藏用户</span></p>
+				<p><span onclick="deleteById();">删除收藏用户</span></p>
+				<p><span onclick="getList();">获得收藏用户</span></p>
+				<p><span onclick="collectVideo();">收藏视频</span></p>
+				<p><span onclick="getPageData();">获得收藏视频</span></p>
+				<p><span onclick="deleteCollectVideo();">删除收藏视频</span></p>
 				<p><span class="message"></span></p>
 			</form>
 		</div>
 		<script>
-		    function update() {
+		    function deleteCollectVideo() {
+				$.post(data_apps + "/collectVideo/deleteById", {
+						primaryKey: "1ef46593-c404-11e6-9690-089e01b9991f"
+					},
+					function(data) {
+						$(".message").text(JSON.stringify(data));
+					}, "json");
+			}
+		
+		    function collectVideo() {
+				$.post(data_apps + "/collectVideo/save", {
+						videoId: "f1aa84fa-c396-11e6-a944-089e01b9991f"
+					},
+					function(data) {
+						$(".message").text(JSON.stringify(data));
+					}, "json");
+			}
+		    
+		    function getPageData() {
+				$.post(data_apps + "/collectVideo/getPageData", {
+						condition_EQ_S_username: "程景",
+						pageIndex: 1
+					},
+					function(data) {
+						$(".message").text(JSON.stringify(data));
+					}, "json");
+			}
+		
+			function getList() {
+				$.post(data_apps + "/collectUser/getList", {
+						username: "程景",
+						pageIndex: 1
+					},
+					function(data) {
+						$(".message").text(JSON.stringify(data));
+					}, "json");
+			}
+
+			function deleteById() {
+				$.post(data_apps + "/collectUser/deleteById", {
+						primaryKey: "5d8532b1-c3a0-11e6-a944-089e01b9991f"
+					},
+					function(data) {
+						$(".message").text(JSON.stringify(data));
+					}, "json");
+			}
+
+			function collect() {
+				$.post(data_apps + "/collectUser/save", {
+						collectedUsername: "黎伟琪"
+					},
+					function(data) {
+						$(".message").text(JSON.stringify(data));
+					}, "json");
+			}
+
+			function update() {
 				$.post(data_apps + "/user/update", {
 						sex: "男",
 						signature: "个性签名"
 					},
 					function(data) {
-						if(data.status === successStatus) {
-							$(".message").text(data.message.message);
-						} else {
-							$(".message").text(data.message.message);
-						}
+						$(".message").text(JSON.stringify(data));
 					}, "json");
 			}
-		  
+
 			function updatePWD() {
 				$.post(data_apps + "/user/updatePWD", {
 						frontPWD: "5201314liweiqi",
-						afterPWD: "123456789"
+						afterPWD: $("input[name='password']").val()
 					},
 					function(data) {
-						if(data.status === successStatus) {
-							$(".message").text(data.message.message);
-						} else {
-							$(".message").text(data.message.message);
-						}
+						$(".message").text(JSON.stringify(data));
 					}, "json");
 			}
 
 			function login() {
 				$.post(data_apps + "/user/login", $("#loginForm").serialize(),
 					function(data) {
-						if(data.status === successStatus) {
-							$(".message").text(data.message.entity.username);
-						} else {
-							$(".message").text(data.message.message);
-						}
+						$(".message").text(JSON.stringify(data));
 					}, "json");
 			}
 
@@ -76,11 +126,7 @@
 			function logout() {
 				$.post(data_apps + "/user/logout",
 					function(data) {
-						if(data.status === successStatus) {
-							$(".message").text(data.message.message);
-						} else {
-							$(".message").text(data.message.message);
-						}
+						$(".message").text(JSON.stringify(data));
 					}, "json");
 			}
 
