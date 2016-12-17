@@ -1,5 +1,5 @@
-var data_apps = "/vicky_data";
-var file_apps = "/vicky_file";
+﻿var data_apps = "http://localhost:8080/vicky_data";
+var file_apps = "http://localhost:8084/vicky_file";
 var html_apps = "/vicky_html";
 var successStatus = "success";
 var errorStatus = "error";

@@ -23,15 +23,24 @@
 		</div>
 		<script>
 			$(document).ready(function() {
-				$.get(data_apps + "/user/getUser", function(data) {
-					$("#username").text(data.message.entity.username);
-					$("#headImage").attr("src", data.message.entity.relativePath);
+				$.ajax({
+					url: data_apps + "/user/getUser",
+					type: "post",
+					success: function(data) {
+						$("#username").text(data.message.entity.username);
+						$("#headImage").attr("src", data.message.entity.relativePath);
+					},
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					dataType: "json"
 				});
 			});
 
 			function updateHead() {
 				console.info(new FormData($('#uploadForm')[0]));
-				
+
 				$.ajax({
 					url: data_apps + "/user/updateHead",
 					type: 'POST',
@@ -42,7 +51,12 @@
 					success: function(data) {
 						console.info(JSON.stringify(data));
 						$("#headImage").attr("src", data.message.entity.relativePath);
-					}
+					},
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					dataType: "json"
 				});
 			}
 		</script>

@@ -28,18 +28,36 @@
 		</div>-->
 		<script>
 			function prepareRigister() {
-				$.post(data_apps + "/user/prepareRegister", $("#registerForm").serialize(),
-					function(data) {
+				$.ajax({
+					url: data_apps + "/user/prepareRegister",
+					data:$("#registerForm").serialize(),
+					type: "post",
+					success: function(data) {
 						$(".message").text(JSON.stringify(data));
-					}, "json");
+					},
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					dataType: "json"
+				});
+
 			}
 
 			function finishRegister() {
-				$.get(data_apps + "/user/finishRegister", {
-					activateCode: $("input[name='activateCode']").val()
-				}, function(data) {
-					$(".message").text(JSON.stringify(data));
-				}, "json");
+				$.ajax({
+					url: data_apps + "/user/finishRegister",
+					data:{activateCode: $("input[name='activateCode']").val()},
+					type: "post",
+					success: function(data) {
+						$(".message").text(JSON.stringify(data));
+					},
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					dataType: "json"
+				});			
 			}
 		</script>
 	</body>
