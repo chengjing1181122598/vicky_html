@@ -1,0 +1,119 @@
+/*
+ * 置顶半透明块
+ */
+
+.myTop {
+	position: fixed;
+	line-height: 40px;
+	width: 100%;
+	height: 40px;
+	z-index: 100;
+	opacity: 0.8;
+	background-color: white;
+}
+
+
+/*
+ * 隐藏
+ */
+
+.myHidden {
+	display: none;
+}
+
+
+/*
+ * 所有字体设为微软雅黑
+ */
+
+body {
+	font-family: "微软雅黑";
+}
+
+
+/*
+ * 黑色链接
+ */
+
+.blackLink {
+	color: black;
+	font-size: 13px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.blackLink:hover {
+	color: black;
+	text-decoration: none;
+}
+
+
+/*
+ * 蓝色链接
+ */
+
+.blueLink {
+	color: blue;
+	font-size: 13px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+.blueLink:hover {
+	color: red;
+	text-decoration: none;
+}
+
+
+/*
+ * 左外边距
+ */
+
+.myLeft {
+	margin-left: 15%;
+}
+
+
+/*
+ * 右外边距
+ */
+
+.myRight {
+	margin-right: 15%;
+}
+
+
+/*
+ * 浮动左
+ */
+
+.floatLeft {
+	float: left;
+}
+
+
+/*
+ * 浮动右
+ */
+
+.floatRight {
+	float: right;
+}
+
+
+/*
+ * 居中
+ */
+
+.myCenter {
+	text-align: center;
+}
+
+
+/*
+ * 红色错误提示
+ */
+
+.redTip {
+	color: red;
+}

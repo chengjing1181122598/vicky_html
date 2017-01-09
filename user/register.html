@@ -3,63 +3,77 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>用户注册</title>
-		<link rel="stylesheet" href="../css/common/common.css" />
-		<script type="text/javascript" src="../js/common/jquery-1.11.2.min.js"></script>
-		<script type="text/javascript" src="../js/common/common.js"></script>
+		<title>注册</title>
+		<link rel="stylesheet" href="../css/common/other/bootstrap.min.css" />
+		<link rel="stylesheet" href="../css/common/ourself/common.css" />
+		<link rel="stylesheet" href="../css/common/ourself/user/user.css" />
 
-		<!--   data_url:http://localhost:8080/vicky_data/prepareRegister   -->
-
+		<script type="text/javascript" src="../js/common/other/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/common/other/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/common/ourself/user/user.js"></script>
 	</head>
 
 	<body>
-		<div>
-			<form id="registerForm" method="post">
-				<p><label>用户名:</label><input type="text" name="username" /></p>
-				<p><label>密码:</label><input type="password" name="password" /></p>
-				<p><label>邮箱:</label><input type="email" name="email" /></p>
-				<p><label>激活码:</label><input type="text" name="activateCode" /><span onclick="prepareRigister();">获取激活码</span></p>
-				<p><span onclick="finishRegister();">完成注册</span></p>
-				<p><span class="message"></span></p>
-			</form>
-		</div>
-		<!--<div>
-			<img src="/vicky_file/image/e/b/7/8/1/2/d/3/程景/6f8e36f3-9d3f-4308-ad8c-8041733e1475.jpg" />
-		</div>-->
-		<script>
-			function prepareRigister() {
-				$.ajax({
-					url: data_apps + "/user/prepareRegister",
-					data:$("#registerForm").serialize(),
-					type: "post",
-					success: function(data) {
-						$(".message").text(JSON.stringify(data));
-					},
-					xhrFields: {
-						withCredentials: true
-					},
-					crossDomain: true,
-					dataType: "json"
-				});
-
-			}
-
-			function finishRegister() {
-				$.ajax({
-					url: data_apps + "/user/finishRegister",
-					data:{activateCode: $("input[name='activateCode']").val()},
-					type: "post",
-					success: function(data) {
-						$(".message").text(JSON.stringify(data));
-					},
-					xhrFields: {
-						withCredentials: true
-					},
-					crossDomain: true,
-					dataType: "json"
-				});			
-			}
-		</script>
+		<img src="../img/index/vicky.jpg" class="img-responsive" />
+		<form class="formCenter" onsubmit="return false;">
+			<div class="myCenter">
+				<h2>注册</h2>
+				<span class="redTip"></span>
+			</div>
+			<input type="text" name="username" class="form-control" placeholder="用户名" required="required">
+			<br />
+			<input type="email" name="email" class="form-control" placeholder="邮箱" required="required">
+			<br />
+			<input type="password" name="password" class="form-control" placeholder="密码" required="required">
+			<br />
+			<input type="password" name="password2" class="form-control" placeholder="确认密码" required="required">
+			<br />
+			<input type="password" style="width: 69%;display: inline;" class="form-control" placeholder="邮箱验证码">
+			<button id="getValid" type="submit" class="btn btn-primary" style="width: 30%;" onclick="prepareRegister(this);">点击获取</button>
+			<br />
+			<input type="checkbox" onclick="toggle();" />我已同意
+			<a href="javascript:void(0);" class="blueLink">《哔哩哔哩弹幕网用户使用协议》</a>和
+			<a href="javascript:void(0);" class="blueLink">《哔哩哔哩弹幕网账号中心规范》</a>
+			<br />
+			<br />
+			<button id="register" type="button" class="btn btn-primary" disabled="disabled" style="width: 100%;" onclick="finishRegister();">注册</button>
+		</form>
 	</body>
+
+	<script type="text/javascript">
+		function toggle() {
+			var buttonDom = $("#register");
+			if(buttonDom.attr("disabled") != null) {
+				buttonDom.removeAttr("disabled");
+			} else {
+				buttonDom.attr("disabled", "disabled");
+			}
+		}
+
+		var seconds = 5;
+
+		function prepareRegister() {
+			var password = $("input[name='password']").val();;
+			var password2 = $("input[name='password2']").val();
+			if(password !== password2) {
+				$(".redTip").text("确认密码不一致");
+			} else {
+				var buttonDom = $("#getValid");
+				window.setTimeout(function() {
+					if(seconds <= 0) {
+						buttonDom.removeAttr("disabled");
+						buttonDom.text("点击获取");
+						seconds = 5;
+					} else {
+						buttonDom.text("点击获取(" + seconds + ")");
+						buttonDom.attr("disabled", "disabled");
+						console.info(seconds);
+						seconds--;
+						prepareRegister(buttonDom);
+					}
+				}, 1000);
+			}
+		}
+	</script>
 
 </html>

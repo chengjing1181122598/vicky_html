@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>用户注册</title>
+		<link rel="stylesheet" href="../css/common/common.css" />
+		<script type="text/javascript" src="../js/common/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/common/common.js"></script>
+
+		<!--   data_url:http://localhost:8080/vicky_data/prepareRegister   -->
+
+	</head>
+
+	<body>
+		<div>
+			<form id="registerForm" method="post">
+				<p><label>用户名:</label><input type="text" name="username" /></p>
+				<p><label>密码:</label><input type="password" name="password" /></p>
+				<p><label>邮箱:</label><input type="email" name="email" /></p>
+				<p><label>激活码:</label><input type="text" name="activateCode" /><span onclick="prepareRigister();">获取激活码</span></p>
+				<p><span onclick="finishRegister();">完成注册</span></p>
+				<p><span class="message"></span></p>
+			</form>
+		</div>
+		<!--<div>
+			<img src="/vicky_file/image/e/b/7/8/1/2/d/3/程景/6f8e36f3-9d3f-4308-ad8c-8041733e1475.jpg" />
+		</div>-->
+		<script>
+			function prepareRigister() {
+				$.ajax({
+					url: data_apps + "/user/prepareRegister",
+					data:$("#registerForm").serialize(),
+					type: "post",
+					success: function(data) {
+						$(".message").text(JSON.stringify(data));
+					},
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					dataType: "json"
+				});
+
+			}
+
+			function finishRegister() {
+				$.ajax({
+					url: data_apps + "/user/finishRegister",
+					data:{activateCode: $("input[name='activateCode']").val()},
+					type: "post",
+					success: function(data) {
+						$(".message").text(JSON.stringify(data));
+					},
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+					dataType: "json"
+				});			
+			}
+		</script>
+	</body>
+
+</html>
