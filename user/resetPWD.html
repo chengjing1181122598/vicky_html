@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>重置密码</title>
+		<link rel="stylesheet" href="../css/other/bootstrap.min.css" />
+		<link rel="stylesheet" href="../css/ourself/common/common.css" />
+		<link rel="stylesheet" href="../css/ourself/user/user.css" />
+
+		<script type="text/javascript" src="../js/other/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/other/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/ourself/common/common.js" ></script>
+		
+		<script type="text/javascript" src="../js/ourself/user/user.js"></script>
+		
+		<script type="text/javascript" src="../js/ourself/common/topDom.js" ></script>
+	</head>
+
+	<body>
+		<form class="formCenter" onsubmit="return getValidCode();">
+			<div class="myCenter">
+				<h2>重置密码</h2>
+				<span class="redTip"></span>
+			</div>
+			<input type="email" name="email" class="form-control" placeholder="输入注册时邮箱" required="required">
+			<br />
+			<input type="password" style="width: 69%;display: inline;" class="form-control" placeholder="邮箱验证码">
+			<button id="getValid" type="submit" class="btn btn-primary" style="width: 30%;">点击获取</button>
+			<br />
+			<br />
+			<button id="valid" type="button" class="btn btn-primary" disabled="disabled" style="width: 100%;" >验证</button>
+			<br />
+			<br />
+			<input type="password" name="password" class="form-control" placeholder="新密码" required="required" disabled="disabled">
+			<br />
+			<input type="password" name="password2" class="form-control" placeholder="确认密码" required="required" disabled="disabled">
+			<br />
+			<button id="resetPWD" type="button" class="btn btn-primary" disabled="disabled" style="width: 100%;" >重置密码</button>
+		</form>
+	</body>
+
+	<script type="text/javascript">
+		var seconds = daoJiShiSeconds;
+
+		function getValidCode() {
+			var email = $('input[name="email"]').val();
+			$("#valid").removeAttr("disabled");
+			
+			var buttonDom = $("#getValid");
+			$(".redTip").text("");
+			window.setTimeout(function() {
+				if(seconds <= 0) {
+					buttonDom.removeAttr("disabled");
+					buttonDom.text("点击获取");
+					seconds = daoJiShiSeconds;
+				} else {
+					buttonDom.text("点击获取(" + seconds + ")");
+					buttonDom.attr("disabled", "disabled");
+					console.info(seconds);
+					seconds--;
+					getValidCode();
+				}
+			}, 1000);
+			return false;
+		}
+	</script>
+
+</html>

@@ -4,18 +4,21 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>注册</title>
-		<link rel="stylesheet" href="../css/common/other/bootstrap.min.css" />
-		<link rel="stylesheet" href="../css/common/ourself/common.css" />
-		<link rel="stylesheet" href="../css/common/ourself/user/user.css" />
+		<link rel="stylesheet" href="../css/other/bootstrap.min.css" />
+		<link rel="stylesheet" href="../css/ourself/common/common.css" />
+		<link rel="stylesheet" href="../css/ourself/user/user.css" />
 
-		<script type="text/javascript" src="../js/common/other/jquery-1.11.2.min.js"></script>
-		<script type="text/javascript" src="../js/common/other/bootstrap.min.js"></script>
-		<script type="text/javascript" src="../js/common/ourself/user/user.js"></script>
+		<script type="text/javascript" src="../js/other/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/other/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/ourself/common/common.js"></script>
+
+		<script type="text/javascript" src="../js/ourself/user/user.js"></script>
+
+		<script type="text/javascript" src="../js/ourself/common/topDom.js"></script>
 	</head>
 
 	<body>
-		<img src="../img/index/vicky.jpg" class="img-responsive" />
-		<form class="formCenter" onsubmit="return false;">
+		<form class="formCenter" onsubmit="return prepareRegister();">
 			<div class="myCenter">
 				<h2>注册</h2>
 				<span class="redTip"></span>
@@ -28,12 +31,12 @@
 			<br />
 			<input type="password" name="password2" class="form-control" placeholder="确认密码" required="required">
 			<br />
-			<input type="password" style="width: 69%;display: inline;" class="form-control" placeholder="邮箱验证码">
-			<button id="getValid" type="submit" class="btn btn-primary" style="width: 30%;" onclick="prepareRegister(this);">点击获取</button>
+			<input type="text" name="activateCode" style="width: 69%;display: inline;" class="form-control" placeholder="邮箱激活码">
+			<button id="getValid" type="submit" class="btn btn-primary" style="width: 30%;">点击获取</button>
 			<br />
 			<input type="checkbox" onclick="toggle();" />我已同意
-			<a href="javascript:void(0);" class="blueLink">《哔哩哔哩弹幕网用户使用协议》</a>和
-			<a href="javascript:void(0);" class="blueLink">《哔哩哔哩弹幕网账号中心规范》</a>
+			<a href="javascript:void(0);" class="blueLink">《Vicky视频网用户使用协议》</a>和
+			<a href="javascript:void(0);" class="blueLink">《Vicky视频网账号中心规范》</a>
 			<br />
 			<br />
 			<button id="register" type="button" class="btn btn-primary" disabled="disabled" style="width: 100%;" onclick="finishRegister();">注册</button>
@@ -41,6 +44,27 @@
 	</body>
 
 	<script type="text/javascript">
+		function finishRegister() {
+			$.ajax({
+				url: data_path + "/user/finishRegister",
+				data: {
+					activateCode: $("input[name='activateCode']").val()
+				},
+				success: function(data) {
+					if(data.status === successStatus) {
+						window.location.href = window.sessionStorage.lastPage;
+					} else {
+						$(".redTip").text(data.message.message);
+					}
+				},
+				dataType: "json",
+				xhrFields: {
+					withCredentials: true
+				},
+				crossDomain: true
+			});
+		}
+
 		function toggle() {
 			var buttonDom = $("#register");
 			if(buttonDom.attr("disabled") != null) {
@@ -50,29 +74,54 @@
 			}
 		}
 
-		var seconds = 5;
-
 		function prepareRegister() {
 			var password = $("input[name='password']").val();;
 			var password2 = $("input[name='password2']").val();
+			if(password.length === 0 || password2.length === 0) {
+				return false;
+			}
+
 			if(password !== password2) {
 				$(".redTip").text("确认密码不一致");
-			} else {
-				var buttonDom = $("#getValid");
-				window.setTimeout(function() {
-					if(seconds <= 0) {
-						buttonDom.removeAttr("disabled");
-						buttonDom.text("点击获取");
-						seconds = 5;
-					} else {
-						buttonDom.text("点击获取(" + seconds + ")");
-						buttonDom.attr("disabled", "disabled");
-						console.info(seconds);
-						seconds--;
-						prepareRegister(buttonDom);
-					}
-				}, 1000);
+				return false;
 			}
+
+			$(".redTip").text("");
+			daoJiShi();
+
+			$.ajax({
+				url: data_path + "/user/prepareRegister",
+				data: $(".formCenter").serialize(),
+				type: "post",
+				success: function(data) {
+					$(".redTip").text(data.message.message);
+				},
+				dataType: "json",
+				xhrFields: {
+					withCredentials: true
+				},
+				crossDomain: true
+			})
+			return false;
+		}
+
+		var buttonDom = $("#getValid");
+		var seconds = daoJiShiSeconds;
+
+		function daoJiShi() {
+			window.setTimeout(function() {
+				if(seconds <= 0) {
+					buttonDom.removeAttr("disabled");
+					buttonDom.text("点击获取");
+					seconds = daoJiShiSeconds;
+				} else {
+					buttonDom.text("点击获取(" + seconds + ")");
+					buttonDom.attr("disabled", "disabled");
+					console.info(seconds);
+					seconds--;
+					daoJiShi();
+				}
+			}, 1000);
 		}
 	</script>
 

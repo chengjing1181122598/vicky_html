@@ -4,28 +4,33 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>登录</title>
-		<link rel="stylesheet" href="../css/common/other/bootstrap.min.css" />
-		<link rel="stylesheet" href="../css/common/ourself/common.css" />
-		<link rel="stylesheet" href="../css/common/ourself/user/user.css" />
+		<link rel="stylesheet" href="../css/other/bootstrap.min.css" />
+		<link rel="stylesheet" href="../css/ourself/common/common.css" />
+		<link rel="stylesheet" href="../css/ourself/user/user.css" />
 
-		<script type="text/javascript" src="../js/common/other/jquery-1.11.2.min.js"></script>
-		<script type="text/javascript" src="../js/common/other/bootstrap.min.js"></script>
-		<script type="text/javascript" src="../js/common/ourself/user/user.js"></script>
+		<script type="text/javascript" src="../js/other/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/other/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/ourself/common/common.js"></script>
+
+		<script type="text/javascript" src="../js/ourself/user/user.js"></script>
+
+		<script type="text/javascript" src="../js/ourself/common/topDom.js"></script>
 	</head>
 
 	<body>
-		<img src="../img/index/vicky.jpg" class="img-responsive" />
-		<form class="formCenter">
+		<form class="formCenter" onsubmit="return login();">
 			<div class="myCenter">
-				<h2>登录</h2></div>
-			<input type="text" class="form-control" placeholder="用户名或者邮箱">
+				<h2>登录</h2>
+				<span class="redTip"></span>
+			</div>
+			<input type="text" name="username" class="form-control" placeholder="用户名或者邮箱" required="required"/>
 			<br />
-			<input type="password" class="form-control" placeholder="密码">
+			<input type="password" name="password" class="form-control" placeholder="密码" required="required"/>
 			<div class="floatRight">
-				<a class="blueLink" href="forgetPWD.html">忘记密码？></a>
+				<a class="blueLink" href="resetPWD.html">忘记密码？></a>
 			</div>
 			<br />
-			<button type="button" class="btn btn-primary" style="width: 40%;margin-left: 5%;">登录</button>
+			<button id="loginBtn" type="submit" class="btn btn-primary" style="width: 40%;margin-left: 5%;">登录</button>
 			<button type="button" class="btn btn-default" onclick="gotoRegister();" style="width: 40%;margin-left: 10%;">注册</button>
 		</form>
 	</body>
@@ -33,6 +38,36 @@
 	<script type="text/javascript">
 		function gotoRegister() {
 			window.location.href = "register.html";
+		}
+
+		$(function() {
+			window.document.onkeydown = function(e) {
+				var ev = document.all ? window.event : e;
+				if(ev.keyCode === 13) {
+					$("#loginBtn").trigger("click");
+				}
+			}
+		});
+
+		function login() {
+			$.ajax({
+				type: "post",
+				url: data_path + "/user/login",
+				data: $(".formCenter").serialize(),
+				success: function(data) {
+					if(data.status === successStatus) {
+						window.location.href = window.sessionStorage.lastPage;
+					} else {
+						$(".redTip").text(data.message.message);
+					}
+				},
+				dataType: "json",
+				xhrFields: {
+					withCredentials: true
+				},
+				crossDomain: true
+			});
+			return false;
 		}
 	</script>
 
