@@ -41,9 +41,31 @@
 			<br />
 			<button id="register" type="button" class="btn btn-primary" disabled="disabled" style="width: 100%;" onclick="finishRegister();">注册</button>
 		</form>
+		<div class="modal fade" id="tip" aria-hidden="true" data-show="false">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">提示</h4>
+					</div>
+					<div class="modal-body">
+						注册成功
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
 	</body>
 
 	<script type="text/javascript">
+		$("#tip").on("hide.bs.modal", function() {
+			window.location.href = window.sessionStorage.lastPage;
+		});
+
 		function finishRegister() {
 			$.ajax({
 				url: data_path + "/user/finishRegister",
@@ -52,7 +74,7 @@
 				},
 				success: function(data) {
 					if(data.status === successStatus) {
-						window.location.href = window.sessionStorage.lastPage;
+						$("#tip").modal("show");
 					} else {
 						$(".redTip").text(data.message.message);
 					}

@@ -14,6 +14,55 @@
 
 
 /*
+ * 用户头像
+ */
+
+.topHeadImage {
+	height: 36px;
+	border-radius: 18px;
+	border-style: solid;
+	border-color: white;
+	border-width: 1px;
+	display: inline;
+}
+
+/*.hover:hover+.headImageDiv {
+	transition: width 2s;
+	display: inline;
+}
+
+
+/*
+ * 用户头像下方弹出框
+ */
+
+.headImageDiv {
+	position: absolute;
+	display: none;
+	width: 260px;
+	height: 260px;
+	background-color: blue;
+	margin-left: -148px;
+	margin-top: 40px;
+}*/
+
+
+/*
+ * 横向列表
+ */
+
+.hengList {
+	list-style: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+.hengList li {
+	display: inline;
+}
+
+
+/*
  * 隐藏
  */
 
