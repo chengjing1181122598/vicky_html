@@ -1,9 +1,41 @@
 <!DOCTYPE html>
 <html>
+
 	<head>
 		<meta charset="UTF-8">
 		<title>用户中心</title>
+		<link rel="stylesheet" href="../css/other/bootstrap.min.css" />
+		<link rel="stylesheet" href="../css/ourself/common/common.css" />
+		<link rel="stylesheet" href="../css/ourself/user/user.css" />
+
+		<script type="text/javascript" src="../js/other/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/other/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/ourself/common/common.js"></script>
+
+		<script type="text/javascript" src="../js/ourself/user/user.js"></script>
+
+		<script type="text/javascript" src="../js/ourself/common/topDom.js"></script>
 	</head>
+
 	<body>
+		<div class="myLeft myRight" style="margin-top: 30px;">
+			<span>
+				<img class="bigHeadImage" src="" />
+				
+			</span>
+		</div>
+
+		<script type="text/javascript">
+			$(function() {
+				if(user === undefined) {
+					window.location.href = html_path;
+				} else {
+					window.document.title = user.username;
+
+					$(".bigHeadImage").attr("src", user.relativePath);
+				}
+			});
+		</script>
 	</body>
+
 </html>

@@ -33,7 +33,8 @@ $(function() {
 		xhrFields: {
 			withCredentials: true
 		},
-		crossDomain: true
+		crossDomain: true,
+		async: false
 	});
 
 });

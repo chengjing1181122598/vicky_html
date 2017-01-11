@@ -10,45 +10,106 @@
 
 		<script type="text/javascript" src="../js/other/jquery-1.11.2.min.js"></script>
 		<script type="text/javascript" src="../js/other/bootstrap.min.js"></script>
-		<script type="text/javascript" src="../js/ourself/common/common.js" ></script>
-		
+		<script type="text/javascript" src="../js/ourself/common/common.js"></script>
+
 		<script type="text/javascript" src="../js/ourself/user/user.js"></script>
-		
-		<script type="text/javascript" src="../js/ourself/common/topDom.js" ></script>
+
+		<script type="text/javascript" src="../js/ourself/common/topDom.js"></script>
 	</head>
 
 	<body>
-		<form class="formCenter" onsubmit="return getValidCode();">
+		<form class="formCenter" onsubmit="return prepareUpdatePWD();">
 			<div class="myCenter">
 				<h2>重置密码</h2>
 				<span class="redTip"></span>
 			</div>
 			<input type="email" name="email" class="form-control" placeholder="输入注册时邮箱" required="required">
 			<br />
-			<input type="password" style="width: 69%;display: inline;" class="form-control" placeholder="邮箱验证码">
+			<input type="text" name="validCode" style="width: 69%;display: inline;" class="form-control" placeholder="邮箱验证码">
 			<button id="getValid" type="submit" class="btn btn-primary" style="width: 30%;">点击获取</button>
-			<br />
-			<br />
-			<button id="valid" type="button" class="btn btn-primary" disabled="disabled" style="width: 100%;" >验证</button>
 			<br />
 			<br />
 			<input type="password" name="password" class="form-control" placeholder="新密码" required="required" disabled="disabled">
 			<br />
 			<input type="password" name="password2" class="form-control" placeholder="确认密码" required="required" disabled="disabled">
 			<br />
-			<button id="resetPWD" type="button" class="btn btn-primary" disabled="disabled" style="width: 100%;" >重置密码</button>
+			<button id="updatePWD" type="button" class="btn btn-primary" disabled="disabled" style="width: 100%;" onclick="finishUpdatePWD();">重置密码</button>
 		</form>
+		<div class="modal fade" id="tip" aria-hidden="true" data-show="false">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">提示</h4>
+					</div>
+					<div class="modal-body">
+						重置密码成功
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
 	</body>
 
 	<script type="text/javascript">
+		$("#tip").on("hide.bs.modal", function() {
+			window.location.reload();
+		});
+
+		function finishUpdatePWD() {
+			$(".redTip").text("");
+			$.ajax({
+				type: "get",
+				url: data_path + "/user/finishUpdatePWD",
+				data: $(".formCenter").serialize(),
+				dataType: "json",
+				success: function(data) {
+					if(data.status === successStatus) {
+						$("#tip").modal("show");
+					} else {
+						$(".redTip").text(data.message.message);
+					}
+				},
+				xhrFields: {
+					withCredentials: true
+				},
+				crossDomain: true
+			});
+		}
+
+		var buttonDom = $("#getValid");
+
+		function prepareUpdatePWD() {
+			var email = $('input[name="email"]').val();
+			$(".redTip").text("");
+			$(".form-control").removeAttr("disabled");
+			$("#updatePWD").removeAttr("disabled");
+			daoJiShi();
+			$.ajax({
+				type: "get",
+				url: data_path + "/user/prepareUpdatePWD",
+				data: {
+					email: $("input[name='email']").val()
+				},
+				dataType: "json",
+				success: function(data) {
+					$(".redTip").text(data.message.message);
+				},
+				xhrFields: {
+					withCredentials: true
+				},
+				crossDomain: true
+			});
+			return false;
+		}
+
 		var seconds = daoJiShiSeconds;
 
-		function getValidCode() {
-			var email = $('input[name="email"]').val();
-			$("#valid").removeAttr("disabled");
-			
-			var buttonDom = $("#getValid");
-			$(".redTip").text("");
+		function daoJiShi() {
 			window.setTimeout(function() {
 				if(seconds <= 0) {
 					buttonDom.removeAttr("disabled");
@@ -59,10 +120,9 @@
 					buttonDom.attr("disabled", "disabled");
 					console.info(seconds);
 					seconds--;
-					getValidCode();
+					daoJiShi();
 				}
 			}, 1000);
-			return false;
 		}
 	</script>
 
