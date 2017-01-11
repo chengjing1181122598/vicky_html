@@ -8,6 +8,9 @@
 		<link rel="stylesheet" href="../css/ourself/common/common.css" />
 		<link rel="stylesheet" href="../css/ourself/user/user.css" />
 
+		<link rel="stylesheet" href="../css/other/default.css" />
+		<link rel="stylesheet" media="all" href="../css/other/fileinput.css" />
+
 		<script type="text/javascript" src="../js/other/jquery-1.11.2.min.js"></script>
 		<script type="text/javascript" src="../js/other/bootstrap.min.js"></script>
 		<script type="text/javascript" src="../js/ourself/common/common.js"></script>
@@ -15,26 +18,158 @@
 		<script type="text/javascript" src="../js/ourself/user/user.js"></script>
 
 		<script type="text/javascript" src="../js/ourself/common/topDom.js"></script>
+
+		<script type="text/javascript" src="../js/other/fileinput.js"></script>
+		<script type="text/javascript" src="../js/other/headImage.js"></script>
 	</head>
 
 	<body>
 		<div class="myLeft myRight" style="margin-top: 30px;">
-			<span>
-				<img class="bigHeadImage" src="" />
-				
-			</span>
+			<div style="height: 200px;">
+				<div style="float: left;">
+					<img class="bigHeadImage" src="" />
+				</div>
+				<div style="float: left;width: 70%;margin-left: 20px;">
+					<form>
+						<a id="showSex" href="javascript:void(0);" onclick="showSex();"><span class="secret icon"></span></a>
+						<select id="selectSex" name="sex" class="form-control" style="width: 80px;display: none;" onchange="update();">
+							<option value="男">男</option>
+							<option value="女">女</option>
+							<option value="保密">保密</option>
+						</select>
+						<br />
+						<br />
+						<input type=" text " name="signature" class="form-control" onchange="update();" placeholder="个性签名 " />
+						<span class="redTip"></span>
+					</form>
+				</div>
+			</div>
+			<div style="width: 400px;margin-top: 20px;">
+				<form enctype="multipart/form-data" style="margin-top: 10px;">
+					<input id="headImage" name="headImage" type="file" accept=".png,.jpg,.jpeg,.gif" />
+				</form>
+			</div>
 		</div>
 
-		<script type="text/javascript">
+		<div class="modal fade" id="tip" aria-hidden="true" data-show="false">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">提示</h4>
+					</div>
+					<div class="modal-body">
+						修改成功
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+		<script type="text/javascript ">
+			$('#headImage').fileinput({
+				showPreview: false,
+				language: 'zh',
+				uploadUrl: data_path + "/user/updateHead",
+				allowedFileExtensions: ['jpg', 'png', 'gif', 'jpeg'],
+			});
+
+			$("#headImage").on("fileuploaded", function(event, data, previewId, index) {
+				data = data.response;
+				if(data.status === successStatus) {
+					user = data.message.entity;
+					$("#tip").modal("show");
+				} else {
+					$(".redTip").text(data.message.message);
+				}
+			});
+
+			$("#headImage").change(function() {
+				var objUrl = getObjectURL(this.files[0]);
+				console.log("objUrl = " + objUrl);
+				if(objUrl) {
+					$(".bigHeadImage").attr("src", objUrl);
+				}
+			});
+			//建立一個可存取到該file的url
+			function getObjectURL(file) {
+				var url = null;
+				if(window.createObjectURL != undefined) { // basic
+					url = window.createObjectURL(file);
+				} else if(window.URL != undefined) { // mozilla(firefox)
+					url = window.URL.createObjectURL(file);
+				} else if(window.webkitURL != undefined) { // webkit or chrome
+					url = window.webkitURL.createObjectURL(file);
+				}
+				return url;
+			}
+
+			$("#tip").on("hide.bs.modal", function() {
+				window.location.reload();
+			});
+
+			function update() {
+				$.ajax({
+					url: data_path + "/user/update",
+					data: $("form").serialize(),
+					success: function(data) {
+						if(data.status === successStatus) {
+							user = data.message.entity;
+							$("#tip").modal("show");
+						} else {
+							$(".redTip").text(data.message.message);
+						}
+					},
+					dataType: "json",
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true
+				});
+
+			}
+
+			function showSex() {
+				$("select").css("display", "inline-block");
+			}
+
+			$(document).bind('click', function(e) {
+				var e = e || window.event; //浏览器兼容性 
+				var elem = e.target || e.srcElement;
+				while(elem) { //循环判断至跟节点，防止点击的是div子元素 
+					if(elem.id && (elem.id == 'selectSex' || elem.id == 'showSex')) {
+						return;
+					}
+					elem = elem.parentNode;
+				}
+
+				$('#selectSex').css('display', 'none'); //点击的不是div或其子元素 
+			});
+
 			$(function() {
 				if(user === undefined) {
 					window.location.href = html_path;
 				} else {
 					window.document.title = user.username;
-
-					$(".bigHeadImage").attr("src", user.relativePath);
+					setUserMessage();
 				}
 			});
+
+			function setUserMessage() {
+				$(".bigHeadImage ").attr("src", user.relativePath);
+				$("#selectSex").val(user.sex);
+				$("input[name='signature']").val(user.signature);
+				if(user.sex === male) {
+					$(".secret").removeClass("secret").removeClass("female").addClass("male");
+				} else if(user.sex === female) {
+					$(".secret").removeClass("secret").removeClass("male").addClass("female");
+				} else {
+					$(".secret").removeClass("female").removeClass("male").addClass("secret");
+				}
+			}
 		</script>
 	</body>
 

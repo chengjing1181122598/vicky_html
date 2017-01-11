@@ -6,3 +6,7 @@ var successStatus = "success";
 var errorStatus = "error";
 
 var daoJiShiSeconds = 10;
+
+var male = "男";
+var female = "女";
+var secret = "保密";

@@ -16,3 +16,29 @@
 	border-color: gray;
 	border-width: 3px;
 }
+
+.icon {
+	background-image: url(../../../img/common/icons.png);
+	display: inline-block;
+}
+
+.male {
+	background-position: -212px -472px;
+	width: 21px;
+	height: 18px;
+	margin-top: 20px;
+}
+
+.female {
+	background-position: -211px -404px;
+	width: 21px;
+	height: 18px;
+	margin-top: 20px;
+}
+
+.secret {
+	background-position: -212px -922px;
+	width: 21px;
+	height: 18px;
+	margin-top: 20px;
+}
