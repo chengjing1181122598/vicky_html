@@ -15,15 +15,18 @@
 		<script type="text/javascript" src="../js/other/bootstrap.min.js"></script>
 		<script type="text/javascript" src="../js/ourself/common/common.js"></script>
 
-		<script type="text/javascript" src="../js/ourself/user/user.js"></script>
-
 		<script type="text/javascript" src="../js/ourself/common/topDom.js"></script>
+		<script type="text/javascript" src="../js/ourself/user/mustLogin.js"></script>
 
 		<script type="text/javascript" src="../js/other/fileinput.js"></script>
-		<script type="text/javascript" src="../js/other/headImage.js"></script>
+		<script type="text/javascript" src="../js/other/zh.js"></script>
 	</head>
 
 	<body>
+		<div class="myCenter">
+			<h2>个人中心</h2>
+			<span class="redTip"></span>
+		</div>
 		<div class="myLeft myRight" style="margin-top: 30px;">
 			<div style="height: 200px;">
 				<div style="float: left;">
@@ -40,12 +43,11 @@
 						<br />
 						<br />
 						<input type=" text " name="signature" class="form-control" onchange="update();" placeholder="个性签名 " />
-						<span class="redTip"></span>
 					</form>
 				</div>
 			</div>
 			<div style="width: 400px;margin-top: 20px;">
-				<form enctype="multipart/form-data" style="margin-top: 10px;">
+				<form enctype="multipart/form-data" style="margin-top: 10px;" id="form">
 					<input id="headImage" name="headImage" type="file" accept=".png,.jpg,.jpeg,.gif" />
 				</form>
 			</div>
@@ -70,6 +72,22 @@
 		</div>
 		<!-- /.modal -->
 		<script type="text/javascript ">
+		    $(function(){
+		    	$("#headImage").prev().text("更改头像");
+		    });
+		
+			//			$('#headImage').on('filepreupload', function(event, data, previewId, index) {
+			//				data.form.append("name", "程景");
+			//				//var form = data.form;
+			//				//					files = data.files,
+			//				//					extra = data.extra,
+			//				//					response = data.response,
+			//				//					reader = data.reader;
+			////				var formData = new FormData(window.document.getElementById("form"));
+			////				data.form = formData;
+			////				console.info(data.form.get("name"));
+			//			});
+
 			$('#headImage').fileinput({
 				showPreview: false,
 				language: 'zh',
@@ -150,12 +168,8 @@
 			});
 
 			$(function() {
-				if(user === undefined) {
-					window.location.href = html_path;
-				} else {
-					window.document.title = user.username;
-					setUserMessage();
-				}
+				window.document.title = user.username;
+				setUserMessage();
 			});
 
 			function setUserMessage() {

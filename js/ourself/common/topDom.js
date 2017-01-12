@@ -17,7 +17,7 @@ $(function() {
 					'<img class="topHeadImage" src="' + user.relativePath + '"/></a></li>';
 				var message = '<li><a class="blackLink" href="javascript:void(0);">消息</a></li>';
 				var collect = '<li><a class="blackLink" href="javascript:void(0);">收藏夹</a></li>';
-				var publish = '<li><a class="blackLink" href="javascript:void(0);">投稿</a></li>';
+				var publish = '<li><a class="blackLink" href="'+html_path+'/video/uploadVideo.html'+'">投稿</a></li>';
 				var logout = '<li><a class="blackLink" href="javascript:void(0);" onclick="logout();">退出</a></li>';
 				topDomRight += headImage + message + collect + publish + logout;
 			} else {
