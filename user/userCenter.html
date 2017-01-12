@@ -23,35 +23,37 @@
 	</head>
 
 	<body>
-		<div class="myCenter">
-			<h2>个人中心</h2>
-			<span class="redTip"></span>
-		</div>
-		<div class="myLeft myRight" style="margin-top: 30px;">
-			<div style="height: 200px;">
-				<div style="float: left;">
-					<img class="bigHeadImage" src="" />
+		<dir class="myLeft myRight" style="border-radius: 10px;border-style: solid;border-color: gray;border-width: 2px;padding: 20px;">
+			<div class="myCenter">
+				<h2>个人中心</h2>
+				<span class="redTip"></span>
+			</div>
+			<div style="margin-top: 30px;">
+				<div style="height: 200px;">
+					<div style="float: left;">
+						<img class="bigHeadImage" src="" />
+					</div>
+					<div style="float: left;width: 70%;margin-left: 20px;">
+						<form>
+							<a id="showSex" href="javascript:void(0);" onclick="showSex();"><span class="secret icon"></span></a>
+							<select id="selectSex" name="sex" class="form-control" style="width: 80px;display: none;" onchange="update();">
+								<option value="男">男</option>
+								<option value="女">女</option>
+								<option value="保密">保密</option>
+							</select>
+							<br />
+							<br />
+							<input type=" text " name="signature" class="form-control" onchange="update();" placeholder="个性签名 " />
+						</form>
+					</div>
 				</div>
-				<div style="float: left;width: 70%;margin-left: 20px;">
-					<form>
-						<a id="showSex" href="javascript:void(0);" onclick="showSex();"><span class="secret icon"></span></a>
-						<select id="selectSex" name="sex" class="form-control" style="width: 80px;display: none;" onchange="update();">
-							<option value="男">男</option>
-							<option value="女">女</option>
-							<option value="保密">保密</option>
-						</select>
-						<br />
-						<br />
-						<input type=" text " name="signature" class="form-control" onchange="update();" placeholder="个性签名 " />
+				<div style="width: 400px;margin-top: 20px;">
+					<form enctype="multipart/form-data" style="margin-top: 10px;" id="form">
+						<input id="headImage" name="headImage" type="file" accept=".png,.jpg,.jpeg,.gif" />
 					</form>
 				</div>
 			</div>
-			<div style="width: 400px;margin-top: 20px;">
-				<form enctype="multipart/form-data" style="margin-top: 10px;" id="form">
-					<input id="headImage" name="headImage" type="file" accept=".png,.jpg,.jpeg,.gif" />
-				</form>
-			</div>
-		</div>
+		</dir>
 
 		<div class="modal fade" id="tip" aria-hidden="true" data-show="false">
 			<div class="modal-dialog">
@@ -72,10 +74,10 @@
 		</div>
 		<!-- /.modal -->
 		<script type="text/javascript ">
-		    $(function(){
-		    	$("#headImage").prev().text("更改头像");
-		    });
-		
+			$(function() {
+				$("#headImage").prev().text("更改头像");
+			});
+
 			//			$('#headImage').on('filepreupload', function(event, data, previewId, index) {
 			//				data.form.append("name", "程景");
 			//				//var form = data.form;

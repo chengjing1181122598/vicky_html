@@ -22,86 +22,106 @@
 		<script type="text/javascript" src="../js/other/zh.js"></script>
 	</head>
 	<style type="text/css">
-		li {
-			line-height: 45px;
+		.uploadBtn {
+			width: 135px;
+			height: 135px;
+			line-height: 135px;
+			padding: 0px;
 		}
 	</style>
 
 	<body>
-		<form class="formCenter">
-			<div class="myCenter">
-				<h2>视频投稿</h2>
-				<span class="redTip"></span>
-			</div>
+		<div class="mySolidBorder">
 			<div>
-				<select name="moduleId" class="form-control" style="width: 20%;display: inline-block;" data-toggle="tooltip" data-placement="left" title="视频所属分类">
-					<option value="001">动画</option>
-					<option value="002">番剧</option>
-					<option value="003">音乐</option>
-					<option value="004">舞蹈</option>
-					<option value="005">游戏</option>
-					<option value="006">科技</option>
-					<option value="007">生活</option>
-					<option value="008">鬼畜</option>
-					<option value="009">时尚</option>
-					<option value="010">广告</option>
-					<option value="011">娱乐</option>
-					<option value="012">影视</option>
-				</select>
-				<input type="text" class="form-control" name="videoTitle" placeholder="请输入视频标题" style="display: inline-block;width: 79%;" data-toggle="tooltip" data-placement="right" title="标题长度20个字以内" />
-			</div>
-			<br />
-			<div class="form-group">
-				<textarea class="form-control" rows="3" placeholder="请输入视频内容" data-toggle="tooltip" data-placement="top" title="视频内容255个字以内"></textarea>
-			</div>
-			<br />
-			<div>
-				<form enctype="multipart/form-data" id="form">
-					<div style="height: 50px;">
-						<div style="float: left;width: 45%;">
-							<input id="videoCover" name="videoCover" type="file" accept=".png,.jpg,.jpeg,.gif" />
-						</div>
-						<div style="float: right;width: 45%;">
-							<input id="videoFile" name="videoFile" type="file" accept=".png,.jpg,.jpeg,.gif" />
-						</div>
+				<form class="formCenter" enctype="multipart/form-data" id="form" onsubmit="return false;">
+					<div class="myCenter">
+						<h2>视频投稿</h2>
+						<span class="redTip"></span>
 					</div>
 					<div>
-						<ul class="hengList">
-							<li>
-								<span style="display: inline-block;padding: 0px;margin: 0px;font-weight: bold;">封<br />面<br />预<br />览</span>
-							</li>
-							<li>
-								<img style="display: inline-block;vertical-align: top;" width="320" height="180" />
-							</li>
-							<li>
-								<button id="loginBtn" type="" class="btn btn-primary" style="width: 40%;margin-left: 5%;height: 180px;">登录</button>
-							</li>
-						</ul>
+						<select name="moduleId" class="form-control" style="width: 20%;display: inline-block;" data-toggle="tooltip" data-placement="left" title="视频所属分类">
+							<option value="001">动画</option>
+							<option value="002">番剧</option>
+							<option value="003">音乐</option>
+							<option value="004">舞蹈</option>
+							<option value="005">游戏</option>
+							<option value="006">科技</option>
+							<option value="007">生活</option>
+							<option value="008">鬼畜</option>
+							<option value="009">时尚</option>
+							<option value="010">广告</option>
+							<option value="011">娱乐</option>
+							<option value="012">影视</option>
+						</select>
+						<input required="required" type="text" class="form-control" name="videoTitle" placeholder="请输入视频标题" style="display: inline-block;width: 79%;" data-toggle="tooltip" data-placement="right" title="标题长度20个字以内" />
 					</div>
+					<br />
+					<div class="form-group">
+						<textarea id="videoExplain" name="videoExplain" required="required" class="form-control" rows="3" placeholder="请输入视频内容" data-toggle="tooltip" data-placement="top" title="视频内容255个字以内"></textarea>
+					</div>
+					<div>
+						<div data-toggle="tooltip" data-placement="top" title="先选择封面图片，再选择mp4文件">
+							<input required="required" id="files" name="files" type="file" accept=".png,.jpg,.jpeg,.gif" multiple="multiple" />
+						</div>
+						<br />
+						<div style="height: 135px;">
+							<div style="float: left;">
+								<span style="display: inline-block;font-weight: bold;font-size: 22px;">封<br />面<br />预<br />览</span>
+								<img id="yulan" style="vertical-align: top;" width="240" height="135" />
+							</div>
+							<div style="float: right;height: 135px;" id="haha">
+								<!--<a href="#" tabindex="500" title="上传选中文件" class="btn btn-default fileinput-upload fileinput-upload-button">
+									<i class="glyphicon glyphicon-upload">::before</i>
+									<span class="hidden-xs">上传</span>
+								</a>-->
+								<!--<button id="loginBtn" type="" class="btn btn-primary fileinput-upload" style="width:135px;height: 135px;">确定投稿</button>-->
+							</div>
+						</div>
+					</div>
+					<button hidden="hidden" type="submit" id="formSubmit"></button>
 				</form>
 			</div>
-		</form>
+		</div>
 	</body>
 	<script type="text/javascript">
+		var uploadBtn;
+		var fileNumber = 0;
 		$(function() {
 			$("[data-toggle='tooltip']").tooltip();
-			$("#videoCover").prev().text("选择封面");
-			$("#videoFile").prev().text("选择视频");
+			$("#files").prev().text("选择封面");
+			uploadBtn = $('[title="上传选中文件"]');
+			uploadBtn.hide();
 		});
 
-		$('#videoCover').fileinput({
+		$('#files').fileinput({
 			showPreview: false,
 			language: 'zh',
 			uploadUrl: '#',
-			showUpload: false,
-			allowedFileExtensions: ['jpg', 'png', 'gif', 'jpeg'],
+			//			showUpload: false,
+			maxFileCount: 2
 		});
 
-		$("#videoCover").change(function() {
+		$("#files").change(function() {
+			fileNumber++;
+			if(fileNumber === 2) {
+
+				var doms = $("form").find("input,textarea").toArray();
+				for(var i = 0; i < doms.length; i++) {
+					if(!doms[0].checkValidity()) {
+						$("#formSubmit").trigger("click");
+						return;
+					}
+				}
+				uploadBtn.show();
+				$("#haha").append(uploadBtn);
+				$(uploadBtn).addClass("uploadBtn");
+				return;
+			}
 			var objUrl = getObjectURL(this.files[0]);
 			console.log("objUrl = " + objUrl);
 			if(objUrl) {
-				$(".bigHeadImage").attr("src", objUrl);
+				$("#yulan").attr("src", objUrl);
+				$('#files').attr("accept", ".mp4");
 			}
 		});
 		//建立一個可存取到該file的url
@@ -117,12 +137,26 @@
 			return url;
 		}
 
-		$('#videoFile').fileinput({
+		$('#files').fileinput({
 			showPreview: false,
 			language: 'zh',
 			uploadUrl: '#',
-			showUpload: false,
+			//			showUpload: false,
 			allowedFileExtensions: ['jpg', 'png', 'gif', 'jpeg'],
+		});
+
+		$('#files').on('filepreupload', function(event, data, previewId, index) {
+			//			console.info(event);
+			//			console.info(data);
+			//			console.info(previewId);
+			//			console.info(index);
+		});
+
+		$('#files').on('filecleared', function(event, data, previewId, index) {
+			$('#files').attr("accept", ".png,.jpg,.jpeg,.gif");
+			$("#yulan").removeAttr("src");
+			uploadBtn.hide();
+			fileNumber = 0;
 		});
 	</script>
 
