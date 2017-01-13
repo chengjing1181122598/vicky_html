@@ -1755,6 +1755,22 @@
              */
             if(!self.uploadAsync){
             	appendParam(self.formdata);
+            	
+            	outData = self._getOutData();
+                self._raise('filebatchpreupload', [outData]);
+                self.fileBatchCompleted = false;
+                self.uploadCache = {content: [], config: [], tags: [], append: true};
+                self.uploadAsyncCount = self.getFileStack().length;
+                for (i = 0; i < len; i++) {
+                    self.uploadCache.content[i] = null;
+                    self.uploadCache.config[i] = null;
+                    self.uploadCache.tags[i] = null;
+                }
+                for (i = 0; i < len; i++) {
+                    if (self.filestack[i] !== undefined) {
+                        self._uploadSingle(i, self.filestack, true);
+                    }
+                }
             }
         },
         _uploadSingle: function (i, files, allFiles) {
@@ -1825,6 +1841,8 @@
                 }
             };
             fnSuccess = function (data, textStatus, jqXHR) {
+            	console.info(123);
+            	
                 var pid = self.showPreview && $thumb.attr('id') ? $thumb.attr('id') : previewId;
                 outData = self._getOutData(jqXHR, data);
                 $.extend(true, params, outData);
@@ -1849,11 +1867,6 @@
                         }
                     }
                 }, 100);
-                
-                /*
-                 * 程景
-                 */
-                console.info(data);
             };
             fnComplete = function () {
                 setTimeout(function () {
