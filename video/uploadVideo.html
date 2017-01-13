@@ -53,18 +53,18 @@
 							<option value="011">娱乐</option>
 							<option value="012">影视</option>
 						</select>
-						<input required="required" type="text" class="form-control" name="videoTitle" placeholder="请输入视频标题" style="display: inline-block;width: 79%;" data-toggle="tooltip" data-placement="right" title="标题长度20个字以内" />
+						<input required="required" type="text" class="form-control" name="videoTitle" placeholder="请输入视频标题" style="display: inline-block;width: 79%;" data-toggle="tooltip" data-placement="right" title="标题长度30个字以内" />
 					</div>
 					<br />
 					<div class="form-group">
-						<textarea id="videoExplain" name="videoExplain" required="required" class="form-control" rows="3" placeholder="请输入视频内容" data-toggle="tooltip" data-placement="top" title="视频内容255个字以内"></textarea>
+						<textarea name="videoExplain" required="required" class="form-control" rows="3" placeholder="请输入视频内容" data-toggle="tooltip" data-placement="top" title="视频内容255个字以内"></textarea>
 					</div>
 					<div>
 						<div data-toggle="tooltip" data-placement="top" title="先选择封面图片，再选择mp4文件">
 							<input required="required" id="files" name="files" type="file" accept=".png,.jpg,.jpeg,.gif" multiple="multiple" />
 						</div>
 						<br />
-						<div style="height: 135px;">
+						<div style="height: 135px;display: none;" id="yulanDiv">
 							<div style="float: left;">
 								<span style="display: inline-block;font-weight: bold;font-size: 22px;">封<br />面<br />预<br />览</span>
 								<img id="yulan" style="vertical-align: top;" width="240" height="135" />
@@ -82,8 +82,31 @@
 				</form>
 			</div>
 		</div>
+
+		<div class="modal fade" id="tip" aria-hidden="true" data-show="false">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">提示</h4>
+					</div>
+					<div class="modal-body">
+						投稿成功，正在等待审核，请留意通知消息！
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
 	</body>
 	<script type="text/javascript">
+		$("#tip").on("hide.bs.modal", function() {
+			window.location.reload();
+		});
+
 		var uploadBtn;
 		var fileNumber = 0;
 		$(function() {
@@ -95,8 +118,9 @@
 
 		$('#files').fileinput({
 			showPreview: false,
+			uploadAsync: false,
 			language: 'zh',
-			uploadUrl: '#',
+			uploadUrl: data_path + '/videoCheck/save',
 			//			showUpload: false,
 			maxFileCount: 2
 		});
@@ -121,7 +145,9 @@
 			console.log("objUrl = " + objUrl);
 			if(objUrl) {
 				$("#yulan").attr("src", objUrl);
+				$("#yulanDiv").show();
 				$('#files').attr("accept", ".mp4");
+				$("#files").prev().text("选择视频");
 			}
 		});
 		//建立一個可存取到該file的url
@@ -137,26 +163,37 @@
 			return url;
 		}
 
-		$('#files').fileinput({
-			showPreview: false,
-			language: 'zh',
-			uploadUrl: '#',
-			//			showUpload: false,
-			allowedFileExtensions: ['jpg', 'png', 'gif', 'jpeg'],
-		});
+		//		$('#files').fileinput({
+		//			showPreview: false,
+		//			language: 'zh',
+		//			uploadUrl: data_path + '/videoCheck/save',
+		//			//			showUpload: false,
+		//			allowedFileExtensions: ['jpg', 'png', 'gif', 'jpeg'],
+		//		});
 
-		$('#files').on('filepreupload', function(event, data, previewId, index) {
-			//			console.info(event);
-			//			console.info(data);
-			//			console.info(previewId);
-			//			console.info(index);
+		function appendParam(f) {
+			f.append("moduleId", $("select[name='moduleId']").val());
+			f.append("videoTitle", $("input[name='videoTitle']").val());
+			f.append("videoExplain", $("textarea[name='videoExplain']").val());
+		}
+
+		$("#files").on("fileuploaded", function(event, data, previewId, index) {
+			console.info(data);
+			data = data.response;
+			if(data.status === successStatus) {
+				console.info(data);
+				$("#tip").modal("show");
+			} else {
+				$(".redTip").text(data.message.message);
+			}
 		});
 
 		$('#files').on('filecleared', function(event, data, previewId, index) {
 			$('#files').attr("accept", ".png,.jpg,.jpeg,.gif");
-			$("#yulan").removeAttr("src");
+			$("#yulanDiv").hide();
 			uploadBtn.hide();
 			fileNumber = 0;
+			$("#files").prev().text("选择封面");
 		});
 	</script>
 

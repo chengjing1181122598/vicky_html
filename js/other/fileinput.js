@@ -1030,6 +1030,7 @@
             }
             e.preventDefault();
             if (isEnabled) {
+            	
                 self.upload();
             }
         },
@@ -1619,6 +1620,7 @@
             return xhrobj;
         },
         _ajaxSubmit: function (fnBefore, fnSuccess, fnComplete, fnError, previewId, index) {
+        	
             var self = this, settings;
             self._raise('filepreajax', [previewId, index]);
             self._uploadExtra(previewId, index);
@@ -1638,7 +1640,10 @@
                 success: fnSuccess,
                 complete: fnComplete,
                 error: fnError,
-                //发cookie过去
+                
+                /*
+                 * 程景
+                 */
                 xhrFields: {
 					withCredentials: true
 				},
@@ -1744,13 +1749,22 @@
             $.each(data, function (key, value) {
                 self.formdata.append(key, value);
             });
+            
+            /*
+             * 程景
+             */
+            if(!self.uploadAsync){
+            	appendParam(self.formdata);
+            }
         },
         _uploadSingle: function (i, files, allFiles) {
             var self = this, total = self.getFileStack().length, formdata = new FormData(), outData,
                 previewId = self.previewInitId + "-" + i, $thumb, chkComplete, $btnUpload, $btnDelete,
                 hasPostData = self.filestack.length > 0 || !$.isEmptyObject(self.uploadExtraData),
                 fnBefore, fnSuccess, fnComplete, fnError, updateUploadLog, params = {id: previewId, index: i};
+                
             self.formdata = formdata;
+                       
             if (self.showPreview) {
                 $thumb = $('#' + previewId + ':not(.file-preview-initial)');
                 $btnUpload = $thumb.find('.kv-file-upload');
@@ -1835,6 +1849,11 @@
                         }
                     }
                 }, 100);
+                
+                /*
+                 * 程景
+                 */
+                console.info(data);
             };
             fnComplete = function () {
                 setTimeout(function () {
@@ -3115,6 +3134,7 @@
                 }
                 return;
             }
+            
             self._uploadBatch();
             return self.$element;
         },
