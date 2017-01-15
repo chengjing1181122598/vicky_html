@@ -1749,29 +1749,6 @@
             $.each(data, function (key, value) {
                 self.formdata.append(key, value);
             });
-            
-            /*
-             * 程景
-             */
-            if(!self.uploadAsync){
-            	appendParam(self.formdata);
-            	
-            	outData = self._getOutData();
-                self._raise('filebatchpreupload', [outData]);
-                self.fileBatchCompleted = false;
-                self.uploadCache = {content: [], config: [], tags: [], append: true};
-                self.uploadAsyncCount = self.getFileStack().length;
-                for (i = 0; i < len; i++) {
-                    self.uploadCache.content[i] = null;
-                    self.uploadCache.config[i] = null;
-                    self.uploadCache.tags[i] = null;
-                }
-                for (i = 0; i < len; i++) {
-                    if (self.filestack[i] !== undefined) {
-                        self._uploadSingle(i, self.filestack, true);
-                    }
-                }
-            }
         },
         _uploadSingle: function (i, files, allFiles) {
             var self = this, total = self.getFileStack().length, formdata = new FormData(), outData,

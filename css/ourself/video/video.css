@@ -1,0 +1,70 @@
+.moduleImage {
+	width: 40px;
+	height: 40px;
+	border: none;
+	background-color: white;
+	display: inline-block;
+	padding-left: 50px;
+	font-size: 24px;
+	white-space: nowrap;
+}
+
+.lunBoTuTitle {
+	position: absolute;
+	margin-top: 0px;
+	text-align: center;
+	width: 400px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: #00a1d6;
+	font-size: 18px;
+}
+
+.dongHuaImageBackground {
+	background: url(../../../img/common/icons2.png) -143px -911px;
+}
+
+.fanJuImageBackground {
+	background: url(../../../img/common/icons2.png) -143px -138px;
+}
+
+.yinYueImageBackground {
+	background: url(../../../img/common/icons2.png) -143px -270px;
+}
+
+.wuDaoImageBackground {
+	background: url(../../../img/common/icons2.png) -143px -463px;
+}
+
+.youXiImageBackground {
+	background: url(../../../img/common/icons2.png) -143px -202px;
+}
+
+.keJiImageBackground {
+	background: url(../../../img/common/icons2.png) -143px -527px;
+}
+
+.shengHuoImageBackground {
+	background: url(../../../img/common/icons2.png) -143px -971px;
+}
+
+.guiChuImageBackground {
+	background: url(../../../img/common/icons2.png) -143px -331px;
+}
+
+.shiShangImageBackground {
+	background: url(../../../img/common/icons2.png) -143px -717px;
+}
+
+.guangGaoImageBackground {
+	background: url(../../../img/common/icons2.png) -143px -1228px;
+}
+
+.yuLeImageBackground {
+	background: url(../../../img/common/icons2.png) -143px -1033px;
+}
+
+.yingShiImageBackground {
+	background: url(../../../img/common/icons2.png) -143px -781px;
+}

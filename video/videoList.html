@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="../css/other/bootstrap.min.css" />
+		<link rel="stylesheet" href="../css/ourself/common/common.css" />
+		<link rel="stylesheet" href="../css/ourself/video/video.css" />
+		<link rel="stylesheet" href="../css/other/pagination.css" />
+
+		<script type="text/javascript" src="../js/other/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/other/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/ourself/common/common.js"></script>
+		<script type="text/javascript" src="../js/other/jquery.lazyload.js"></script>
+		<script type="text/javascript" src="../js/other/jquery.pagination.js"></script>
+
+		<script type="text/javascript" src="../js/ourself/common/topBottom.js"></script>
+	</head>
+	<style>
+		.moduleSelected {
+			border-bottom: 2px solid #00a1d6;
+		}
+	</style>
+
+	<body>
+		<div class="allWidth">
+			<br />
+			<div style="height: 45px;">
+				<div class="floatLeft">
+					<ul class="moduleHengList">
+						<li><span class="badge">0</span><br />
+							<a href="../index.html">首页</a>
+						</li>
+						<li><span class="badge">0</span><br />
+							<a href="videoList.html?moduleId=001">动画</a>
+						</li>
+						<li><span class="badge">0</span><br />
+							<a href="videoList.html?moduleId=002">番剧</a>
+						</li>
+						<li><span class="badge">0</span><br />
+							<a href="videoList.html?moduleId=003">音乐</a>
+						</li>
+						<li><span class="badge">0</span><br />
+							<a href="videoList.html?moduleId=004">舞蹈</a>
+						</li>
+						<li><span class="badge">0</span><br />
+							<a href="videoList.html?moduleId=005">游戏</a>
+						</li>
+						<li><span class="badge">0</span><br />
+							<a href="videoList.html?moduleId=006">科技</a>
+						</li>
+						<li><span class="badge">0</span><br />
+							<a href="videoList.html?moduleId=007">生活</a>
+						</li>
+						<li><span class="badge">0</span><br />
+							<a href="videoList.html?moduleId=008">鬼畜</a>
+						</li>
+						<li><span class="badge">0</span><br />
+							<a href="videoList.html?moduleId=009">时尚</a>
+						</li>
+						<li><span class="badge">0</span><br />
+							<a href="videoList.html?moduleId=010">广告</a>
+						</li>
+						<li><span class="badge">0</span><br />
+							<a href="videoList.html?moduleId=011">娱乐</a>
+						</li>
+						<li><span class="badge">0</span><br />
+							<a href="videoList.html?moduleId=012">影视</a>
+						</li>
+					</ul>
+				</div>
+				<div class="floatRight">
+					<form action="videoList.html">
+						<input name="moduleId" hidden="hidden" />
+						<input style="display: inline;width: 250px;margin-right: -40px;text-align: left;" name="key" type="text" class="form-control" placeholder="关键字" required="required" />
+						<input type="submit" class="search" value="&nbsp;" />
+					</form>
+				</div>
+			</div>
+			<br />
+			<br />
+			<div id="videoList">
+				<ul class="videoHengList">
+					<li>
+						<a href="javascript:void(0);" title="">
+							<div>
+								<img src="../img/common/cover.jpg" class="videoCoverSize" />
+							</div>
+							<div class="videoTitle">
+								&nbsp;
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);" title="">
+							<div>
+								<img src="../img/common/cover.jpg" class="videoCoverSize" />
+							</div>
+							<div class="videoTitle">
+								&nbsp;
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);" title="">
+							<div>
+								<img src="../img/common/cover.jpg" class="videoCoverSize" />
+							</div>
+							<div class="videoTitle">
+								&nbsp;
+							</div>
+						</a>
+					</li>
+					<li>
+						<a href="javascript:void(0);" title="">
+							<div>
+								<img src="../img/common/cover.jpg" class="videoCoverSize" />
+							</div>
+							<div class="videoTitle">
+								&nbsp;
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<br />
+			<div>
+				<div class="M-box" style="float: right;"></div>
+			</div>
+		</div>
+		<br />
+		<br />
+	</body>
+	<script type="text/javascript">
+		$("img").lazyload({
+			effect: "fadeIn"
+		});
+
+		var moduleId = "";
+		var key = "";
+		var pageSize = 20;
+		$(function() {
+			moduleId = getUrlParam("moduleId");
+			key = getUrlParam("key");
+			$("input[name='moduleId']").val(moduleId);
+			$("input[name='key']").val(key);
+			$("[href='videoList.html?moduleId=" + moduleId + "']").parent().addClass("moduleSelected");
+			$("[href='videoList.html?moduleId=" + moduleId + "']").css("color", "#00a1d6");
+			var title = "";
+			switch(moduleId) {
+				case "001":
+					title = "动画";
+					break;
+				case "002":
+					title = "番剧";
+					break;
+				case "003":
+					title = "音乐";
+					break;
+				case "004":
+					title = "舞蹈";
+					break;
+				case "005":
+					title = "游戏";
+					break;
+				case "006":
+					title = "科技";
+					break;
+				case "007":
+					title = "生活";
+					break;
+				case "008":
+					title = "鬼畜";
+					break;
+				case "009":
+					title = "时尚";
+					break;
+				case "010":
+					title = "广告";
+					break;
+				case "011":
+					title = "娱乐";
+					break;
+				case "012":
+					title = "影视";
+					break;
+			}
+			window.document.title = title;
+			loadList(1);
+		});
+
+		/*
+		 * 填充视频列表数据
+		 */
+		function loadList(index) {
+			$.ajax({
+				url: data_path + "/video/getPageData",
+				dataType: "json",
+				data: {
+					pageIndex: index,
+					pageSize: pageSize,
+					condition_EQ_S_moduleId: moduleId,
+					condition_LIKEC_S_videoTitle: key
+				},
+				success: function(data) {
+					$.each(data.data, function(i, item) {
+						var videoHengList = '<ul class="videoHengList">';
+						$.each(data.data, function(i, item) {
+							if(i % 5 === 0) {
+								videoHengList += '</ul><br/><ul class="videoHengList">';
+							}
+							videoHengList += '<li><a target="_blank" href="watch.html?videoId=' + item.videoId + '" title="' + item.videoTitle + '">' +
+								'<div><img src="' + item.coverRelativePath + '" class="videoCoverSize" /></div>' +
+								'<span class="videoTitle" title="' + item.videoTitle + '" >' + item.videoTitle + '</span></a></li>';
+						});
+						videoHengList += '</ul>';
+						$("#videoList").empty();
+						$("#videoList").append(videoHengList);
+					});
+					initFenYe(data.total);
+				},
+				xhrFields: {
+					withCredentials: true
+				},
+				crossDomain: true
+			});
+		}
+
+		/*
+		 * 初始化分页
+		 */
+		function initFenYe(total) {
+			$('.M-box').pagination({
+				jump: true,
+				totalData: total,
+				showData: pageSize,
+				callback: function(c) {
+					fillList(c.getCurrent());
+				}
+			});
+		}
+
+		/*
+		 * 加载分类导航栏数量
+		 */
+		$(function() {
+			$.ajax({
+				url: data_path + "/video/getPerSize",
+				dataType: "json",
+				success: function(data) {
+					if(data.status === successStatus) {
+						var entity = data.message.entity;
+						var total = 0;
+						var badges = $(".badge").toArray();
+						$.each(entity, function(i, item) {
+							total += item.size;
+							if(item.size <= 999) {
+								badges[i + 1].innerHTML = item.size + "";
+							} else {
+								badges[i + 1].innerHTML = "999+";
+							}
+							badges[i + 1].title = item.size + "";
+						});
+						if(total <= 999) {
+							badges[0].innerHTML = total + "";
+						} else {
+							badges[0].innerHTML = "999+";
+						}
+						badges[0].title = total + "";
+					}
+				},
+				xhrFields: {
+					withCredentials: true
+				},
+				crossDomain: true
+			});
+		});
+	</script>
+
+</html>

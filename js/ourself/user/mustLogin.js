@@ -1,6 +1,6 @@
 $(function() {
 	if(user === undefined) {
-		window.sessionStorage.lastPage = window.location.href;
+		saveLastPage();
 		window.location.href = html_path + "/user/login.html";
 	}
 });

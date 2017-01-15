@@ -8,14 +8,13 @@
 		<link rel="stylesheet" href="../css/ourself/common/common.css" />
 		<link rel="stylesheet" href="../css/ourself/user/user.css" />
 
-		<link rel="stylesheet" href="../css/other/default.css" />
 		<link rel="stylesheet" media="all" href="../css/other/fileinput.css" />
 
 		<script type="text/javascript" src="../js/other/jquery-1.11.2.min.js"></script>
 		<script type="text/javascript" src="../js/other/bootstrap.min.js"></script>
 		<script type="text/javascript" src="../js/ourself/common/common.js"></script>
 
-		<script type="text/javascript" src="../js/ourself/common/topDom.js"></script>
+		<script type="text/javascript" src="../js/ourself/common/topBottom.js"></script>
 		<script type="text/javascript" src="../js/ourself/user/mustLogin.js"></script>
 
 		<script type="text/javascript" src="../js/other/fileinput.js"></script>
@@ -23,9 +22,9 @@
 	</head>
 	<style type="text/css">
 		.uploadBtn {
-			width: 135px;
-			height: 135px;
-			line-height: 135px;
+			width: 100px;
+			height: 100px;
+			line-height: 100px;
 			padding: 0px;
 		}
 	</style>
@@ -60,21 +59,21 @@
 						<textarea name="videoExplain" required="required" class="form-control" rows="3" placeholder="请输入视频内容" data-toggle="tooltip" data-placement="top" title="视频内容255个字以内"></textarea>
 					</div>
 					<div>
-						<div data-toggle="tooltip" data-placement="top" title="先选择封面图片，再选择mp4文件">
-							<input required="required" id="files" name="files" type="file" accept=".png,.jpg,.jpeg,.gif" multiple="multiple" />
+						<div id="fileFiv" style="height: 34px;">
+							<div style="width: 40%;float: left;" data-toggle="tooltip" data-placement="top" title="封面图片">
+								<input required="required" id="videoCover" type="file" accept=".png,.jpg,.jpeg,.gif" />
+							</div>
+							<div style="width: 59%;float: right;" data-toggle="tooltip" data-placement="top" title="mp4文件">
+								<input required="required" id="videoFile" name="videoFile" type="file" accept=".mp4" />
+							</div>
 						</div>
 						<br />
-						<div style="height: 135px;display: none;" id="yulanDiv">
+						<div style="height: 100px;display: none;" id="yulanDiv">
 							<div style="float: left;">
-								<span style="display: inline-block;font-weight: bold;font-size: 22px;">封<br />面<br />预<br />览</span>
-								<img id="yulan" style="vertical-align: top;" width="240" height="135" />
+								<span style="display: inline-block;font-size: 18px;color: #2fa0ec;">封<br />面<br />预<br />览</span>
+								<img id="yulan" style="vertical-align: top;" width="160" height="100" />
 							</div>
-							<div style="float: right;height: 135px;" id="haha">
-								<!--<a href="#" tabindex="500" title="上传选中文件" class="btn btn-default fileinput-upload fileinput-upload-button">
-									<i class="glyphicon glyphicon-upload">::before</i>
-									<span class="hidden-xs">上传</span>
-								</a>-->
-								<!--<button id="loginBtn" type="" class="btn btn-primary fileinput-upload" style="width:135px;height: 135px;">确定投稿</button>-->
+							<div style="float: right;height: 100px;" id="uploadBtnDiv">
 							</div>
 						</div>
 					</div>
@@ -111,45 +110,64 @@
 		var fileNumber = 0;
 		$(function() {
 			$("[data-toggle='tooltip']").tooltip();
-			$("#files").prev().text("选择封面");
+			$("#videoCover").prev().text("封面");
+			$("#videoFile").prev().text("mp4文件");
 			uploadBtn = $('[title="上传选中文件"]');
+			$(uploadBtn).addClass("uploadBtn");
 			uploadBtn.hide();
 		});
 
-		$('#files').fileinput({
+		$('#videoCover').fileinput({
 			showPreview: false,
-			uploadAsync: false,
-			language: 'zh',
-			uploadUrl: data_path + '/videoCheck/save',
-			//			showUpload: false,
-			maxFileCount: 2
+			showUpload: false,
+			language: 'zh'
 		});
 
-		$("#files").change(function() {
-			fileNumber++;
-			if(fileNumber === 2) {
+		$('#videoFile').fileinput({
+			showPreview: false,
+			uploadUrl: data_path + '/videoCheck/save',
+			//			uploadUrl: '#',
+			language: 'zh'
+		});
 
-				var doms = $("form").find("input,textarea").toArray();
-				for(var i = 0; i < doms.length; i++) {
-					if(!doms[0].checkValidity()) {
-						$("#formSubmit").trigger("click");
-						return;
-					}
+		$("#videoCover").change(function() {
+
+			var doms = $("form").find("input,textarea").toArray();
+			for(var i = 0; i < doms.length - 2; i++) {
+				if(!doms[i].checkValidity()) {
+					$("#formSubmit").trigger("click");
+					$("#videoCover").val("");
+					$(".file-caption-name").text("");
+					$(".file-input").addClass("file-input-new");
+					return;
 				}
-				uploadBtn.show();
-				$("#haha").append(uploadBtn);
-				$(uploadBtn).addClass("uploadBtn");
-				return;
 			}
+
 			var objUrl = getObjectURL(this.files[0]);
 			console.log("objUrl = " + objUrl);
 			if(objUrl) {
 				$("#yulan").attr("src", objUrl);
 				$("#yulanDiv").show();
-				$('#files').attr("accept", ".mp4");
-				$("#files").prev().text("选择视频");
 			}
 		});
+
+		$("#videoFile").change(function() {
+			var doms = $("form").find("input,textarea").toArray();
+			for(var i = 0; i < doms.length; i++) {
+				if(!doms[i].checkValidity()) {
+					$("#formSubmit").trigger("click");
+					$("#videoFile").val("");
+					$(".file-caption-name").text("");
+					$(".file-input").addClass("file-input-new");
+					return;
+				}
+			}
+
+			$("#uploadBtnDiv").empty();
+			$("#uploadBtnDiv").append(uploadBtn);
+			uploadBtn.show();
+		});
+
 		//建立一個可存取到該file的url
 		function getObjectURL(file) {
 			var url = null;
@@ -163,37 +181,31 @@
 			return url;
 		}
 
-		//		$('#files').fileinput({
-		//			showPreview: false,
-		//			language: 'zh',
-		//			uploadUrl: data_path + '/videoCheck/save',
-		//			//			showUpload: false,
-		//			allowedFileExtensions: ['jpg', 'png', 'gif', 'jpeg'],
-		//		});
+		$("#videoFile").on("filepreupload", function(event, data, previewId, index) {
+			$("#fileFiv").after($(".kv-upload-progress").css("margin-top", "20px").get(1));
 
-		function appendParam(f) {
+			var f = data.form;
 			f.append("moduleId", $("select[name='moduleId']").val());
 			f.append("videoTitle", $("input[name='videoTitle']").val());
 			f.append("videoExplain", $("textarea[name='videoExplain']").val());
-		}
+			f.append("videoCover", $("#videoCover")[0].files[0]);
+		});
 
-		$("#files").on("fileuploaded", function(event, data, previewId, index) {
-			console.info(data);
+		$("#videoFile").on("fileuploaded", function(event, data, previewId, index) {
 			data = data.response;
 			if(data.status === successStatus) {
-				console.info(data);
 				$("#tip").modal("show");
 			} else {
 				$(".redTip").text(data.message.message);
 			}
 		});
 
-		$('#files').on('filecleared', function(event, data, previewId, index) {
-			$('#files').attr("accept", ".png,.jpg,.jpeg,.gif");
-			$("#yulanDiv").hide();
+		$('#videoFile').on('filecleared', function(event, data, previewId, index) {
 			uploadBtn.hide();
-			fileNumber = 0;
-			$("#files").prev().text("选择封面");
+		});
+
+		$('#videoCover').on('filecleared', function(event, data, previewId, index) {
+			$("#yulanDiv").hide();
 		});
 	</script>
 

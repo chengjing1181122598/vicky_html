@@ -4,18 +4,645 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>Vicky视频网</title>
+		<base target="_blank" />
+		
 		<link rel="stylesheet" href="css/other/bootstrap.min.css" />
 		<link rel="stylesheet" href="css/ourself/common/common.css" />
+		<link rel="stylesheet" href="css/ourself/video/video.css" />
 
 		<script type="text/javascript" src="js/other/jquery-1.11.2.min.js"></script>
 		<script type="text/javascript" src="js/other/bootstrap.min.js"></script>
-		<script type="text/javascript" src="js/ourself/common/common.js" ></script>
+		<script type="text/javascript" src="js/ourself/common/common.js"></script>
+		<script type="text/javascript" src="js/other/jquery.lazyload.js"></script>
+
+		<script type="text/javascript" src="js/ourself/common/topBottom.js"></script>
+		<script type="text/javascript" src="js/ourself/index/index.js"></script>
 		
-		<script type="text/javascript" src="js/ourself/common/topDom.js" ></script>
 	</head>
+	<style>
+		.carousel-indicators .active {
+			width: 12px;
+			height: 12px;
+			margin: 0;
+			background-color: #00a1d6;
+		}
+	</style>
 
 	<body>
-
+		<br />
+		<div class="allWidth">
+			<div style="height: 45px;">
+				<div class="floatLeft">
+					<ul class="moduleHengList">
+						<li><span class="badge">0</span><br />
+							<a href="index.html">首页</a>
+						</li>
+						<li><span class="badge">0</span><br />
+							<a href="video/videoList.html?moduleId=001">动画</a>
+						</li>
+						<li><span class="badge">0</span><br />
+							<a href="video/videoList.html?moduleId=002">番剧</a>
+						</li>
+						<li><span class="badge">0</span><br />
+							<a href="video/videoList.html?moduleId=003">音乐</a>
+						</li>
+						<li><span class="badge">0</span><br />
+							<a href="video/videoList.html?moduleId=004">舞蹈</a>
+						</li>
+						<li><span class="badge">0</span><br />
+							<a href="video/videoList.html?moduleId=005">游戏</a>
+						</li>
+						<li><span class="badge">0</span><br />
+							<a href="video/videoList.html?moduleId=006">科技</a>
+						</li>
+						<li><span class="badge">0</span><br />
+							<a href="video/videoList.html?moduleId=007">生活</a>
+						</li>
+						<li><span class="badge">0</span><br />
+							<a href="video/videoList.html?moduleId=009">鬼畜</a>
+						</li>
+						<li><span class="badge">0</span><br />
+							<a href="video/videoList.html?moduleId=009">时尚</a>
+						</li>
+						<li><span class="badge">0</span><br />
+							<a href="video/videoList.html?moduleId=010">广告</a>
+						</li>
+						<li><span class="badge">0</span><br />
+							<a href="video/videoList.html?moduleId=011">娱乐</a>
+						</li>
+						<li><span class="badge">0</span><br />
+							<a href="video/videoList.html?moduleId=012">影视</a>
+						</li>
+					</ul>
+				</div>
+				<div class="floatRight">
+					<form target="_blank" action="video/searchVideo.html">
+						<input style="display: inline;width: 250px;margin-right: -40px;" name="key" type="text" class="form-control" placeholder="关键字" required="required" />
+						<input type="submit" class="search" value="&nbsp;" />
+					</form>
+				</div>
+			</div>
+			<br />
+			<div style="height: 250px;">
+				<div class="floatLeft">
+					<div id="myCarousel" class="carousel slide">
+						<!-- 轮播（Carousel）指标 -->
+						<ol class="carousel-indicators" style="bottom: 0px;">
+							<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+							<li data-target="#myCarousel" data-slide-to="1"></li>
+							<li data-target="#myCarousel" data-slide-to="2"></li>
+							<li data-target="#myCarousel" data-slide-to="3"></li>
+							<li data-target="#myCarousel" data-slide-to="4"></li>
+						</ol>
+						<!-- 轮播（Carousel）项目 -->
+						<div class="carousel-inner">
+							<div class="item active" style="">
+								<span id="lunBoTuTitle0"  class="lunBoTuTitle"></span>
+								<a id="lunBoTuHref0" href="javascript:void(0);"><img id="lunBoTuSrc0" style="width: 400px;height: 250px;" src="img/common/cover.jpg"></a>
+							</div>
+							<div class="item" style="">
+								<span id="lunBoTuTitle1"  class="lunBoTuTitle"></span>
+								<a id="lunBoTuHref1" href="javascript:void(0);"><img id="lunBoTuSrc1" style="width: 400px;height: 250px;" src="img/common/cover.jpg"></a>
+							</div>
+							<div class="item" style="">
+								<span id="lunBoTuTitle2"  class="lunBoTuTitle"></span>
+								<a id="lunBoTuHref2" href="javascript:void(0);"><img id="lunBoTuSrc2" style="width: 400px;height: 250px;" src="img/common/cover.jpg"></a>
+							</div>
+							<div class="item" style="">
+								<span id="lunBoTuTitle3"  class="lunBoTuTitle"></span>
+								<a id="lunBoTuHref3" href="javascript:void(0);"><img id="lunBoTuSrc3" style="width: 400px;height: 250px;" src="img/common/cover.jpg"></a>
+							</div>
+							<div class="item" style="">
+								<span id="lunBoTuTitle3"  class="lunBoTuTitle"></span>
+								<a id="lunBoTuHref4" href="javascript:void(0);"><img id="lunBoTuSrc4" style="width: 400px;height: 250px;" src="img/common/cover.jpg"></a>
+							</div>
+						</div>
+						<!-- 轮播（Carousel）导航 -->
+						<a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+						<a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+					</div>
+				</div>
+				<div class="floatRight">
+					<ul class="videoHengList">
+						<li style="margin-left: 10px;margin-right: 0px;">
+							<a id="youCeTuJianA0" href="javascript:void(0);">
+								<div>
+									<img id="youCeTuiJianImg0" src="img/common/cover.jpg" class="videoCoverSize" />
+								</div>
+								<span id="youCeTuJianSpan0" class="videoTitle">
+								&nbsp;
+							</span>
+							</a>
+						</li>
+						<li style="margin-left: 10px;margin-right: 0px;">
+							<a id="youCeTuJianA1" href="javascript:void(0);">
+								<div>
+									<img id="youCeTuiJianImg1" src="img/common/cover.jpg" class="videoCoverSize" />
+								</div>
+								<span id="youCeTuJianSpan1" class="videoTitle">
+								&nbsp;
+							</span>
+							</a>
+						</li>
+						<li style="margin-left: 10px;margin-right: 0px;">
+							<a id="youCeTuJianA2" href="javascript:void(0);">
+								<div>
+									<img id="youCeTuiJianImg2" src="img/common/cover.jpg" class="videoCoverSize" />
+								</div>
+								<span id="youCeTuJianSpan2" class="videoTitle">
+								&nbsp;
+							</span>
+							</a>
+						</li>
+					</ul>
+					<ul class="videoHengList">
+						<li style="margin-left: 10px;margin-right: 0px;">
+							<a id="youCeTuJianA3" href="javascript:void(0);">
+								<div>
+									<img id="youCeTuiJianImg3" src="img/common/cover.jpg" class="videoCoverSize" />
+								</div>
+								<span id="youCeTuJianSpan3" class="videoTitle">
+								&nbsp;
+							</span>
+							</a>
+						</li>
+						<li style="margin-left: 10px;margin-right: 0px;">
+							<a id="youCeTuJianA4" href="javascript:void(0);">
+								<div>
+									<img id="youCeTuiJianImg4" src="img/common/cover.jpg" class="videoCoverSize" />
+								</div>
+								<span id="youCeTuJianSpan4" class="videoTitle">
+								&nbsp;
+							</span>
+							</a>
+						</li>
+						<li style="margin-left: 10px;margin-right: 0px;">
+							<a id="youCeTuJianA5" href="javascript:void(0);">
+								<div>
+									<img id="youCeTuiJianImg5" src="img/common/cover.jpg" class="videoCoverSize" />
+								</div>
+								<span id="youCeTuJianSpan5" class="videoTitle">
+								&nbsp;
+							</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<br />
+			<div>
+				<div style="line-height: 40px;height: 40px;">
+					<div class="floatLeft">
+						<span class="moduleImage dongHuaImageBackground">动画</span>
+					</div>
+					<div class="floatRight">
+						<a class="blackLink" href="video/videoList.html?moduleId=001" target="_blank">更多></a>
+					</div>
+				</div>
+				<br />
+				<div id="moduleList001">
+					<ul class="videoHengList">
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=2aee90f7-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6b349041-5d62-4747-b4ec-0ee00698563a.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=33f1b083-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/d41fa1f6-2bba-4ac7-99d2-c62a3a8d8af9.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=3fe36a44-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/1f4a0c60-bac8-415a-8617-ba18e3510232.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=b8701e97-da5e-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/cb7fcb17-4e25-458a-a1bc-715fa70ea079.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=e5140004-da5d-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6e5d9ae2-ea7c-4e8b-813d-2b6b3483e309.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+					</ul>
+					<ul class="videoHengList">
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=2aee90f7-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6b349041-5d62-4747-b4ec-0ee00698563a.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=33f1b083-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/d41fa1f6-2bba-4ac7-99d2-c62a3a8d8af9.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=3fe36a44-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/1f4a0c60-bac8-415a-8617-ba18e3510232.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=b8701e97-da5e-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/cb7fcb17-4e25-458a-a1bc-715fa70ea079.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=e5140004-da5d-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6e5d9ae2-ea7c-4e8b-813d-2b6b3483e309.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<br />
+			<div>
+				<div style="line-height: 40px;height: 40px;">
+					<div class="floatLeft">
+						<span class="moduleImage fanJuImageBackground">番剧</span>
+					</div>
+					<div class="floatRight">
+						<a class="blackLink" href="video/videoList.html?moduleId=002" target="_blank">更多></a>
+					</div>
+				</div>
+				<br />
+				<div id="moduleList002">
+					<ul class="videoHengList">
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=2aee90f7-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6b349041-5d62-4747-b4ec-0ee00698563a.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=33f1b083-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/d41fa1f6-2bba-4ac7-99d2-c62a3a8d8af9.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=3fe36a44-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/1f4a0c60-bac8-415a-8617-ba18e3510232.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=b8701e97-da5e-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/cb7fcb17-4e25-458a-a1bc-715fa70ea079.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=e5140004-da5d-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6e5d9ae2-ea7c-4e8b-813d-2b6b3483e309.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<br />
+			<div>
+				<div style="line-height: 40px;height: 40px;">
+					<div class="floatLeft">
+						<span class="moduleImage yinYueImageBackground">音乐</span>
+					</div>
+					<div class="floatRight">
+						<a class="blackLink" href="video/videoList.html?moduleId=003" target="_blank">更多></a>
+					</div>
+				</div>
+				<br />
+				<div id="moduleList003">
+					<ul class="videoHengList">
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=2aee90f7-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6b349041-5d62-4747-b4ec-0ee00698563a.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=33f1b083-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/d41fa1f6-2bba-4ac7-99d2-c62a3a8d8af9.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=3fe36a44-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/1f4a0c60-bac8-415a-8617-ba18e3510232.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=b8701e97-da5e-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/cb7fcb17-4e25-458a-a1bc-715fa70ea079.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=e5140004-da5d-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6e5d9ae2-ea7c-4e8b-813d-2b6b3483e309.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<br />
+			<div>
+				<div style="line-height: 40px;height: 40px;">
+					<div class="floatLeft">
+						<span class="moduleImage wuDaoImageBackground">舞蹈</span>
+					</div>
+					<div class="floatRight">
+						<a class="blackLink" href="video/videoList.html?moduleId=004" target="_blank">更多></a>
+					</div>
+				</div>
+				<br />
+				<div id="moduleList004">
+					<ul class="videoHengList">
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=2aee90f7-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6b349041-5d62-4747-b4ec-0ee00698563a.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=33f1b083-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/d41fa1f6-2bba-4ac7-99d2-c62a3a8d8af9.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=3fe36a44-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/1f4a0c60-bac8-415a-8617-ba18e3510232.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=b8701e97-da5e-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/cb7fcb17-4e25-458a-a1bc-715fa70ea079.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=e5140004-da5d-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6e5d9ae2-ea7c-4e8b-813d-2b6b3483e309.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<br />
+			<div>
+				<div style="line-height: 40px;height: 40px;">
+					<div class="floatLeft">
+						<span class="moduleImage youXiImageBackground">游戏</span>
+					</div>
+					<div class="floatRight">
+						<a class="blackLink" href="video/videoList.html?moduleId=005" target="_blank">更多></a>
+					</div>
+				</div>
+				<br />
+				<div id="moduleList005">
+					<ul class="videoHengList">
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=2aee90f7-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6b349041-5d62-4747-b4ec-0ee00698563a.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=33f1b083-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/d41fa1f6-2bba-4ac7-99d2-c62a3a8d8af9.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=3fe36a44-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/1f4a0c60-bac8-415a-8617-ba18e3510232.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=b8701e97-da5e-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/cb7fcb17-4e25-458a-a1bc-715fa70ea079.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=e5140004-da5d-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6e5d9ae2-ea7c-4e8b-813d-2b6b3483e309.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<br />
+			<div>
+				<div style="line-height: 40px;height: 40px;">
+					<div class="floatLeft">
+						<span class="moduleImage keJiImageBackground">科技</span>
+					</div>
+					<div class="floatRight">
+						<a class="blackLink" href="video/videoList.html?moduleId=006" target="_blank">更多></a>
+					</div>
+				</div>
+				<br />
+				<div id="moduleList006">
+					<ul class="videoHengList">
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=2aee90f7-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6b349041-5d62-4747-b4ec-0ee00698563a.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=33f1b083-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/d41fa1f6-2bba-4ac7-99d2-c62a3a8d8af9.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=3fe36a44-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/1f4a0c60-bac8-415a-8617-ba18e3510232.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=b8701e97-da5e-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/cb7fcb17-4e25-458a-a1bc-715fa70ea079.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=e5140004-da5d-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6e5d9ae2-ea7c-4e8b-813d-2b6b3483e309.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<br />
+			<div>
+				<div style="line-height: 40px;height: 40px;">
+					<div class="floatLeft">
+						<span class="moduleImage shengHuoImageBackground">生活</span>
+					</div>
+					<div class="floatRight">
+						<a class="blackLink" href="video/videoList.html?moduleId=007" target="_blank">更多></a>
+					</div>
+				</div>
+				<br />
+				<div id="moduleList007">
+					<ul class="videoHengList">
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=2aee90f7-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6b349041-5d62-4747-b4ec-0ee00698563a.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=33f1b083-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/d41fa1f6-2bba-4ac7-99d2-c62a3a8d8af9.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=3fe36a44-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/1f4a0c60-bac8-415a-8617-ba18e3510232.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=b8701e97-da5e-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/cb7fcb17-4e25-458a-a1bc-715fa70ea079.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=e5140004-da5d-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6e5d9ae2-ea7c-4e8b-813d-2b6b3483e309.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<br />
+			<div>
+				<div style="line-height: 40px;height: 40px;">
+					<div class="floatLeft">
+						<span class="moduleImage guiChuImageBackground">鬼畜</span>
+					</div>
+					<div class="floatRight">
+						<a class="blackLink" href="video/videoList.html?moduleId=008" target="_blank">更多></a>
+					</div>
+				</div>
+				<br />
+				<div id="moduleList008">
+					<ul class="videoHengList">
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=2aee90f7-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6b349041-5d62-4747-b4ec-0ee00698563a.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=33f1b083-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/d41fa1f6-2bba-4ac7-99d2-c62a3a8d8af9.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=3fe36a44-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/1f4a0c60-bac8-415a-8617-ba18e3510232.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=b8701e97-da5e-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/cb7fcb17-4e25-458a-a1bc-715fa70ea079.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=e5140004-da5d-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6e5d9ae2-ea7c-4e8b-813d-2b6b3483e309.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<br />
+			<div>
+				<div style="line-height: 40px;height: 40px;">
+					<div class="floatLeft">
+						<span class="moduleImage shiShangImageBackground">时尚</span>
+					</div>
+					<div class="floatRight">
+						<a class="blackLink" href="video/videoList.html?moduleId=009" target="_blank">更多></a>
+					</div>
+				</div>
+				<br />
+				<div id="moduleList009">
+					<ul class="videoHengList">
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=2aee90f7-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6b349041-5d62-4747-b4ec-0ee00698563a.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=33f1b083-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/d41fa1f6-2bba-4ac7-99d2-c62a3a8d8af9.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=3fe36a44-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/1f4a0c60-bac8-415a-8617-ba18e3510232.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=b8701e97-da5e-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/cb7fcb17-4e25-458a-a1bc-715fa70ea079.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=e5140004-da5d-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6e5d9ae2-ea7c-4e8b-813d-2b6b3483e309.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<br />
+			<div>
+				<div style="line-height: 40px;height: 40px;">
+					<div class="floatLeft">
+						<span class="moduleImage guangGaoImageBackground">广告</span>
+					</div>
+					<div class="floatRight">
+						<a class="blackLink" href="video/videoList.html?moduleId=010" target="_blank">更多></a>
+					</div>
+				</div>
+				<br />
+				<div id="moduleList010">
+					<ul class="videoHengList">
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=2aee90f7-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6b349041-5d62-4747-b4ec-0ee00698563a.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=33f1b083-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/d41fa1f6-2bba-4ac7-99d2-c62a3a8d8af9.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=3fe36a44-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/1f4a0c60-bac8-415a-8617-ba18e3510232.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=b8701e97-da5e-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/cb7fcb17-4e25-458a-a1bc-715fa70ea079.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=e5140004-da5d-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6e5d9ae2-ea7c-4e8b-813d-2b6b3483e309.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<br />
+			<div>
+				<div style="line-height: 40px;height: 40px;">
+					<div class="floatLeft">
+						<span class="moduleImage yuLeImageBackground">娱乐</span>
+					</div>
+					<div class="floatRight">
+						<a class="blackLink" href="video/videoList.html?moduleId=011" target="_blank">更多></a>
+					</div>
+				</div>
+				<br />
+				<div id="moduleList011">
+					<ul class="videoHengList">
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=2aee90f7-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6b349041-5d62-4747-b4ec-0ee00698563a.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=33f1b083-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/d41fa1f6-2bba-4ac7-99d2-c62a3a8d8af9.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=3fe36a44-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/1f4a0c60-bac8-415a-8617-ba18e3510232.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=b8701e97-da5e-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/cb7fcb17-4e25-458a-a1bc-715fa70ea079.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=e5140004-da5d-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6e5d9ae2-ea7c-4e8b-813d-2b6b3483e309.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<br />
+			<div>
+				<div style="line-height: 40px;height: 40px;">
+					<div class="floatLeft">
+						<span class="moduleImage yingShiImageBackground">影视</span>
+					</div>
+					<div class="floatRight">
+						<a class="blackLink" href="video/videoList.html?moduleId=012" target="_blank">更多></a>
+					</div>
+				</div>
+				<br />
+				<div id="moduleList012">
+					<ul class="videoHengList">
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=2aee90f7-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6b349041-5d62-4747-b4ec-0ee00698563a.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=33f1b083-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/d41fa1f6-2bba-4ac7-99d2-c62a3a8d8af9.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=3fe36a44-da5f-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/1f4a0c60-bac8-415a-8617-ba18e3510232.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=b8701e97-da5e-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/cb7fcb17-4e25-458a-a1bc-715fa70ea079.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+						<li>
+							<a target="_blank" href="checkContent.html?videoId=e5140004-da5d-11e6-ada8-089e01b9991f" title="[排行向]老司机最喜欢的劳模排行">
+								<div><img data-original="http://localhost:8084/vicky_file/image/e/b/7/8/1/2/d/3/程景/6e5d9ae2-ea7c-4e8b-813d-2b6b3483e309.jpg" class="videoCoverSize"></div><span class="videoTitle">[排行向]老司机最喜欢的劳模排行</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
 	</body>
 
 </html>

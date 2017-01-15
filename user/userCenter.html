@@ -8,14 +8,14 @@
 		<link rel="stylesheet" href="../css/ourself/common/common.css" />
 		<link rel="stylesheet" href="../css/ourself/user/user.css" />
 
-		<link rel="stylesheet" href="../css/other/default.css" />
+		<!--<link rel="stylesheet" href="../css/other/default.css" />-->
 		<link rel="stylesheet" media="all" href="../css/other/fileinput.css" />
 
 		<script type="text/javascript" src="../js/other/jquery-1.11.2.min.js"></script>
 		<script type="text/javascript" src="../js/other/bootstrap.min.js"></script>
 		<script type="text/javascript" src="../js/ourself/common/common.js"></script>
 
-		<script type="text/javascript" src="../js/ourself/common/topDom.js"></script>
+		<script type="text/javascript" src="../js/ourself/common/topBottom.js"></script>
 		<script type="text/javascript" src="../js/ourself/user/mustLogin.js"></script>
 
 		<script type="text/javascript" src="../js/other/fileinput.js"></script>
@@ -33,7 +33,7 @@
 					<div style="float: left;">
 						<img class="bigHeadImage" src="" />
 					</div>
-					<div style="float: left;width: 70%;margin-left: 20px;">
+					<div style="float: left;margin-left: 20px;">
 						<form>
 							<a id="showSex" href="javascript:void(0);" onclick="showSex();"><span class="secret icon"></span></a>
 							<select id="selectSex" name="sex" class="form-control" style="width: 80px;display: none;" onchange="update();">
@@ -43,11 +43,11 @@
 							</select>
 							<br />
 							<br />
-							<input type=" text " name="signature" class="form-control" onchange="update();" placeholder="个性签名 " />
+							<input style="min-width: 400px;" type=" text " name="signature" class="form-control" onchange="update();" placeholder="个性签名 " />
 						</form>
 					</div>
 				</div>
-				<div style="width: 400px;margin-top: 20px;">
+				<div style="width: 50%;margin-top: 20px;">
 					<form enctype="multipart/form-data" style="margin-top: 10px;" id="form">
 						<input id="headImage" name="headImage" type="file" accept=".png,.jpg,.jpeg,.gif" />
 					</form>

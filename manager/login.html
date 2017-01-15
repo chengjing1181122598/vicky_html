@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>登录</title>
+		<title>管理员登录</title>
 		<link rel="stylesheet" href="../css/other/bootstrap.min.css" />
 		<link rel="stylesheet" href="../css/ourself/common/common.css" />
 		<link rel="stylesheet" href="../css/ourself/user/user.css" />
@@ -11,37 +11,25 @@
 		<script type="text/javascript" src="../js/other/jquery-1.11.2.min.js"></script>
 		<script type="text/javascript" src="../js/other/bootstrap.min.js"></script>
 		<script type="text/javascript" src="../js/ourself/common/common.js"></script>
-
-		<script type="text/javascript" src="../js/ourself/common/topBottom.js"></script>
 	</head>
 
 	<body>
 		<div class="mySolidBorder">
 			<form class="formCenter" onsubmit="return login();">
 				<div class="myCenter">
-					<h2>登录</h2>
+					<h2>管理员登录</h2>
 					<span class="redTip"></span>
 				</div>
-				<input type="text" name="username" class="form-control" placeholder="用户名或者邮箱" required="required" />
+				<input type="text" name="username" class="form-control" placeholder="管理员" required="required" />
 				<br />
 				<input type="password" name="password" class="form-control" placeholder="密码" required="required" />
-				<div class="floatRight">
-					<a class="blueLink" href="resetPWD.html">忘记密码？></a>
-				</div>
 				<br />
-				<button id="loginBtn" type="submit" class="btn btn-primary" style="width: 40%;margin-left: 5%;">登录</button>
-				<button type="button" class="btn btn-default" onclick="gotoRegister();" style="width: 40%;margin-left: 10%;">注册</button>
+				<button id="loginBtn" type="submit" class="btn btn-primary" style="width: 60%;margin-left: 20%;">登录</button>
 			</form>
 		</div>
-		<br />
-		<br />
 	</body>
 
 	<script type="text/javascript">
-		function gotoRegister() {
-			window.location.href = "register.html";
-		}
-
 		$(function() {
 			window.document.onkeydown = function(e) {
 				var ev = document.all ? window.event : e;
@@ -54,11 +42,11 @@
 		function login() {
 			$.ajax({
 				type: "post",
-				url: data_path + "/user/login",
+				url: data_path + "/videoCheck/login",
 				data: $(".formCenter").serialize(),
 				success: function(data) {
 					if(data.status === successStatus) {
-						window.location.href = window.sessionStorage.lastPage;
+						window.location.href = html_path + "/manager/checkList.html";
 					} else {
 						$(".redTip").text(data.message.message);
 					}

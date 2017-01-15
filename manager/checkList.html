@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>视频审核</title>
+		<link rel="stylesheet" href="../css/other/bootstrap.min.css" />
+		<link rel="stylesheet" href="../css/ourself/common/common.css" />
+		<link rel="stylesheet" href="../css/other/pagination.css" />
+
+		<script type="text/javascript" src="../js/other/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/other/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/ourself/common/common.js"></script>
+
+		<script type="text/javascript" src="../js/other/jquery.pagination.js"></script>
+	</head>
+
+	<body>
+		<div class="myCenter">
+			<h2>视频审核</h2>
+		</div>
+		<div style="margin-top: 50px;">
+			<div class="allWidth">
+				<select onchange="changeModule();" name="moduleId" class="form-control" style="width: 160px;display: inline-block;" data-toggle="tooltip" data-placement="left" title="视频所属分类">
+					<option value="001">动画</option>
+					<option value="002">番剧</option>
+					<option value="003">音乐</option>
+					<option value="004">舞蹈</option>
+					<option value="005">游戏</option>
+					<option value="006">科技</option>
+					<option value="007">生活</option>
+					<option value="008">鬼畜</option>
+					<option value="009">时尚</option>
+					<option value="010">广告</option>
+					<option value="011">娱乐</option>
+					<option value="012">影视</option>
+				</select>
+				<div class="M-box" style="float: right;"></div>
+				<br />
+				<br />
+				<div id="videoList">
+					<!--<ul class="videoHengList">
+						<li>
+							<a href="javascript:void(0);" title="">
+								<div>
+									<img src="../img/common/cover.jpg" class="videoCoverSize" />
+								</div>
+								<div class="videoTitle">
+									&nbsp;
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0);" title="">
+								<div>
+									<img src="../img/common/cover.jpg" class="videoCoverSize" />
+								</div>
+								<div class="videoTitle">
+									&nbsp;
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0);" title="">
+								<div>
+									<img src="../img/common/cover.jpg" class="videoCoverSize" />
+								</div>
+								<div class="videoTitle">
+									&nbsp;
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0);" title="">
+								<div>
+									<img src="../img/common/cover.jpg" class="videoCoverSize" />
+								</div>
+								<div class="videoTitle">
+									&nbsp;
+								</div>
+							</a>
+						</li>
+					</ul>-->
+
+				</div>
+				<br />
+			</div>
+		</div>
+	</body>
+
+	<script type="text/javascript">
+		var currentPage = 1;
+		var resetFenYeDiv = true;
+		$(function() {
+			$("[data-toggle='tooltip']").tooltip();
+			fillList(currentPage, $("select").val());
+		});
+
+		function fillList(pageIndex, moduleId) {
+			$.ajax({
+				type: "get",
+				url: data_path + "/videoCheck/getPageData",
+				data: {
+					pageIndex: pageIndex,
+					condition_EQ_S_moduleId: moduleId
+				},
+				dataType: "json",
+				success: function(data) {
+					if(data.status === errorStatus) {
+						window.location.href = html_path + "/manager/login.html";
+					}
+
+					if(resetFenYeDiv) {
+						resetFenYe(data.total);
+						resetFenYeDiv = false;
+					}
+					var videoHengList = '<ul class="videoHengList">';
+					$.each(data.data, function(i, item) {
+						if(i % 5 === 0) {
+							videoHengList += '</ul><br/><ul class="videoHengList">';
+						}
+						videoHengList += '<li><a target="_blank" href="checkContent.html?videoId=' + item.videoId + '" title="' + item.videoTitle + '">' +
+							'<div><img src="' + item.coverRelativePath + '" class="videoCoverSize" /></div>' +
+							'<span class="videoTitle" title="'+item.videoTitle+'" >' + item.videoTitle + '</span></a></li>';
+					});
+					videoHengList += '</ul>';
+					$("#videoList").empty();
+					$("#videoList").append(videoHengList);
+				},
+				xhrFields: {
+					withCredentials: true
+				},
+				crossDomain: true
+			});
+		}
+
+		function changeModule() {
+			var moduleId = $("select").val();
+			currentPage = 1;
+			resetFenYeDiv = true;
+			fillList(currentPage, moduleId);
+		}
+
+		function resetFenYe(total) {
+			if(resetFenYe) {
+				$('.M-box').empty();
+				$('.M-box').pagination({
+					jump: true,
+					totalData: total,
+					showData: 8,
+					callback: function(c) {
+						fillList(c.getCurrent(), $("select").val());
+					}
+				});
+			}
+		}
+	</script>
+
+</html>

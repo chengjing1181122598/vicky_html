@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>视频审核</title>
+		<link rel="stylesheet" href="../css/other/bootstrap.min.css" />
+		<link rel="stylesheet" href="../css/ourself/common/common.css" />
+		<link rel="stylesheet" href="../css/ourself/user/user.css" />
+
+		<script type="text/javascript" src="../js/other/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../js/other/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/ourself/common/common.js"></script>
+	</head>
+
+	<body>
+		<div class="myCenter">
+			<h2>视频审核</h2>
+		</div>
+		<div style="margin-top: 50px;">
+			<div class="allWidth">
+				<div style=" text-align: center;">
+					<video src="" controls="controls" width="640" height="360" poster="">
+					</video>
+					<div>
+						<button id="loginBtn" type="submit" class="btn btn-primary" onclick="check(1);">通过</button>
+						<button id="loginBtn" type="submit" class="btn btn-danger" onclick="check(2)">不通过</button>
+						<input style="display: inline;width: 400px;" type="text" name="reason" class="form-control" placeholder="不通过理由" />
+					</div>
+					<span class="redTip"></span>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="tip" aria-hidden="true" data-show="false">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">提示</h4>
+					</div>
+					<div class="modal-body">
+						审核成功
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+	</body>
+
+	<script type="text/javascript">
+		$("#tip").on("hide.bs.modal", function() {
+			window.close();
+		});
+
+		var videoId = "";
+
+		function check(select) {
+			if(select === 1) {
+				$.ajax({
+					type: "post",
+					url: data_path + "/videoCheck/pass",
+					data: {
+						videoId: videoId
+					},
+					success: function(data) {
+						if(data.status === successStatus) {
+							$("#tip").modal("show");
+						} else {
+							$(".redTip").text(data.message.message);
+						}
+					},
+					dataType: "json",
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true
+				});
+
+			}
+			if(select === 2) {
+				$.ajax({
+					type: "post",
+					url: data_path + "/videoCheck/notPass",
+					data: {
+						videoId: videoId,
+						reason: $("input[name='reason']").val()
+					},
+					success: function(data) {
+						if(data.status === successStatus) {
+							$("#tip").modal("show");
+						} else {
+							$(".redTip").text(data.message.message);
+						}
+					},
+					dataType: "json",
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true
+				});
+			}
+		}
+
+		$(function() {
+			videoId = getUrlParam("videoId");
+			if(videoId) {
+				$.ajax({
+					type: "post",
+					url: data_path + "/videoCheck/getById",
+					data: {
+						primaryKey: videoId
+					},
+					success: function(data) {
+						if(data.status === successStatus) {
+							var entity = data.message.entity;
+							if(entity) {
+								$("video").attr("src", entity.relativePath);
+								$("video").attr("poster", entity.coverRelativePath);
+							}else{
+								window.location.href = html_path + "/manager/checkList.html";
+							}
+						} else {
+						}
+					},
+					dataType: "json",
+					xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true
+				});
+			}
+		});
+	</script>
+
+</html>
