@@ -1,28 +1,36 @@
-<!DOCTYPE html>  
-<html>  
-<head>  
-    <meta charset="UTF-8"/>  
-    <title>checkValidity 示例</title>  
-    <script type="text/javascript">  
-        var check = function() {  
-            var emailEmnt = document.forms['testForm'].email;  
-            var emailTxt = emailEmnt.value;  
-            if(emailTxt == "") {  
-                alert("请输入E-mail地址！");  
-                return false;  
-            } else if(!email.checkValidity()) {  
-                alert("请输入正确的E-mail地址！");  
-                return false;  
-            }  
-            return true;  
-        }  
-    </script>  
-</head>  
-<body>  
-    <form id="testForm" name="testForm" onsubmit="return check();">  
-        <label for="email">E-mail:</label>  
-        <input type="email" name="email"/>  
-        <button type="submit">提交</button>  
-    </form>  
-</body>  
-</html> 
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<style>
+			html,
+			body {
+				height: 100%;
+			}
+			
+			#container {
+				min-height: 100%;
+				/*使内容高度和body一样*/
+				margin-bottom: -80px;
+				/*向上缩减80像素，不至于footer超出屏幕可视范围*/
+			}
+			
+			#content {
+				padding-bottom: 150px;
+				/*这个是关键，处理页面高度超出屏幕可视范围时，控制内容和底部高度之间距离*/
+			}
+			
+			#footer {
+				height: 80px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="container">
+			<div id="content">页面正文</div>
+		</div>
+		<div class="footer">123</div>
+	</body>
+
+</html>

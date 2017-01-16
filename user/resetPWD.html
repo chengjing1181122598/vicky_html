@@ -16,24 +16,28 @@
 	</head>
 
 	<body>
-		<div class="mySolidBorder">
-			<form class="formCenter" onsubmit="return prepareUpdatePWD();">
-				<div class="myCenter">
-					<h2>重置密码</h2>
-					<span class="redTip"></span>
+		<div class="mainContainer">
+			<div class="mainContent">
+				<div class="mySolidBorder">
+					<form class="formCenter" onsubmit="return prepareUpdatePWD();">
+						<div class="myCenter">
+							<h2>重置密码</h2>
+							<span class="redTip"></span>
+						</div>
+						<input type="email" name="email" class="form-control" placeholder="输入注册时邮箱" required="required">
+						<br />
+						<input type="text" name="validCode" style="width: 69%;display: inline;" class="form-control" placeholder="邮箱验证码">
+						<button id="getValid" type="submit" class="btn btn-primary" style="width: 30%;">点击获取</button>
+						<br />
+						<br />
+						<input type="password" name="password" class="form-control" placeholder="新密码" required="required" disabled="disabled">
+						<br />
+						<input type="password" name="password2" class="form-control" placeholder="确认密码" required="required" disabled="disabled">
+						<br />
+						<button id="updatePWD" type="button" class="btn btn-primary" disabled="disabled" style="width: 100%;" onclick="finishUpdatePWD();">重置密码</button>
+					</form>
 				</div>
-				<input type="email" name="email" class="form-control" placeholder="输入注册时邮箱" required="required">
-				<br />
-				<input type="text" name="validCode" style="width: 69%;display: inline;" class="form-control" placeholder="邮箱验证码">
-				<button id="getValid" type="submit" class="btn btn-primary" style="width: 30%;">点击获取</button>
-				<br />
-				<br />
-				<input type="password" name="password" class="form-control" placeholder="新密码" required="required" disabled="disabled">
-				<br />
-				<input type="password" name="password2" class="form-control" placeholder="确认密码" required="required" disabled="disabled">
-				<br />
-				<button id="updatePWD" type="button" class="btn btn-primary" disabled="disabled" style="width: 100%;" onclick="finishUpdatePWD();">重置密码</button>
-			</form>
+			</div>
 		</div>
 		<div class="modal fade" id="tip" aria-hidden="true" data-show="false">
 			<div class="modal-dialog">

@@ -30,76 +30,78 @@
 	</style>
 
 	<body>
-		<div class="mySolidBorder">
-			<div>
-				<form class="formCenter" enctype="multipart/form-data" id="form" onsubmit="return false;">
-					<div class="myCenter">
-						<h2>视频投稿</h2>
-						<span class="redTip"></span>
-					</div>
+		<div class="mainContainer">
+			<div class="mainContent">
+				<div class="mySolidBorder">
 					<div>
-						<select name="moduleId" class="form-control" style="width: 20%;display: inline-block;" data-toggle="tooltip" data-placement="left" title="视频所属分类">
-							<option value="001">动画</option>
-							<option value="002">番剧</option>
-							<option value="003">音乐</option>
-							<option value="004">舞蹈</option>
-							<option value="005">游戏</option>
-							<option value="006">科技</option>
-							<option value="007">生活</option>
-							<option value="008">鬼畜</option>
-							<option value="009">时尚</option>
-							<option value="010">广告</option>
-							<option value="011">娱乐</option>
-							<option value="012">影视</option>
-						</select>
-						<input required="required" type="text" class="form-control" name="videoTitle" placeholder="请输入视频标题" style="display: inline-block;width: 79%;" data-toggle="tooltip" data-placement="right" title="标题长度30个字以内" />
-					</div>
-					<br />
-					<div class="form-group">
-						<textarea name="videoExplain" required="required" class="form-control" rows="3" placeholder="请输入视频内容" data-toggle="tooltip" data-placement="top" title="视频内容255个字以内"></textarea>
-					</div>
-					<div>
-						<div id="fileFiv" style="height: 34px;">
-							<div style="width: 40%;float: left;" data-toggle="tooltip" data-placement="top" title="封面图片">
-								<input required="required" id="videoCover" type="file" accept=".png,.jpg,.jpeg,.gif" />
+						<form class="formCenter" enctype="multipart/form-data" id="form" onsubmit="return false;">
+							<div class="myCenter">
+								<h2>视频投稿</h2>
+								<span class="redTip"></span>
 							</div>
-							<div style="width: 59%;float: right;" data-toggle="tooltip" data-placement="top" title="mp4文件">
-								<input required="required" id="videoFile" name="videoFile" type="file" accept=".mp4" />
+							<div>
+								<select name="moduleId" class="form-control" style="width: 20%;display: inline-block;" data-toggle="tooltip" data-placement="left" title="视频所属分类">
+									<option value="001">动画</option>
+									<option value="002">番剧</option>
+									<option value="003">音乐</option>
+									<option value="004">舞蹈</option>
+									<option value="005">游戏</option>
+									<option value="006">科技</option>
+									<option value="007">生活</option>
+									<option value="008">鬼畜</option>
+									<option value="009">时尚</option>
+									<option value="010">广告</option>
+									<option value="011">娱乐</option>
+									<option value="012">影视</option>
+								</select>
+								<input required="required" type="text" class="form-control" name="videoTitle" placeholder="请输入视频标题" style="display: inline-block;width: 79%;" data-toggle="tooltip" data-placement="right" title="标题长度30个字以内" />
 							</div>
-						</div>
-						<br />
-						<div style="height: 100px;display: none;" id="yulanDiv">
-							<div style="float: left;">
-								<span style="display: inline-block;font-size: 18px;color: #2fa0ec;">封<br />面<br />预<br />览</span>
-								<img id="yulan" style="vertical-align: top;" width="160" height="100" />
+							<br />
+							<div class="form-group">
+								<textarea name="videoExplain" required="required" class="form-control" rows="3" placeholder="请输入视频内容" data-toggle="tooltip" data-placement="top" title="视频内容255个字以内"></textarea>
 							</div>
-							<div style="float: right;height: 100px;" id="uploadBtnDiv">
+							<div>
+								<div id="fileFiv" style="height: 34px;">
+									<div style="width: 40%;float: left;" data-toggle="tooltip" data-placement="top" title="封面图片">
+										<input required="required" id="videoCover" type="file" accept=".png,.jpg,.jpeg,.gif" />
+									</div>
+									<div style="width: 59%;float: right;" data-toggle="tooltip" data-placement="top" title="mp4文件">
+										<input required="required" id="videoFile" name="videoFile" type="file" accept=".mp4" />
+									</div>
+								</div>
+								<br />
+								<div style="height: 100px;display: none;" id="yulanDiv">
+									<div style="float: left;">
+										<span style="display: inline-block;font-size: 18px;color: #2fa0ec;">封<br />面<br />预<br />览</span>
+										<img id="yulan" style="vertical-align: top;" width="160" height="100" />
+									</div>
+									<div style="float: right;height: 100px;" id="uploadBtnDiv">
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
-					<button hidden="hidden" type="submit" id="formSubmit"></button>
-				</form>
-			</div>
-		</div>
-
-		<div class="modal fade" id="tip" aria-hidden="true" data-show="false">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h4 class="modal-title">提示</h4>
-					</div>
-					<div class="modal-body">
-						投稿成功，正在等待审核，请留意通知消息！
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+							<button hidden="hidden" type="submit" id="formSubmit"></button>
+						</form>
 					</div>
 				</div>
-				<!-- /.modal-content -->
 			</div>
-			<!-- /.modal-dialog -->
-		</div>
-		<!-- /.modal -->
+			<div class="modal fade" id="tip" aria-hidden="true" data-show="false">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">提示</h4>
+						</div>
+						<div class="modal-body">
+							投稿成功，正在等待审核，请留意通知消息！
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
 	</body>
 	<script type="text/javascript">
 		$("#tip").on("hide.bs.modal", function() {

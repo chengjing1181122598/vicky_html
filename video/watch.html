@@ -57,49 +57,61 @@
 		#collectBtn:hover {
 			color: rgb(0, 161, 214);
 		}
+		
+		.videoExplain {
+			display: -webkit-box;
+			font-size: 14px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
+			-webkit-box-lines: ;
+		}
 	</style>
 
 	<body>
-		<div class="allWidth">
-			<br />
-			<div style="min-height: 100px;max-height: 150px;">
-				<div class="floatLeft" style="width: 500px;">
-					<span id="videoTitle" style="font-size: 20px;">[排行向]老司机最喜欢的劳模排行</span>
-					<hr />
-					<span id="videoExplain">720P 这是正规学术研究!!请老司机不要开车W曲+图包: http://pan.baidu.com/s/1bp7ScI7</span>
-				</div>
-
-				<div class="floatRight" style="">
-					<div style="display: inline-block;vertical-align:top">
-						<img class="touXiang" src="../img/common/cover.jpg" />
+		<div class="mainContainer">
+			<div class="allWidth mainContent">
+				<br />
+				<div style="min-height: 150px;max-height: 200px;">
+					<div class="floatLeft" style="width: 500px;">
+						<span id="videoTitle" style="font-size: 20px;">[排行向]老司机最喜欢的劳模排行</span>
+						<hr />
+						<span id="videoExplain" class="videoExplain">720P 这是正规学术研究!!请老司机不要开车W曲+图包: http://pan.baidu.com/s/1bp7ScI7</span>
 					</div>
-					<div style="display: inline-block;width: 220px;">
-						<a id="authorUsername" href="javascript:void(0);" style="text-decoration: none;color: rgb(0, 161, 214);font-size: 15px;">疾风酱</a>
-						<br />
-						<span class="signature">
+
+					<div class="floatRight" style="">
+						<div style="display: inline-block;vertical-align:top">
+							<img class="touXiang" src="../img/common/cover.jpg" />
+						</div>
+						<div style="display: inline-block;width: 220px;">
+							<a id="authorUsername" href="javascript:void(0);" style="text-decoration: none;color: rgb(0, 161, 214);font-size: 15px;">疾风酱</a>
+							<br />
+							<span class="signature">
 							44%的乳控+30%的女儿+6%的萝莉+15%作死+5%伪娘,组成疾风酱44%的乳控+30%的女儿+6%的萝莉+15%作死+5%伪娘,组成疾风酱
 						</span>
-						<br />
-						<div>
-							<span style="font-size: 12px;color: gray;">投稿：246</span>
-							<button id="followBtn" onclick="followOrUnfollow();" class="btn btn-primary" style="width: 100px;height:24px;margin-left: 10px;padding: 0px;background-color: #00b5e5;border:none;">关注</button>
+							<br />
+							<div>
+								<span style="font-size: 12px;color: gray;">投稿：246</span>
+								<button id="followBtn" onclick="followOrUnfollow();" class="btn btn-primary" style="width: 100px;height:24px;margin-left: 10px;padding: 0px;background-color: #00b5e5;border:none;">关注</button>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<hr />
-			<div style="width: 640px;">
-				<video height="360" controls="controls" poster="">
+				<hr />
+				<div style="width: 640px;">
+					<video height="360" controls="controls" poster="">
 
-				</video>
-			</div>
-			<br />
-			<div>
-				<div style="line-height: 60px;height: 60px;">
-					<a id="collectBtn" href="javascript:void(0);" onclick="collectOrUncollect();">
-						<div class="collect floatLeft"></div>
-						<div class="floatLeft" style="font-size: 20px;">&nbsp;</div>
-					</a>
+					</video>
+				</div>
+				<br />
+				<div>
+					<div style="line-height: 60px;height: 60px;">
+						<a id="collectBtn" href="javascript:void(0);" onclick="collectOrUncollect();">
+							<div class="collect floatLeft"></div>
+							<div class="floatLeft" style="font-size: 20px;">&nbsp;</div>
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -165,10 +177,10 @@
 		function changeFollow() {
 			if(followStatus === "yes") {
 				followContent.text("已关注");
-				followContent.css("background-color","red");
+				followContent.css("background-color", "red");
 			} else {
 				followContent.text("关注");
-				followContent.css("background-color","#00b5e5");
+				followContent.css("background-color", "#00b5e5");
 			}
 		}
 

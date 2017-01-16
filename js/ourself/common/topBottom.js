@@ -29,7 +29,7 @@ $(function() {
 			topDomRight = topDomRight + '</div></ul>' +
 				'</div></div></header>' +
 				'<img src="' + html_path + '/img/index/vicky.jpg" class="img-responsive" />';
-			$("body").prepend(topDomLeft + topDomRight);
+			$(".mainContainer").prepend(topDomLeft + topDomRight);
 		},
 		xhrFields: {
 			withCredentials: true
@@ -41,7 +41,7 @@ $(function() {
 });
 
 $(function() {
-	var bottom = '<br /><br /><div class="bottomDiv"><div class="allWidth"><div>' +
+	var bottom = '<footer class="bottomDiv"><div class="allWidth"><div>' +
 		'<div class="floatLeft footPic"></div>' +
 		'<div class="floatLeft">' +
 		'<p>广播电视节目制作经营许可证：（粤）字第1248号</p>' +
@@ -56,8 +56,8 @@ $(function() {
 		'<p>违法不良信息举报邮箱：help@livicky.com</p>' +
 		'<p>违法不良信息举报电话：4000233233 转 3</p>' +
 		'<i class="dianHuaBg"></i><a href="http://www.12377.cn/" target="_blank">中国互联网举报中心</a>' +
-		'</div></div></div></div>';
-	$("body").append(bottom);
+		'</div></div></div></footer>';
+	$(".mainContainer").after(bottom);
 });
 
 function logout() {

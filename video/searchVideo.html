@@ -19,62 +19,61 @@
 	</head>
 
 	<body>
-		<div class="allWidth">
-			<br />
-			<div style="height: 35px;">
-				<form action="searchVideo.html">
-					<input style="display: inline-block;width: 980px;margin-right: -40px;text-align: left;margin-left: 0px;" name="key" type="text" class="form-control" placeholder="关键字" required="required" />
-					<input type="submit" class="search" value="&nbsp;" />
-				</form>
-			</div>
-			<br />
-			<div id="videoList">
-				<ul class="videoHengList">
-					<li>
-						<a href="javascript:void(0);" title="">
-							<div>
-								<img src="../img/common/cover.jpg" class="videoCoverSize" />
-							</div>
-							<div class="videoTitle">
-								&nbsp;
-							</div>
-						</a>
-					</li>
-					<li>
-						<a href="javascript:void(0);" title="">
-							<div>
-								<img src="../img/common/cover.jpg" class="videoCoverSize" />
-							</div>
-							<div class="videoTitle">
-								&nbsp;
-							</div>
-						</a>
-					</li>
-					<li>
-						<a href="javascript:void(0);" title="">
-							<div>
-								<img src="../img/common/cover.jpg" class="videoCoverSize" />
-							</div>
-							<div class="videoTitle">
-								&nbsp;
-							</div>
-						</a>
-					</li>
-					<li>
-						<a href="javascript:void(0);" title="">
-							<div>
-								<img src="../img/common/cover.jpg" class="videoCoverSize" />
-							</div>
-							<div class="videoTitle">
-								&nbsp;
-							</div>
-						</a>
-					</li>
-				</ul>
-			</div>
-			<br />
-			<div>
-				<div class="M-box" style="float: right;"></div>
+		<div class="mainContainer">
+			<div class="allWidth mainContent">
+				<br />
+				<div style="height: 35px;">
+					<form action="searchVideo.html">
+						<input style="display: inline-block;width: 980px;margin-right: -40px;text-align: left;margin-left: 0px;" name="key" type="text" class="form-control" placeholder="关键字" required="required" />
+						<input type="submit" class="search" value="&nbsp;" />
+					</form>
+				</div>
+				<br />
+				<div id="videoList">
+					<ul class="videoHengList">
+						<li>
+							<a href="javascript:void(0);" title="">
+								<div>
+									<img src="../img/common/cover.jpg" class="videoCoverSize" />
+								</div>
+								<div class="videoTitle">
+									&nbsp;
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0);" title="">
+								<div>
+									<img src="../img/common/cover.jpg" class="videoCoverSize" />
+								</div>
+								<div class="videoTitle">
+									&nbsp;
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0);" title="">
+								<div>
+									<img src="../img/common/cover.jpg" class="videoCoverSize" />
+								</div>
+								<div class="videoTitle">
+									&nbsp;
+								</div>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0);" title="">
+								<div>
+									<img src="../img/common/cover.jpg" class="videoCoverSize" />
+								</div>
+								<div class="videoTitle">
+									&nbsp;
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<br />
 			</div>
 		</div>
 	</body>
@@ -93,6 +92,8 @@
 		 * 初始化分页
 		 */
 		function initFenYe(total) {
+			var fenYeDiv = '<div style="height: 40px;" class="allWidth"><div class="M-box" style="float: right;margin-bottom: 0px;"></div></div><br/>';
+			$("footer").before(fenYeDiv);
 			$('.M-box').pagination({
 				jump: true,
 				totalData: total,
