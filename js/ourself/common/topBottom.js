@@ -14,7 +14,7 @@ $(function() {
 		success: function(data) {
 			if(data.status === successStatus) {
 				user = data.message.entity;
-				var headImage = '<li><a class="hover" href="' + html_path + '/user/userCenter.html?username=' + user.username + '">' +
+				var headImage = '<li><a title="' + user.username + '" class="hover" href="' + html_path + '/user/userCenter.html?username=' + user.username + '">' +
 					'<img class="topHeadImage" src="' + user.relativePath + '"/></a></li>';
 				var message = '<li><a class="blackLink" href="javascript:void(0);">消息</a></li>';
 				var collect = '<li><a class="blackLink" href="javascript:void(0);">收藏夹</a></li>';

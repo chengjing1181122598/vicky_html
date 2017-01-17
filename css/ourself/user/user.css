@@ -42,3 +42,26 @@
 	height: 18px;
 	margin-top: 20px;
 }
+
+.n-message-icon {
+	background-position: -21px -339px;
+}
+
+.n-submission-icon {
+	background-position: -21px -403px;
+}
+
+.n-follow-icon {
+	background-position: -21px -533px;
+}
+
+.n-collect-icon {
+	background-position: -21px -469px;
+}
+
+.n-icon {
+	background-image: url(../../../img/common/icons.png);
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+}

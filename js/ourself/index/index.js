@@ -69,7 +69,7 @@ function loadModuleList(moduleId) {
 			$.each(data.data, function(i, item) {
 				var videoHengList = '<ul class="videoHengList">';
 				$.each(data.data, function(i, item) {
-					if(i % 5 === 0) {
+					if(i >= 1 && i % 5 === 0) {
 						videoHengList += '</ul><br/><ul class="videoHengList">';
 					}
 					videoHengList += '<li><a target="_blank" href="video/watch.html?videoId=' + item.videoId + '" title="' + item.videoTitle + '">' +

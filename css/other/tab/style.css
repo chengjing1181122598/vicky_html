@@ -24,7 +24,7 @@ body {
 
 body h1 {
 	text-align: center;
-	color: #428BFF;
+	color: #2fa0ec;
 	font-weight: 300;
 	padding: 40px 0 20px 0;
 	margin: 0;
@@ -53,10 +53,9 @@ body h1 {
 
 .tabs .content section h2,
 .tabs ul li label {
-	font-family: "Montserrat";
 	font-weight: bold;
 	font-size: 18px;
-	color: #428BFF;
+	color: #2fa0ec;
 }
 
 .tabs ul {
@@ -99,7 +98,7 @@ body h1 {
 .tabs ul li label {
 	-webkit-transition: all 0.3s ease-in-out;
 	transition: all 0.3s ease-in-out;
-	color: #929daf;
+	color: black;
 	padding: 5px auto;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -120,7 +119,7 @@ body h1 {
 }
 
 .tabs ul li label svg {
-	fill: #929daf;
+	fill: black;
 	height: 1.2em;
 	vertical-align: bottom;
 	margin-right: 0.2em;
@@ -154,7 +153,7 @@ body h1 {
 	max-width: 100%;
 	margin: 0 auto;
 	height: 4px;
-	background: #428BFF;
+	background: #2fa0ec;
 	border-radius: 1px;
 }
 
@@ -178,7 +177,7 @@ body h1 {
 }
 
 .tabs .content section h2 {
-	color: #428BFF;
+	color: #2fa0ec;
 	display: none;
 }
 
@@ -188,18 +187,18 @@ body h1 {
 	display: block;
 	width: 30px;
 	height: 3px;
-	background: #428BFF;
+	background: #2fa0ec;
 	margin-top: 5px;
 	left: 1px;
 }
 
 .tabs input[name="tab-control"]:nth-of-type(1):checked~ ul> li:nth-child(1)> label {
 	cursor: default;
-	color: #428BFF;
+	color: #2fa0ec;
 }
 
 .tabs input[name="tab-control"]:nth-of-type(1):checked~ ul> li:nth-child(1)> label svg {
-	fill: #428BFF;
+	fill: #2fa0ec;
 }
 
 @media (max-width: 600px) {
@@ -219,11 +218,11 @@ body h1 {
 
 .tabs input[name="tab-control"]:nth-of-type(2):checked~ ul> li:nth-child(2)> label {
 	cursor: default;
-	color: #428BFF;
+	color: #2fa0ec;
 }
 
 .tabs input[name="tab-control"]:nth-of-type(2):checked~ ul> li:nth-child(2)> label svg {
-	fill: #428BFF;
+	fill: #2fa0ec;
 }
 
 @media (max-width: 600px) {
@@ -243,11 +242,11 @@ body h1 {
 
 .tabs input[name="tab-control"]:nth-of-type(3):checked~ ul> li:nth-child(3)> label {
 	cursor: default;
-	color: #428BFF;
+	color: #2fa0ec;
 }
 
 .tabs input[name="tab-control"]:nth-of-type(3):checked~ ul> li:nth-child(3)> label svg {
-	fill: #428BFF;
+	fill: #2fa0ec;
 }
 
 @media (max-width: 600px) {
@@ -267,11 +266,11 @@ body h1 {
 
 .tabs input[name="tab-control"]:nth-of-type(4):checked~ ul> li:nth-child(4)> label {
 	cursor: default;
-	color: #428BFF;
+	color: #2fa0ec;
 }
 
 .tabs input[name="tab-control"]:nth-of-type(4):checked~ ul> li:nth-child(4)> label svg {
-	fill: #428BFF;
+	fill: #2fa0ec;
 }
 
 @media (max-width: 600px) {
