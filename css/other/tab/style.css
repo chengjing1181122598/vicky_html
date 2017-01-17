@@ -35,7 +35,7 @@ body h1 {
 	-webkit-transform: translateX(-50%);
 	transform: translateX(-50%);
 	position: relative;
-	background: white;
+	background: #d9edf7;
 	padding: 50px;
 	padding-bottom: 80px;
 	margin-top: 50px;

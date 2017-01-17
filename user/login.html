@@ -60,6 +60,8 @@
 				data: $(".formCenter").serialize(),
 				success: function(data) {
 					if(data.status === successStatus) {
+						user = data.message.entity;
+						window.sessionStorage.loginUser = JSON.stringify(user);
 						window.location.href = window.sessionStorage.lastPage;
 					} else {
 						$(".redTip").text(data.message.message);

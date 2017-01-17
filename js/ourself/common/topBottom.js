@@ -7,36 +7,25 @@ $(function() {
 		'</div>';
 	var topDomRight =
 		'<div class="floatRight"><ul class="topHengList">';
-	$.ajax({
-		type: "get",
-		url: data_path + "/user/getUser",
-		dataType: "json",
-		success: function(data) {
-			if(data.status === successStatus) {
-				user = data.message.entity;
-				var headImage = '<li><a title="' + user.username + '" class="hover" href="' + html_path + '/user/userCenter.html?username=' + user.username + '">' +
-					'<img class="topHeadImage" src="' + user.relativePath + '"/></a></li>';
-				var message = '<li><a class="blackLink" href="javascript:void(0);">消息</a></li>';
-				var collect = '<li><a class="blackLink" href="javascript:void(0);">收藏夹</a></li>';
-				var publish = '<li><a class="blackLink" href="' + html_path + '/video/uploadVideo.html' + '">投稿</a></li>';
-				var logout = '<li><a class="blackLink" href="javascript:void(0);" onclick="logout();">退出</a></li>';
-				topDomRight += headImage + message + collect + publish + logout;
-			} else {
-				topDomRight += '<a class="blackLink" href="javascript:void(0);" onclick="gotoLogin();">登录</a>|' +
-					'<a class="blackLink" href="javascript:void(0);" onclick="gotoRegister();">注册</a>';
-			}
+	user = $.parseJSON(window.sessionStorage.loginUser);
+	if(user !== undefined) {
 
-			topDomRight = topDomRight + '</div></ul>' +
-				'</div></div></header>' +
-				'<img src="' + html_path + '/img/index/vicky.jpg" class="img-responsive" />';
-			$(".mainContainer").prepend(topDomLeft + topDomRight);
-		},
-		xhrFields: {
-			withCredentials: true
-		},
-		crossDomain: true,
-		async: false
-	});
+		var headImage = '<li><a title="' + user.username + '" class="hover" href="' + html_path + '/user/userCenter.html?username=' + user.username + '">' +
+			'<img class="topHeadImage" src="' + user.relativePath + '"/></a></li>';
+		var message = '<li><a class="blackLink" href="javascript:void(0);">消息</a></li>';
+		var collect = '<li><a class="blackLink" href="javascript:void(0);">收藏夹</a></li>';
+		var publish = '<li><a class="blackLink" href="' + html_path + '/video/uploadVideo.html' + '">投稿</a></li>';
+		var logout = '<li><a class="blackLink" href="javascript:void(0);" onclick="logout();">退出</a></li>';
+		topDomRight += headImage + message + collect + publish + logout;
+	} else {
+		topDomRight += '<a class="blackLink" href="javascript:void(0);" onclick="gotoLogin();">登录</a>|' +
+			'<a class="blackLink" href="javascript:void(0);" onclick="gotoRegister();">注册</a>';
+	}
+
+	topDomRight = topDomRight + '</div></ul>' +
+		'</div></div></header>' +
+		'<img src="' + html_path + '/img/index/vicky.jpg" class="img-responsive" />';
+	$(".mainContainer").prepend(topDomLeft + topDomRight);
 
 });
 
