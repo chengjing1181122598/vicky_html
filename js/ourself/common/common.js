@@ -21,3 +21,7 @@ function getUrlParam(name) {
 function saveLastPage() {
 	window.sessionStorage.lastPage = window.location.href;
 }
+
+function setLoginUser(user) {
+	window.sessionStorage.loginUser = JSON.stringify(user);
+}

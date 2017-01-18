@@ -101,6 +101,10 @@ body {
 	opacity: 0.7;
 }
 
+.videoHengList li:hover button {
+	display: inline-block;
+}
+
 .videoHengList li a {
 	color: black;
 }
