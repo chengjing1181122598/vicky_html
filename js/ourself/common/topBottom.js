@@ -7,7 +7,10 @@ $(function() {
 		'</div>';
 	var topDomRight =
 		'<div class="floatRight"><ul class="topHengList">';
-	user = $.parseJSON(window.sessionStorage.loginUser);
+	if(window.sessionStorage.loginUser !== undefined) {
+		user = $.parseJSON(window.sessionStorage.loginUser);
+	}
+
 	if(user !== undefined) {
 
 		var headImage = '<li><a title="' + user.username + '" class="hover" href="' + html_path + '/user/userCenter.html?username=' + user.username + '">' +
@@ -55,6 +58,7 @@ function logout() {
 		url: data_path + "/user/logout",
 		dataType: "json",
 		success: function(data) {
+			window.sessionStorage.clear();
 			window.location.reload();
 		},
 		xhrFields: {

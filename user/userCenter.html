@@ -58,7 +58,7 @@
 									</select>
 									<br />
 									<br />
-									<input style="min-width: 400px;" type=" text " name="signature" class="form-control" onchange="update();" placeholder="个性签名 " />
+									<input style="min-width: 400px;text-align: left;" type=" text " name="signature" class="form-control" onchange="update();" placeholder="个性签名 " />
 								</form>
 							</div>
 						</div>
@@ -338,8 +338,8 @@
 				};
 
 				var currentTab = tab1;
-				
-				$("label").click(function(){
+
+				$("label").click(function() {
 					console.info($(this).attr("for"));
 				});
 
@@ -348,7 +348,7 @@
 					totalData: 20,
 					showData: 8,
 					callback: function(c) {
-						
+
 					}
 				});
 
