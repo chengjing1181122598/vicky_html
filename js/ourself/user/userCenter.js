@@ -54,6 +54,7 @@ function fillSubmissionList(pageIndex) {
 }
 
 function initTabFenYe1() {
+	$('.tabFenYe1').empty();
 	$('.tabFenYe1').pagination({
 		jump: true,
 		totalData: submissionListSize,
