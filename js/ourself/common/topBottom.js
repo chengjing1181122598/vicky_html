@@ -3,23 +3,24 @@ $(function() {
 	var topDomLeft = '<header class="myTop"><div>' +
 		'<div class="allWidth">' +
 		'<div class="floatLeft">' +
-		'<a class="blackLink" href="' + html_path + '/index.html"><img src="' + html_path + '/favicon.ico" height="20" />主站</a>' +
+		'<a target="_self" class="blackLink" href="' + html_path + '/index.html"><img src="' + html_path + '/favicon.ico" height="20" />主站</a>' +
 		'</div>';
 	var topDomRight =
 		'<div class="floatRight"><ul class="topHengList">';
-	if(window.sessionStorage.loginUser !== undefined) {
-		user = $.parseJSON(window.sessionStorage.loginUser);
-	}
 
-	if(user !== undefined) {
+	user = getLoginUser();
+	//	console.info(user);
 
-		var headImage = '<li><a title="' + user.username + '" class="hover" href="' + html_path + '/user/userCenter.html?username=' + user.username + '">' +
+	if(user !== null && user !== "") {
+
+		var headImage = '<li><a target="_blank" title="' + user.username + '" class="hover" href="' + html_path + '/user/userCenter.html">' +
 			'<img class="topHeadImage" src="' + user.relativePath + '"/></a></li>';
-		var message = '<li><a class="blackLink" href="javascript:void(0);">消息</a></li>';
-		var collect = '<li><a class="blackLink" href="javascript:void(0);">收藏夹</a></li>';
-		var publish = '<li><a class="blackLink" href="' + html_path + '/video/uploadVideo.html' + '">投稿</a></li>';
+		var message = '<li><a target="_blank" id="topMessage" class="blackLink" href="' + html_path + '/user/userCenter.html?tabType=tab4">消息 </a></li>';
+		var collect = '<li><a target="_blank" class="blackLink" href="' + html_path + '/user/userCenter.html?tabType=tab2">收藏夹</a></li>';
+		var publish = '<li><a target="_blank" class="blackLink" href="' + html_path + '/video/uploadVideo.html' + '">投稿</a></li>';
 		var logout = '<li><a class="blackLink" href="javascript:void(0);" onclick="logout();">退出</a></li>';
 		topDomRight += headImage + message + collect + publish + logout;
+		loadMessageNotifyNumber();
 	} else {
 		topDomRight += '<a class="blackLink" href="javascript:void(0);" onclick="gotoLogin();">登录</a>|' +
 			'<a class="blackLink" href="javascript:void(0);" onclick="gotoRegister();">注册</a>';
@@ -52,13 +53,43 @@ $(function() {
 	$(".mainContainer").after(bottom);
 });
 
+function loadMessageNotifyNumber() {
+	$.ajax({
+		url: data_path + "/message/getPageData",
+		data: {
+			pageIndex: 1,
+			pageSize: 999,
+			condition_EQ_S_username: user.username,
+			condition_EQ_S_status: "001"
+		},
+		success: function(data) {
+			var notifyNumber = 0;
+			var nowDate = new Date().getTime();
+			$.each(data.data, function(i, item) {
+				if((nowDate - item.createTime) <= 7 * 24 * 60 * 60 * 1000) {
+					notifyNumber++;
+				}
+			});
+			console.info(notifyNumber);
+			if(notifyNumber > 0) {
+				$("#topMessage").append('<span class="badge" style="background-color: rgb(255, 20, 147);vertical-align: baseline;">' + notifyNumber + '</span>');
+			}
+		},
+		dataType: "json",
+		xhrFields: {
+			withCredentials: true
+		},
+		crossDomain: true
+	});
+}
+
 function logout() {
 	$.ajax({
 		type: "get",
 		url: data_path + "/user/logout",
 		dataType: "json",
 		success: function(data) {
-			window.sessionStorage.clear();
+			clearLoginUser();
 			window.location.reload();
 		},
 		xhrFields: {

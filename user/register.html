@@ -25,20 +25,20 @@
 								<h2>注册</h2>
 								<span class="redTip"></span>
 							</div>
-							<input type="text" name="username" class="form-control" placeholder="用户名" required="required">
+							<input type="text" name="username" class="form-control" placeholder="用户名" required="required" data-toggle="tooltip" data-placement="left" title="用户名在2位到8位之间，只能为中文英文日文数字">
 							<br />
 							<input type="email" name="email" class="form-control" placeholder="邮箱" required="required">
 							<br />
-							<input type="password" name="password" class="form-control" placeholder="密码" required="required">
+							<input type="password" name="password" class="form-control" placeholder="密码" required="required" data-toggle="tooltip" data-placement="left" title="密码在8位到30位之间，只能为数字字母,必须含有字母">
 							<br />
 							<input type="password" name="password2" class="form-control" placeholder="确认密码" required="required">
 							<br />
 							<input type="text" name="activateCode" style="width: 69%;display: inline;" class="form-control" placeholder="邮箱激活码">
-							<button id="getValid" type="submit" class="btn btn-primary" style="width: 30%;">点击获取</button>
+							<button id="getValid" type="submit" class="btn btn-primary" style="width: 30%;" data-toggle="tooltip" data-placement="right" title="获取邮箱验证码">点击获取</button>
 							<br />
-							<input type="checkbox" onclick="toggle();" />我已同意
-							<a href="javascript:void(0);" class="blueLink">《Vicky视频网用户使用协议》</a>和
-							<a href="javascript:void(0);" class="blueLink">《Vicky视频网账号中心规范》</a>
+							<input type="checkbox" onclick="toggle();" disabled="disabled" />我已同意
+							<a target="_blank" href="https://passport.bilibili.com/register/licence" class="blueLink">《Vicky视频网用户使用协议》</a>和
+							<a target="_blank" href="http://www.bilibili.com/html/help.html#q" class="blueLink">《Vicky视频网账号中心规范》</a>
 							<br />
 							<br />
 							<button id="register" type="button" class="btn btn-primary" disabled="disabled" style="width: 100%;" onclick="finishRegister();">注册</button>
@@ -65,11 +65,36 @@
 			<!-- /.modal-dialog -->
 		</div>
 		<!-- /.modal -->
+		<div class="modal fade" id="unTip" aria-hidden="true" data-show="false">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">提示</h4>
+					</div>
+					<div class="modal-body">
+						目前还没有开放注册功能，敬请原谅!
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
 	</body>
 
 	<script type="text/javascript">
+		$(function() {
+			$("#unTip").modal("show");
+			$("#unTip").on("hide.bs.modal", function() {
+				window.location.href = "about:blank";
+			});
+		});
+
 		$("#tip").on("hide.bs.modal", function() {
-			window.location.href = window.sessionStorage.lastPage;
+			window.location.href = getLastPage();
 		});
 
 		function finishRegister() {
@@ -80,6 +105,7 @@
 				},
 				success: function(data) {
 					if(data.status === successStatus) {
+						setLoginUser(data.message.entity);
 						$("#tip").modal("show");
 					} else {
 						$(".redTip").text(data.message.message);
@@ -103,6 +129,9 @@
 		}
 
 		function prepareRegister() {
+			$(".redTip").text("目前还没有开放注册功能，敬请原谅!");
+			return false;
+
 			var password = $("input[name='password']").val();;
 			var password2 = $("input[name='password2']").val();
 			if(password.length === 0 || password2.length === 0) {
@@ -122,6 +151,9 @@
 				data: $(".formCenter").serialize(),
 				type: "post",
 				success: function(data) {
+					if(data.status === successStatus) {
+						$("input[type='checkbox']").removeAttr("disabled");
+					}
 					$(".redTip").text(data.message.message);
 				},
 				dataType: "json",

@@ -15,6 +15,10 @@
 		<link rel="stylesheet" href="../css/other/tab/style.css" />
 
 		<link rel="stylesheet" href="../css/other/pagination.css" />
+		<link rel="stylesheet" href="../css/other/tab/tabFenYe1.css" />
+		<link rel="stylesheet" href="../css/other/tab/tabFenYe2.css" />
+		<link rel="stylesheet" href="../css/other/tab/tabFenYe3.css" />
+		<link rel="stylesheet" href="../css/other/tab/tabFenYe4.css" />
 
 		<script type="text/javascript" src="../js/other/jquery-1.11.2.min.js"></script>
 		<script type="text/javascript" src="../js/other/bootstrap.min.js"></script>
@@ -27,10 +31,50 @@
 		<script type="text/javascript" src="../js/other/zh.js"></script>
 
 		<script type="text/javascript" src="../js/other/jquery.pagination.js"></script>
+
+		<script type="text/javascript" src="../js/other/imgCut/hammer.js"></script>
+		<script type="text/javascript" src="../js/other/imgCut/iscroll-zoom.js"></script>
+
+		<script type="text/javascript" src="../js/other/imgCut/jquery.photoClip.js"></script>
+		<script type="text/javascript" src="../js/other/imgCut/lrz.all.bundle.js"></script>
+		<script type="text/javascript" src="../js/other/imgCut/jquery.photoClip.min.js"></script>
+
 	</head>
 	<style>
 		.contenDiv {
 			min-height: 300px;
+		}
+		
+		.delelte {
+			position: absolute;
+			display: none;
+			opacity: 1;
+			z-index: 10000;
+		}
+		
+		a.list-group-item {
+			color: black;
+		}
+		
+		a.list-group-item:hover {
+			color: white;
+			background-color: #337ab7;
+		}
+		
+		.hide-text {
+			text-overflow: ellipsis;
+			overflow: hidden;
+			white-space: nowrap;
+		}
+		
+		.badge {
+			background-color: rgb(255, 20, 147);
+		}
+		
+		#clipArea {
+			margin: 20px;
+			height: 400px;
+			/*width: 500px;*/
 		}
 	</style>
 
@@ -44,13 +88,17 @@
 						<span class="redTip"></span>
 					</div>
 					<div style="margin-top: 30px;">
-						<div style="height: 200px;">
+						<div style="height: 350px;">
 							<div style="float: left;">
 								<img class="bigHeadImage" src="" />
+								<br />
+								<br />
+								<!--<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#headImgCut">开始演示模态框</button>-->
+								<button type="button" class="btn btn-primary" style="background-color:#2fa0ec;margin-left: 110px;" data-toggle="modal" data-target="#headImgCut">修改头像</button>
 							</div>
 							<div style="float: left;margin-left: 20px;">
 								<form>
-									<a id="showSex" href="javascript:void(0);" onclick="showSex();"><span class="secret icon"></span></a>
+									<a id="showSex" href="javascript:void(0);" onclick="showSex();"><span class="secret  icon"></span></a>
 									<select id="selectSex" name="sex" class="form-control" style="width: 80px;display: none;" onchange="update();">
 										<option value="男">男</option>
 										<option value="女">女</option>
@@ -58,19 +106,21 @@
 									</select>
 									<br />
 									<br />
-									<input style="min-width: 400px;" type=" text " name="signature" class="form-control" onchange="update();" placeholder="个性签名 " />
+									<input style="min-width: 400px;text-align: left;" type=" text " name="signature" class="form-control" onchange="update();" placeholder="个性签名 " />
 								</form>
 							</div>
 						</div>
-						<div style="width: 50%;margin-top: 20px;">
+
+						<!--<div style="width: 50%;margin-top: 20px;">
 							<form enctype="multipart/form-data" style="margin-top: 10px;" id="form">
 								<input id="headImage" name="headImage" type="file" accept=".png,.jpg,.jpeg,.gif" />
 							</form>
-						</div>
+						</div>-->
 					</div>
 					</dir>
 
 				</div>
+
 				<div class="tabs">
 					<input type="radio" id="tab1" name="tab-control" checked="checked">
 					<input type="radio" id="tab2" name="tab-control">
@@ -78,13 +128,13 @@
 					<input type="radio" id="tab4" name="tab-control">
 					<ul>
 						<li title="投稿">
-							<label for="tab1" role="button">
+							<label for="tab1" role="button" style="margin-left: 10px;">
 							<span class="n-submission-icon n-icon"></span>
 							<span>投稿</span>
 							</label>
 						</li>
 						<li title="收藏夹">
-							<label for="tab2" role="button">
+							<label for="tab2" role="button" style="margin-left: 20px;">
 								<span class="n-collect-icon n-icon"></span>
 								<span>收藏夹</span>
 							</label>
@@ -109,196 +159,36 @@
 					<div class="content">
 						<section>
 							<div id="submissionList" class="contenDiv">
-								<ul class="videoHengList">
-									<li>
-										<a href="javascript:void(0);" title="">
-											<div>
-												<img src="../img/common/cover.jpg" class="videoCoverSize" />
-											</div>
-											<div class="videoTitle">
-												&nbsp;
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="javascript:void(0);" title="">
-											<div>
-												<img src="../img/common/cover.jpg" class="videoCoverSize" />
-											</div>
-											<div class="videoTitle">
-												&nbsp;
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="javascript:void(0);" title="">
-											<div>
-												<img src="../img/common/cover.jpg" class="videoCoverSize" />
-											</div>
-											<div class="videoTitle">
-												&nbsp;
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="javascript:void(0);" title="">
-											<div>
-												<img src="../img/common/cover.jpg" class="videoCoverSize" />
-											</div>
-											<div class="videoTitle">
-												&nbsp;
-											</div>
-										</a>
-									</li>
-								</ul>
-								<ul class="videoHengList">
-									<li>
-										<a href="javascript:void(0);" title="">
-											<div>
-												<img src="../img/common/cover.jpg" class="videoCoverSize" />
-											</div>
-											<div class="videoTitle">
-												&nbsp;
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="javascript:void(0);" title="">
-											<div>
-												<img src="../img/common/cover.jpg" class="videoCoverSize" />
-											</div>
-											<div class="videoTitle">
-												&nbsp;
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="javascript:void(0);" title="">
-											<div>
-												<img src="../img/common/cover.jpg" class="videoCoverSize" />
-											</div>
-											<div class="videoTitle">
-												&nbsp;
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="javascript:void(0);" title="">
-											<div>
-												<img src="../img/common/cover.jpg" class="videoCoverSize" />
-											</div>
-											<div class="videoTitle">
-												&nbsp;
-											</div>
-										</a>
-									</li>
-								</ul>
-
+								
 							</div>
-							<div class="M-box" style="float: right;"></div>
+							<br />
+							<div class="tabFenYe1" style="float: right;"></div>
 						</section>
 						<section>
-							<div id="submissionList" class="contenDiv">
-								<ul class="videoHengList">
-									<li>
-										<a href="javascript:void(0);" title="">
-											<div>
-												<img src="../img/common/cover.jpg" class="videoCoverSize" />
-											</div>
-											<div class="videoTitle">
-												&nbsp;
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="javascript:void(0);" title="">
-											<div>
-												<img src="../img/common/cover.jpg" class="videoCoverSize" />
-											</div>
-											<div class="videoTitle">
-												&nbsp;
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="javascript:void(0);" title="">
-											<div>
-												<img src="../img/common/cover.jpg" class="videoCoverSize" />
-											</div>
-											<div class="videoTitle">
-												&nbsp;
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="javascript:void(0);" title="">
-											<div>
-												<img src="../img/common/cover.jpg" class="videoCoverSize" />
-											</div>
-											<div class="videoTitle">
-												&nbsp;
-											</div>
-										</a>
-									</li>
-								</ul>
-								<ul class="videoHengList">
-									<li>
-										<a href="javascript:void(0);" title="">
-											<div>
-												<img src="../img/common/cover.jpg" class="videoCoverSize" />
-											</div>
-											<div class="videoTitle">
-												&nbsp;
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="javascript:void(0);" title="">
-											<div>
-												<img src="../img/common/cover.jpg" class="videoCoverSize" />
-											</div>
-											<div class="videoTitle">
-												&nbsp;
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="javascript:void(0);" title="">
-											<div>
-												<img src="../img/common/cover.jpg" class="videoCoverSize" />
-											</div>
-											<div class="videoTitle">
-												&nbsp;
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="javascript:void(0);" title="">
-											<div>
-												<img src="../img/common/cover.jpg" class="videoCoverSize" />
-											</div>
-											<div class="videoTitle">
-												&nbsp;
-											</div>
-										</a>
-									</li>
-								</ul>
-
+							<div id="collectList" class="contenDiv">
+								
 							</div>
-							<div class="M-box" style="float: right;"></div>
-						</section>
-
-						<section>
-							Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.
+							<br />
+							<div class="tabFenYe2" style="float: right;"></div>
 						</section>
 						<section>
-							Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.
+							<div id="followList" class="contenDiv">
+								
+							</div>
+							<br />
+							<div class="tabFenYe3" style="float: right;"></div>
+						</section>
+						<section>
+							<div id="messageList" class="contenDiv">
+							</div>
+							<br />
+							<div class="tabFenYe4" style="float: right;"></div>
 						</section>
 					</div>
 				</div>
 			</div>
 
-			<div class="modal fade" id="tip" aria-hidden="true" data-show="false">
+			<div class="modal fade" id="updateTip" aria-hidden="true" data-show="false">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -316,145 +206,77 @@
 				<!-- /.modal-dialog -->
 			</div>
 			<!-- /.modal -->
-			<script type="text/javascript ">
-				var tab1 = {
-					no: 1,
-					currentPage: 1
-				};
 
-				var tab2 = {
-					no: 2,
-					currentPage: 1
-				};
+			<div class="modal fade" id="deleteTip" aria-hidden="true" data-show="false">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" style="color: red;">警告</h4>
+						</div>
+						<div class="modal-body">
+							<span style="color: red;">你确定要删除吗？</span>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+							<button type="button" onclick="finishDelete();" class="btn btn-primary">确定</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+			<div class="modal fade" id="messageWindow" aria-hidden="true" data-show="false">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" style="color: blue;" id="messageTitle">消息标题</h4>
+						</div>
+						<div class="modal-body">
+							<span id="messageContent">消息内容<br/>你确定要删除吗？</span>
+						</div>
+						<div class="modal-footer">
 
-				var tab3 = {
-					no: 3,
-					currentPage: 1
-				};
-
-				var tab4 = {
-					no: 4,
-					currentPage: 1
-				};
-
-				var currentTab = tab1;
-				
-				$("label").click(function(){
-					console.info($(this).attr("for"));
-				});
-
-				$('.M-box').pagination({
-					jump: true,
-					totalData: 20,
-					showData: 8,
-					callback: function(c) {
-						
-					}
-				});
-
-				$(function() {
-					$("#headImage").prev().text("更改头像");
-					$("#tab2").attr("checked", "checked");
-				});
-
-				$('#headImage').fileinput({
-					showPreview: false,
-					language: 'zh',
-					uploadUrl: data_path + "/user/updateHead",
-					allowedFileExtensions: ['jpg', 'png', 'gif', 'jpeg'],
-				});
-
-				$("#headImage").on("fileuploaded", function(event, data, previewId, index) {
-					data = data.response;
-					if(data.status === successStatus) {
-						user = data.message.entity;
-						$("#tip").modal("show");
-					} else {
-						$(".redTip").text(data.message.message);
-					}
-				});
-
-				$("#headImage").change(function() {
-					var objUrl = getObjectURL(this.files[0]);
-					console.log("objUrl = " + objUrl);
-					if(objUrl) {
-						$(".bigHeadImage").attr("src", objUrl);
-					}
-				});
-				//建立一個可存取到該file的url
-				function getObjectURL(file) {
-					var url = null;
-					if(window.createObjectURL != undefined) { // basic
-						url = window.createObjectURL(file);
-					} else if(window.URL != undefined) { // mozilla(firefox)
-						url = window.URL.createObjectURL(file);
-					} else if(window.webkitURL != undefined) { // webkit or chrome
-						url = window.webkitURL.createObjectURL(file);
-					}
-					return url;
-				}
-
-				$("#tip").on("hide.bs.modal", function() {
-					window.location.reload();
-				});
-
-				function update() {
-					$.ajax({
-						url: data_path + "/user/update",
-						data: $("form").serialize(),
-						success: function(data) {
-							if(data.status === successStatus) {
-								user = data.message.entity;
-								$("#tip").modal("show");
-							} else {
-								$(".redTip").text(data.message.message);
-							}
-						},
-						dataType: "json",
-						xhrFields: {
-							withCredentials: true
-						},
-						crossDomain: true
-					});
-
-				}
-
-				function showSex() {
-					$("select").css("display", "inline-block");
-				}
-
-				$(document).bind('click', function(e) {
-					var e = e || window.event; //浏览器兼容性 
-					var elem = e.target || e.srcElement;
-					while(elem) { //循环判断至跟节点，防止点击的是div子元素 
-						if(elem.id && (elem.id == 'selectSex' || elem.id == 'showSex')) {
-							return;
-						}
-						elem = elem.parentNode;
-					}
-
-					$('#selectSex').css('display', 'none'); //点击的不是div或其子元素 
-				});
-
-				$(function() {
-					window.document.title = user.username;
-					$("h2").text(user.username);
-					setUserMessage();
-				});
-
-				function setUserMessage() {
-					$(".bigHeadImage ").attr("src", user.relativePath);
-					$("#selectSex").val(user.sex);
-					$("input[name='signature']").val(user.signature);
-					if(user.sex === male) {
-						$(".secret").removeClass("secret").removeClass("female").addClass("male");
-					} else if(user.sex === female) {
-						$(".secret").removeClass("secret").removeClass("male").addClass("female");
-					} else {
-						$(".secret").removeClass("female").removeClass("male").addClass("secret");
-					}
-				}
-			</script>
+							<button type="button" onclick="finishDelete();" class="btn btn-danger">删除该消息</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
+			<!-- 模态框（Modal） -->
+			<div class="modal fade" id="headImgCut" tabindex="-1" role="dialog" aria-labelledby="headImgCutLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<h4 class="modal-title" id="headImgCutLabel">滑动滚轮可调整大小</h4>
+						</div>
+						<div class="modal-body">
+							<div id="clipArea"></div>
+							<!--<input type="file" id="file">-->
+							<!--<div id="view"></div>-->
+						</div>
+						<div class="modal-footer">
+							<div style="width: 300px;float: left;">
+								<form enctype="multipart/form-data" id="form">
+									<input id="headImage" name="headImage" type="file" accept=".png,.jpg,.jpeg,.gif" />
+								</form>
+							</div>
+							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							<button type="button" id="clipBtn" class="btn btn-primary">提交更改</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal -->
+			</div>
+		</div>
+		<script type="text/javascript" src="../js/ourself/user/userCenter.js"></script>
+		<script type="text/javascript">
+		</script>
 	</body>
 
 </html>

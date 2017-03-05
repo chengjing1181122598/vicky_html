@@ -12,7 +12,6 @@
 		<script type="text/javascript" src="../js/other/jquery-1.11.2.min.js"></script>
 		<script type="text/javascript" src="../js/other/bootstrap.min.js"></script>
 		<script type="text/javascript" src="../js/ourself/common/common.js"></script>
-		<script type="text/javascript" src="../js/other/jquery.lazyload.js"></script>
 		<script type="text/javascript" src="../js/other/jquery.pagination.js"></script>
 
 		<script type="text/javascript" src="../js/ourself/common/topBottom.js"></script>
@@ -30,48 +29,6 @@
 				</div>
 				<br />
 				<div id="videoList">
-					<ul class="videoHengList">
-						<li>
-							<a href="javascript:void(0);" title="">
-								<div>
-									<img src="../img/common/cover.jpg" class="videoCoverSize" />
-								</div>
-								<div class="videoTitle">
-									&nbsp;
-								</div>
-							</a>
-						</li>
-						<li>
-							<a href="javascript:void(0);" title="">
-								<div>
-									<img src="../img/common/cover.jpg" class="videoCoverSize" />
-								</div>
-								<div class="videoTitle">
-									&nbsp;
-								</div>
-							</a>
-						</li>
-						<li>
-							<a href="javascript:void(0);" title="">
-								<div>
-									<img src="../img/common/cover.jpg" class="videoCoverSize" />
-								</div>
-								<div class="videoTitle">
-									&nbsp;
-								</div>
-							</a>
-						</li>
-						<li>
-							<a href="javascript:void(0);" title="">
-								<div>
-									<img src="../img/common/cover.jpg" class="videoCoverSize" />
-								</div>
-								<div class="videoTitle">
-									&nbsp;
-								</div>
-							</a>
-						</li>
-					</ul>
 				</div>
 				<br />
 			</div>
@@ -114,11 +71,19 @@
 				data: {
 					pageIndex: index,
 					pageSize: pageSize,
-					condition_LIKEC_S_videoTitle: key
+					condition_LIKEC_S_videoTitle: key,
+					order_property: "createTime",
+			        order_type: "desc"
 				},
 				success: function(data) {
-					$.each(data.data, function(i, item) {
-						var videoHengList = '<ul class="videoHengList">';
+					if(data.total > 0) {
+						initFenYe(data.total);
+					}
+					var videoHengList = "";
+					if(data.total === 0) {
+						videoHengList = "<div class='emptyList'>没有相关搜索</div>";
+					} else {
+						videoHengList += '<ul class="videoHengList">';
 						$.each(data.data, function(i, item) {
 							if(i % 5 === 0) {
 								videoHengList += '</ul><br/><ul class="videoHengList">';
@@ -128,10 +93,9 @@
 								'<span class="videoTitle" title="' + item.videoTitle + '" >' + item.videoTitle + '</span></a></li>';
 						});
 						videoHengList += '</ul>';
-						$("#videoList").empty();
-						$("#videoList").append(videoHengList);
-					});
-					initFenYe(data.total);
+					}
+					$("#videoList").empty();
+					$("#videoList").append(videoHengList);
 				},
 				xhrFields: {
 					withCredentials: true

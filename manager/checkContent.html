@@ -23,9 +23,11 @@
 					<video src="" controls="controls" width="640" height="360" poster="">
 					</video>
 					<div>
-						<button id="loginBtn" type="submit" class="btn btn-primary" onclick="check(1);">通过</button>
-						<button id="loginBtn" type="submit" class="btn btn-danger" onclick="check(2)">不通过</button>
-						<input style="display: inline;width: 400px;" type="text" name="reason" class="form-control" placeholder="不通过理由" />
+						<form onsubmit="return check(2);">
+							<button id="loginBtn" type="button" class="btn btn-primary" onclick="check(1);">通过</button>
+							<button id="loginBtn" type="submit" class="btn btn-danger">不通过</button>
+							<input style="display: inline;width: 400px;" type="text" name="reason" class="form-control" placeholder="不通过理由" required="required" />
+						</form>
 					</div>
 					<span class="redTip"></span>
 				</div>
@@ -79,15 +81,15 @@
 					},
 					crossDomain: true
 				});
-
 			}
 			if(select === 2) {
+				var reason = $("input[name='reason']").val();
 				$.ajax({
 					type: "post",
 					url: data_path + "/videoCheck/notPass",
 					data: {
 						videoId: videoId,
-						reason: $("input[name='reason']").val()
+						reason: reason
 					},
 					success: function(data) {
 						if(data.status === successStatus) {
@@ -103,6 +105,7 @@
 					crossDomain: true
 				});
 			}
+			return false;
 		}
 
 		$(function() {
@@ -120,11 +123,10 @@
 							if(entity) {
 								$("video").attr("src", entity.relativePath);
 								$("video").attr("poster", entity.coverRelativePath);
-							}else{
-								window.location.href = html_path + "/manager/checkList.html";
+							} else {
+								window.location.href = "checkList.html";
 							}
-						} else {
-						}
+						} else {}
 					},
 					dataType: "json",
 					xhrFields: {

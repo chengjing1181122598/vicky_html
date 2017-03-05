@@ -2,10 +2,6 @@ $(function() {
 	$('#myCarousel').carousel({
 		interval: 5000
 	});
-
-	$("img").lazyload({
-		effect: "fadeIn"
-	});
 });
 
 /*
@@ -18,11 +14,14 @@ $(function() {
 		data: {
 			pageIndex: 1,
 			pageSize: 6,
-			condition_EQ_S_moduleId: "001"
+			condition_EQ_S_moduleId: "001",
+			order_property: "createTime",
+			order_type: "desc"
 		},
 		success: function(data) {
 			$.each(data.data, function(i, item) {
 				$("#youCeTuJianA" + i).attr("href", "video/watch.html?videoId=" + item.videoId);
+				$("#youCeTuJianA" + i).attr("title", item.videoTitle);
 				$("#youCeTuiJianImg" + i).attr("src", item.coverRelativePath);
 				$("#youCeTuJianSpan" + i).text(item.videoTitle);
 				$("#youCeTuJianSpan" + i).attr("title", item.videoTitle);
@@ -63,7 +62,9 @@ function loadModuleList(moduleId) {
 		data: {
 			pageIndex: 1,
 			pageSize: 10,
-			condition_EQ_S_moduleId: moduleId
+			condition_EQ_S_moduleId: moduleId,
+			order_property: "createTime",
+			order_type: "desc"
 		},
 		success: function(data) {
 			$.each(data.data, function(i, item) {
@@ -120,7 +121,7 @@ $(function() {
 			if(data.status === successStatus) {
 				var entity = data.message.entity;
 				var total = 0;
-				var badges = $(".badge").toArray();
+				var badges = $(".moduleHengList .badge").toArray();
 				$.each(entity, function(i, item) {
 					total += item.size;
 					if(item.size <= 999) {
@@ -142,5 +143,38 @@ $(function() {
 			withCredentials: true
 		},
 		crossDomain: true
+	});
+});
+
+$(function() {
+	$(".list-group-item").click(function() {
+		var thisDom = $(this);
+		var jqueryDom = $("#moduleList" + thisDom.attr("title"));
+		$('html,body').animate({
+			scrollTop: jqueryDom.offset().top - 100
+		}, 500, function() {
+			$(".list-group-item.active").removeClass("active");
+			thisDom.addClass("active");
+		});
+	});
+});
+
+function toTop() {
+	$('html,body').animate({
+		scrollTop: $("body").offset().top
+	}, 500, function() {
+		$(".list-group-item.active").removeClass("active");
+		$("[title='001']").addClass("active");
+	});
+}
+
+$(function() {
+	$(window).scroll(function() {
+		if($(window).scrollTop() > 300) {
+			//			console.info("calc((100% - " + $("#rightNav").height() + "px) / 2)");
+			$("#rightNav").css("top", "calc((100% - " + $("#rightNav").height() + "px) / 2)");
+		} else {
+			$("#rightNav").css("top", "");
+		}
 	});
 });

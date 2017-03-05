@@ -40,7 +40,8 @@
 								<span class="redTip"></span>
 							</div>
 							<div>
-								<select name="moduleId" class="form-control" style="width: 20%;display: inline-block;" data-toggle="tooltip" data-placement="left" title="视频所属分类">
+								<select required="required" name="moduleId" class="form-control" style="width: 20%;display: inline-block;" data-toggle="tooltip" data-placement="left" title="视频所属分类">
+									<option></option>
 									<option value="001">动画</option>
 									<option value="002">番剧</option>
 									<option value="003">音乐</option>
@@ -54,18 +55,18 @@
 									<option value="011">娱乐</option>
 									<option value="012">影视</option>
 								</select>
-								<input required="required" type="text" class="form-control" name="videoTitle" placeholder="请输入视频标题" style="display: inline-block;width: 79%;" data-toggle="tooltip" data-placement="right" title="标题长度30个字以内" />
+								<input required="required" type="text" class="form-control" name="videoTitle" placeholder="请输入视频标题" maxlength="50" style="display: inline-block;width: 79%;" data-toggle="tooltip" data-placement="right" title="标题长度50个字以内" />
 							</div>
 							<br />
 							<div class="form-group">
-								<textarea name="videoExplain" required="required" class="form-control" rows="3" placeholder="请输入视频内容" data-toggle="tooltip" data-placement="top" title="视频内容255个字以内"></textarea>
+								<textarea name="videoExplain" required="required" class="form-control" rows="3" placeholder="请输入视频内容" maxlength="255" data-toggle="tooltip" data-placement="top" title="视频内容255个字以内"></textarea>
 							</div>
 							<div>
 								<div id="fileFiv" style="height: 34px;">
-									<div style="width: 40%;float: left;" data-toggle="tooltip" data-placement="top" title="封面图片">
+									<div style="width: 40%;float: left;" data-toggle="tooltip" data-placement="top" title="请选择分辨率16：10的图片,2M以内">
 										<input required="required" id="videoCover" type="file" accept=".png,.jpg,.jpeg,.gif" />
 									</div>
-									<div style="width: 59%;float: right;" data-toggle="tooltip" data-placement="top" title="mp4文件">
+									<div style="width: 59%;float: right;" data-toggle="tooltip" data-placement="top" title="mp4文件，1G以内">
 										<input required="required" id="videoFile" name="videoFile" type="file" accept=".mp4" />
 									</div>
 								</div>
@@ -134,8 +135,9 @@
 
 		$("#videoCover").change(function() {
 
-			var doms = $("form").find("input,textarea").toArray();
+			var doms = $("form").find("input,textarea,select").toArray();
 			for(var i = 0; i < doms.length - 2; i++) {
+				console.info()
 				if(!doms[i].checkValidity()) {
 					$("#formSubmit").trigger("click");
 					$("#videoCover").val("");

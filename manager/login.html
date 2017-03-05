@@ -46,7 +46,7 @@
 				data: $(".formCenter").serialize(),
 				success: function(data) {
 					if(data.status === successStatus) {
-						window.location.href = html_path + "/manager/checkList.html";
+						window.location.href = "checkList.html";
 					} else {
 						$(".redTip").text(data.message.message);
 					}

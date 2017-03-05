@@ -62,7 +62,8 @@
 					if(data.status === successStatus) {
 						user = data.message.entity;
 						setLoginUser(user);
-						window.location.href = window.sessionStorage.lastPage;
+//						console.info(getLoginUser());
+						window.location.href = getLastPage();
 					} else {
 						$(".redTip").text(data.message.message);
 					}

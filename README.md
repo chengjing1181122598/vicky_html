@@ -1,2 +1,2 @@
-# vicky_html
-V站静态文件
+﻿# vicky_html
+V站前端项目

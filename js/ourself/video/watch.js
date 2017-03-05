@@ -1,25 +1,24 @@
-$("img").lazyload({
-	effect: "fadeIn"
-});
-
 var videoId = "";
 var videoEntity = "";
 var collectStatus = "";
 var followStatus = "";
-var collectContent = $(".collect").next();
+var collectBtn = $("#collectBtn");
 var followContent = $("#followBtn");
 $(function() {
+	console.info(user);
 	videoId = getUrlParam("videoId");
 	loadVideo();
 	loadCollectStatus();
-	loadFollowStatus();
+	loadComment();
+	loadPlayNumber();
+	incrementNumber();
 
-	collectContent.hover(function() {
+	collectBtn.hover(function() {
 		if(collectStatus === "yes") {
-			collectContent.text("取消收藏");
+			collectBtn.text("取消收藏");
 		}
 	});
-	collectContent.mouseleave(function() {
+	collectBtn.mouseleave(function() {
 		changeCollect();
 	});
 
@@ -31,6 +30,12 @@ $(function() {
 	followContent.mouseleave(function() {
 		changeFollow();
 	});
+
+	if(user !== null && user !== undefined) {
+		$(".saveComment").removeAttr("disabled");
+		$(".commentHeadImg").attr("src", user.relativePath);
+		$(".saveComment").html("发表<br/>评论");
+	}
 });
 
 function loadFollowStatus() {
@@ -38,7 +43,7 @@ function loadFollowStatus() {
 		url: data_path + "/collectUser/isCollected",
 		dataType: "json",
 		data: {
-			videoId: videoId,
+			username: videoEntity.username
 		},
 		success: function(data) {
 			if(data.message.message === "yes") {
@@ -66,9 +71,9 @@ function changeFollow() {
 }
 
 function followOrUnfollow() {
-	if(user === undefined) {
+	if(user === null) {
 		saveLastPage();
-		window.location.href = html_path + "/user/login.html";
+		window.location.href = "../user/login.html";
 	} else {
 		var url = "";
 		if(followStatus === "yes") {
@@ -94,6 +99,7 @@ function followOrUnfollow() {
 }
 
 function loadCollectStatus() {
+	loadCollectNumber();
 	$.ajax({
 		url: data_path + "/collectVideo/isCollected",
 		dataType: "json",
@@ -119,18 +125,70 @@ function changeCollect() {
 	if(collectStatus === "yes") {
 		$(".collect").removeClass("uncollect");
 		$(".collect").addClass("collected");
-		collectContent.text("已收藏");
+		collectBtn.html("已收藏");
 	} else {
 		$(".collect").removeClass("collected");
 		$(".collect").addClass("uncollect");
-		collectContent.text("收藏");
+		collectBtn.html("收藏");
 	}
 }
 
+function loadCollectNumber() {
+	$.ajax({
+		url: data_path + "/collectVideo/getPageData",
+		dataType: "json",
+		data: {
+			condition_EQ_S_videoId: videoId,
+			pageIndex: 1,
+			pageSize: 1
+		},
+		success: function(data) {
+			$(".collectNumber").text(data.total);
+		},
+		xhrFields: {
+			withCredentials: true
+		},
+		crossDomain: true
+	});
+}
+
+function loadPlayNumber() {
+	$.ajax({
+		url: data_path + "/videoPlayNumber/getPlayNumber",
+		dataType: "json",
+		data: {
+			videoId: videoId
+		},
+		success: function(data) {
+			if(data.status === successStatus) {
+				$(".playNumberText").text(data.message.entity.number);
+			}
+		},
+		xhrFields: {
+			withCredentials: true
+		},
+		crossDomain: true
+	});
+}
+
+function incrementNumber() {
+	$.ajax({
+		url: data_path + "/videoPlayNumber/increment",
+		dataType: "json",
+		data: {
+			videoId: videoId
+		},
+		xhrFields: {
+			withCredentials: true
+		},
+		crossDomain: true
+	});
+}
+
 function collectOrUncollect() {
-	if(user === undefined) {
+	if(user === null) {
 		saveLastPage();
-		window.location.href = html_path + "/user/login.html";
+		window.location.href = "../user/login.html";
 	} else {
 		var url = "";
 		if(collectStatus === "yes") {
@@ -156,6 +214,7 @@ function collectOrUncollect() {
 }
 
 function loadAuthor() {
+	loadAuthorVideoNumber();
 	$.ajax({
 		url: data_path + "/user/getById",
 		dataType: "json",
@@ -166,10 +225,33 @@ function loadAuthor() {
 			if(data.status === successStatus) {
 				var user = data.message.entity;
 				$(".touXiang").attr("src", user.relativePath);
-				$(".signature").text(user.signature);
-				$(".signature").attr("title", user.signature);
+				if(user.signature !== null) {
+					$(".signature").text(user.signature);
+					$(".signature").attr("title", user.signature);
+				}
 				$("#authorUsername").text(user.username);
+				$("#authorUsername").attr("href", "../user/otherUserCenter.html?username=" + user.username);
 			}
+		},
+		xhrFields: {
+			withCredentials: true
+		},
+		crossDomain: true
+	});
+}
+
+function loadAuthorVideoNumber() {
+	$.ajax({
+		url: data_path + "/video/getPageData",
+		dataType: "json",
+		data: {
+			pageIndex: 1,
+			pageSize: 1,
+			condition_EQ_S_username: videoEntity.username,
+		},
+		success: function(data) {
+			console.info(data);
+			$("#videoNumbers").text("投稿：" + data.total);
 		},
 		xhrFields: {
 			withCredentials: true
@@ -189,6 +271,7 @@ function loadVideo() {
 			if(data.status === successStatus) {
 				videoEntity = data.message.entity;
 				loadAuthor();
+				loadFollowStatus();
 
 				$("video").attr("src", videoEntity.relativePath);
 				$("video").attr("poster", videoEntity.coverRelativePath);
@@ -196,7 +279,158 @@ function loadVideo() {
 				$("#videoTitle").text(videoEntity.videoTitle);
 				$("#videoExplain").text(videoEntity.videoExplain);
 				$("#videoExplain").attr("title", videoEntity.videoExplain);
+				$(".createTime").text(new Date(videoEntity.createTime).format("yyyy-MM-dd hh:mm:ss"));
 			}
+		},
+		xhrFields: {
+			withCredentials: true
+		},
+		crossDomain: true
+	});
+}
+
+var commentPerSize = 10;
+var commentCurPage = 1;
+var commentListSize;
+var isInit = false;
+var delFloorId;
+
+function loadComment(pageIndex) {
+	$.ajax({
+		url: data_path + "/commentFloor/getList",
+		dataType: "json",
+		data: {
+			videoId: videoId,
+			pageIndex: pageIndex,
+			pageSize: commentPerSize
+		},
+		success: function(data) {
+			if(data.data.length >= 5) {
+				$("#secondCommentForm").show();
+			} else {
+				$("#secondCommentForm").hide();
+			}
+
+			if(commentListSize === undefined) {
+				commentListSize = data.total;
+				if(data.total > 0) {
+					initFenYe(commentListSize);
+				}
+			}
+
+			var commentList = "";
+			if(data.total === 0) {
+				commentList = "<div class='emptyList'>目前还没有评论，赶紧抢一楼吧</div>";
+			} else {
+				$.each(data.data, function(i, item) {
+					var isSelf = "";
+					try {
+						if(item.username === user.username) {
+							isSelf = '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a class="deleteComment" href="javascript:void(0);" onclick=prepareDelete("' + item.floorId + '");>删除</a>';
+						}
+					} catch(e) {}
+
+					commentList += '<li style="list-style-type: none;">' +
+						'<img src="' + item.relativePath + '" class="commentHeadImg" style="position: absolute;" />' +
+						'<span style="margin-left: 90px;">' +
+						'<a target="_blank" href="../user/otherUserCenter.html?username=' + item.username + '" class="commentUsername">' + item.username + '</a>' +
+						isSelf + '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;第' + (i + 1 + (commentCurPage - 1) * commentPerSize) + '楼&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;' + (new Date(item.createTime).format("yyyy-MM-dd hh:mm:ss"))+
+						'</span><br />' +
+						'<span style="margin-left: 90px;display: inline-block;width: 680px;">' + item.content + '</span>' +
+						'</li><br/>' +
+						'<hr />';
+				});
+			}
+			$("#commentContent").empty();
+			$("#commentContent").append(commentList);
+		},
+		xhrFields: {
+			withCredentials: true
+		},
+		crossDomain: true
+	});
+}
+
+function initFenYe() {
+	$('.M-box').empty();
+	$('.M-box').pagination({
+		jump: true,
+		totalData: commentListSize,
+		showData: commentPerSize,
+		callback: function(c) {
+			commentCurPage = c.getCurrent();
+			loadComment(commentCurPage);
+		}
+	}, function(c) {
+		if(isInit) {
+			loadComment(commentCurPage);
+			c.filling(commentCurPage);
+		}
+		isInit = true;
+	});
+	if(!(commentListSize > 0)) {
+		$('.M-box').empty();
+	}
+}
+
+function saveComment(from) {
+	var content = "";
+	if(from === 1) {
+		content = $("#content1").val();
+	}
+	if(from === 2) {
+		content = $("#content2").val();
+	}
+
+	$.ajax({
+		url: data_path + "/commentFloor/save",
+		dataType: "json",
+		data: {
+			videoId: videoId,
+			content: content
+		},
+		success: function(data) {
+			if(data.status === successStatus) {
+				commentListSize++;
+				isInit = true;
+				initFenYe();
+				$("#saveTip").modal("show");
+			}
+		},
+		xhrFields: {
+			withCredentials: true
+		},
+		crossDomain: true
+	});
+	return false;
+
+}
+
+function prepareDelete(floorId) {
+	delFloorId = floorId;
+	$("#deleteTip").modal("show");
+}
+
+function finishDelete() {
+	$.ajax({
+		url: data_path + "/commentFloor/deleteById",
+		dataType: "json",
+		data: {
+			primaryKey: delFloorId
+		},
+		success: function(data) {
+			if(data.status === successStatus) {
+				commentListSize--;
+				if(commentListSize % commentPerSize === 0) {
+					commentCurPage--;
+					if(commentCurPage === 0) {
+						commentCurPage = 1;
+					}
+				}
+				initFenYe();
+			}
+			delFloorId = undefined;
+			$("#deleteTip").modal("hide");
 		},
 		xhrFields: {
 			withCredentials: true

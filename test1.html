@@ -40,5 +40,19 @@
 			</div>
 		</div>
 	</body>
+	<script type="text/javascript">
+		window.onbeforeunload = onbeforeunload_handler;
+//		window.onunload = onunload_handler;
+
+		function onbeforeunload_handler() {
+			var warning = "确认退出?";
+			return warning;
+		}
+
+//		function onunload_handler() {
+//			var warning = "谢谢光临";
+//			alert(warning);
+//		}
+	</script>
 
 </html>

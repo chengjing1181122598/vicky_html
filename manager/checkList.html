@@ -102,12 +102,14 @@
 				url: data_path + "/videoCheck/getPageData",
 				data: {
 					pageIndex: pageIndex,
-					condition_EQ_S_moduleId: moduleId
+					condition_EQ_S_moduleId: moduleId,
+					order_property: "createTime",
+			        order_type: "desc"
 				},
 				dataType: "json",
 				success: function(data) {
 					if(data.status === errorStatus) {
-						window.location.href = html_path + "/manager/login.html";
+						window.location.href = "login.html";
 					}
 
 					if(resetFenYeDiv) {

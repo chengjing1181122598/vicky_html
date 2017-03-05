@@ -7,13 +7,15 @@
 		<link rel="stylesheet" href="../css/other/bootstrap.min.css" />
 		<link rel="stylesheet" href="../css/ourself/common/common.css" />
 		<link rel="stylesheet" href="../css/ourself/user/user.css" />
+		<link rel="stylesheet" href="../css/other/pagination.css" />
 
 		<script type="text/javascript" src="../js/other/jquery-1.11.2.min.js"></script>
 		<script type="text/javascript" src="../js/other/bootstrap.min.js"></script>
 		<script type="text/javascript" src="../js/ourself/common/common.js"></script>
-		<script type="text/javascript" src="../js/other/jquery.lazyload.js"></script>
 
 		<script type="text/javascript" src="../js/ourself/common/topBottom.js"></script>
+
+		<script type="text/javascript" src="../js/other/jquery.pagination.js"></script>
 	</head>
 	<style>
 		.touXiang {
@@ -50,11 +52,22 @@
 			background: url(../img/common/anim-fav.png) -8px -90px;
 		}
 		
+		.playNumber {
+			display: inline-block;
+			width: 60px;
+			height: 60px;
+			line-height: 60px;
+			margin-right: 10px;
+			background: url(../img/common/icons2.png) -120px -905px;
+		}
+		
 		#collectBtn {
 			color: black;
+			text-decoration: none;
 		}
 		
 		#collectBtn:hover {
+			text-decoration: none;
 			color: rgb(0, 161, 214);
 		}
 		
@@ -63,9 +76,54 @@
 			font-size: 14px;
 			overflow: hidden;
 			text-overflow: ellipsis;
-			-webkit-line-clamp: 3;
+			-webkit-line-clamp: 5;
 			-webkit-box-orient: vertical;
 			-webkit-box-lines: ;
+		}
+		
+		.commentHeadImg {
+			height: 65px;
+			width: 65px;
+			border-radius: 65px;
+			vertical-align: top;
+		}
+		
+		.commentUsername {
+			text-decoration: none;
+			color: rgb(0, 161, 214);
+			font-size: 15px;
+		}
+		
+		.commentUsername:hover {
+			text-decoration: none;
+			color: rgb(0, 161, 214);
+			font-size: 15px;
+		}
+		
+		.deleteComment {
+			text-decoration: none;
+			font-size: 13px;
+			color: black;
+		}
+		
+		.deleteComment:hover {
+			color: red;
+			text-decoration: none;
+		}
+		
+		.collectNumber {
+			font-size: 12px;
+		}
+		
+		.playNumberText {
+			font-size: 12px;
+		}
+		
+		#video {
+			cursor: pointer;
+		}
+		.createTime{
+			color: rgb(0, 161, 214);
 		}
 	</style>
 
@@ -75,47 +133,180 @@
 				<br />
 				<div style="min-height: 150px;max-height: 200px;">
 					<div class="floatLeft" style="width: 500px;">
-						<span id="videoTitle" style="font-size: 20px;">[排行向]老司机最喜欢的劳模排行</span>
+						<span id="videoTitle" style="font-size: 20px;">&nbsp;</span>
 						<hr />
-						<span id="videoExplain" class="videoExplain">720P 这是正规学术研究!!请老司机不要开车W曲+图包: http://pan.baidu.com/s/1bp7ScI7</span>
+						<span id="videoExplain" class="videoExplain">&nbsp;</span>
 					</div>
 
 					<div class="floatRight" style="">
 						<div style="display: inline-block;vertical-align:top">
-							<img class="touXiang" src="../img/common/cover.jpg" />
+							<img class="touXiang" src="" />
 						</div>
 						<div style="display: inline-block;width: 220px;">
-							<a id="authorUsername" href="javascript:void(0);" style="text-decoration: none;color: rgb(0, 161, 214);font-size: 15px;">疾风酱</a>
+							<a target="_blank" id="authorUsername" href="javascript:void(0);" style="text-decoration: none;color: rgb(0, 161, 214);font-size: 15px;">疾风酱</a>
 							<br />
-							<span class="signature">
-							44%的乳控+30%的女儿+6%的萝莉+15%作死+5%伪娘,组成疾风酱44%的乳控+30%的女儿+6%的萝莉+15%作死+5%伪娘,组成疾风酱
-						</span>
+							<span class="signature"></span>
 							<br />
 							<div>
-								<span style="font-size: 12px;color: gray;">投稿：246</span>
+								<span id="videoNumbers" style="font-size: 12px;color: gray;">&nbsp;</span>
 								<button id="followBtn" onclick="followOrUnfollow();" class="btn btn-primary" style="width: 100px;height:24px;margin-left: 10px;padding: 0px;background-color: #00b5e5;border:none;">关注</button>
 							</div>
 						</div>
 					</div>
 				</div>
 				<hr />
-				<div style="width: 640px;">
-					<video height="360" controls="controls" poster="">
+				<div style="width: 800px;">
+					<video id="video" height="450" controls="controls" poster="" onclick="playPause();" ondblclick="fullScreen();">
 
 					</video>
 				</div>
+				于&nbsp;&nbsp;<span class="createTime"></span>&nbsp;&nbsp;投稿
+				<hr />
+				<!--<br />-->
+				<div style="height: 60px;">
+					<div class="floatLeft" style="margin-right: 20px;">
+						<div class="playNumber floatLeft"></div>
+						<div class="floatLeft" style="margin-top: 5px;">
+							<span style="font-size: 18px;">
+								播放数
+							</span>
+							<br /><span class="playNumberText"></span>
+						</div>
+					</div>
+					<div class="floatLeft">
+						<div class="collect floatLeft"></div>
+						<div class="floatLeft" style="margin-top: 5px;">
+							<a id="collectBtn" style="font-size: 18px;" href="javascript:void(0);" onclick="collectOrUncollect();">
+								<!--<div class="floatLeft" style="font-size: 20px;">&nbsp;</div>-->
+							</a>
+							<br /><span class="collectNumber"></span>
+						</div>
+					</div>
+				</div>
+				<hr />
 				<br />
 				<div>
-					<div style="line-height: 60px;height: 60px;">
-						<a id="collectBtn" href="javascript:void(0);" onclick="collectOrUncollect();">
-							<div class="collect floatLeft"></div>
-							<div class="floatLeft" style="font-size: 20px;">&nbsp;</div>
-						</a>
-					</div>
+					<img class="commentHeadImg" />
+					<form onsubmit="return saveComment(1);" class="form-inline" role="form" style="display: inline-block;">
+						<div class="form-group">
+							<textarea id="content1" required="required" class="form-control" style="height: 65px;width: 600px;margin-left: 20px;" placeholder="请自觉遵守互联网相关的政策法规，严禁发布色情、暴力、反动的言论。"></textarea>
+						</div>
+						<button type="submit" class="btn btn-primary saveComment" style="height: 65px;width: 65px;margin-left: 20px;" disabled="disabled">请先<br />登录</button>
+					</form>
+				</div>
+				<br />
+				<div>
+					<hr />
+					<ul style="padding: 0px;" id="commentContent">
+						<!--<li style="list-style-type: none;">
+							<img src="../img/common/cover.jpg" class="commentHeadImg" style="position: absolute;" />
+							<span style="margin-left: 90px;">
+								<a target="_blank" href="../user/otherUserCenter.html" class="commentUsername">疾风酱</a>
+								&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a class="deleteComment" href="javascript:void(0);">删除</a>
+							</span><br />
+							<span style="margin-left: 90px;display: inline-block;width: 680px;">撒地方就是考虑到房价了深刻搭街坊流口水撒地方就是考虑到房价了深刻搭街坊流口水撒地方就是考虑到房价了深刻搭街坊流口水撒地方就是考虑到房价了深刻搭街坊流口水撒地方就是考虑到房价了深刻搭街坊流口水撒地方就是考虑到房价了深刻搭街坊流口水撒地方就是考虑到房价了深刻搭街坊流口水撒地方就是考虑到房价了深刻搭街坊流口水撒地方就是考虑到房价了深刻搭街坊流口水</span>
+						</li>
+						<hr />
+						<li style="list-style-type: none;">
+							<img src="../img/common/cover.jpg" class="commentHeadImg" style="position: absolute;" />
+							<span style="margin-left: 90px;">
+								<a target="_blank" href="../user/otherUserCenter.html" class="commentUsername">疾风酱</a>
+								&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a class="deleteComment" href="javascript:void(0);">删除</a>
+							</span><br />
+							<span style="margin-left: 90px;display: inline-block;width: 680px;">撒地方就是考虑到房价了深刻搭街坊流口水撒地方就是考虑到房价了深刻搭街坊流口水撒地方就是考虑到房价了深刻搭街坊流口水撒地方就是考虑到房价了深刻搭街坊流口水撒地方就是考虑到房价了深刻搭街坊流口水撒地方就是考虑到房价了深刻搭街坊流口水撒地方就是考虑到房价了深刻搭街坊流口水撒地方就是考虑到房价了深刻搭街坊流口水撒地方就是考虑到房价了深刻搭街坊流口水</span>
+						</li>
+						<hr />-->
+					</ul>
+				</div>
+				<br />
+				<div class="M-box"></div>
+				<br />
+				<div id="secondCommentForm">
+					<img class="commentHeadImg" />
+					<form onsubmit="return saveComment(2);" class="form-inline" role="form" style="display: inline-block;">
+						<div class="form-group">
+							<textarea id="content2" required="required" class="form-control" style="height: 65px;width: 600px;margin-left: 20px;" placeholder="请自觉遵守互联网相关的政策法规，严禁发布色情、暴力、反动的言论。"></textarea>
+						</div>
+						<button type="submit" class="btn btn-primary saveComment" style="height: 65px;width: 65px;margin-left: 20px;" disabled="disabled">请先<br />登录</button>
+					</form>
 				</div>
 			</div>
 		</div>
+		<div class="modal fade" id="deleteTip" aria-hidden="true" data-show="false">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" style="color: red;">警告</h4>
+					</div>
+					<div class="modal-body">
+						<span style="color: red;">你确定要删除吗？</span>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						<button type="button" onclick="finishDelete();" class="btn btn-primary">确定</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+		<div class="modal fade" id="saveTip" aria-hidden="true" data-show="false">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">提示</h4>
+					</div>
+					<div class="modal-body">
+						发送成功
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
 	</body>
-	<script type="text/javascript" src="../js/ourself/video/watch.js" ></script>
+	<script type="text/javascript" src="../js/ourself/video/watch.js"></script>
+	<script type="text/javascript">
+		var myVideo = window.document.getElementById("video");
+
+		function playPause() {
+			if(myVideo.paused) {
+				myVideo.play();
+			} else {
+				myVideo.pause();
+			}
+		}
+
+		function fullScreen() {
+			if(document.exitFullscreen) {
+				document.exitFullscreen();
+//				return;
+			} else if(document.mozCancelFullScreen) {
+				document.mozCancelFullScreen();
+//				return;
+			} else if(document.webkitCancelFullScreen) {
+				document.webkitCancelFullScreen();
+//				return;
+			} else if(document.msExitFullscreen) {
+				document.msExitFullscreen();
+//				return;
+			}
+
+			if(myVideo.requestFullscreen) {
+				myVideo.requestFullscreen();
+			} else if(myVideo.mozRequestFullScreen) {
+				myVideo.mozRequestFullScreen();
+			} else if(myVideo.webkitRequestFullScreen) {
+				myVideo.webkitRequestFullScreen();
+			} else if(myVideo.msRequestFullscreen) {
+				myVideo.msRequestFullscreen();
+			}
+
+		}
+	</script>
 
 </html>
